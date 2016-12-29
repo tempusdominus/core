@@ -1,13 +1,13 @@
 {
-  "name": "eonasdan/bootstrap-datetimepicker",
+  "name": "tempusdominus/core",
   "type": "component",
   "version": "4.17.43",
-  "description": "Date/time picker widget based on twitter bootstrap",
+  "description": "Date/time picker widget core",
   "keywords": [
     "bootstrap",
     "datetimepicker"
   ],
-  "homepage": "http://eonasdan.github.io/bootstrap-datetimepicker/",
+  "homepage": "https://github.com/tempusdominus/core",
   "license": "MIT",
   "require": {
     "robloach/component-installer": "*",
@@ -17,7 +17,7 @@
   "extra": {
     "component": {
       "scripts": [
-        "src/js/bootstrap-datetimepicker.js"
+        "src/js/core.js"
       ],
       "files": [
         "build/js/bootstrap-datetimepicker.min.js",

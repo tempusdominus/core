@@ -10,7 +10,7 @@
     "moment": "^2.10",
     "moment-timezone": "^0.4.0"
   },
-  "description": "A date/time picker component designed to Momentjs. For usage, installation and demos see Project Site on GitHub",
+  "description": "A date/time picker component designed for Momentjs. For usage, installation and demos see Project Site on GitHub",
   "devDependencies": {
     "grunt": "latest",
     "grunt-contrib-connect": "^1.0.1",

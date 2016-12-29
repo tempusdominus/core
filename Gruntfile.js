@@ -78,26 +78,6 @@ module.exports = function (grunt) {
                 config: '.jscs.json'
             }
         },
-        less: {
-            production: {
-                options: {
-                    cleancss: true,
-                    compress: true,
-                    paths: 'node_modules'
-                },
-                files: {
-                    'build/css/bootstrap-datetimepicker.min.css': 'src/less/bootstrap-datetimepicker-build.less'
-                }
-            },
-            development: {
-                options: {
-                    paths: 'node_modules'
-                },
-                files: {
-                    'build/css/bootstrap-datetimepicker.css': 'src/less/bootstrap-datetimepicker-build.less'
-                }
-            }
-        },
         env: {
             paris: {
                 TZ: 'Europe/Paris' // sets env for phantomJS https://github.com/ariya/phantomjs/issues/10379#issuecomment-36058589
@@ -155,8 +135,7 @@ module.exports = function (grunt) {
                     compact: false
                 },
                 files: {
-                    'src/js/core.js': 'src/js/core.js',
-                    'src/js/eonasdan-bootstrap-datetimepicker.js': 'src/js/eonasdan-bootstrap-datetimepicker.js'
+                    'src/js/core.js': 'src/js/core.js'
                 }
             },
             dist: {
@@ -190,7 +169,6 @@ module.exports = function (grunt) {
             bootstrap: {
                 src: [
                     'src/js/core.js',
-                    'src/js/eonasdan-bootstrap-datetimepicker.js',
                 ],
                 dest: 'build/js/eonasdan-bootstrap-datetimepicker.js'//'dist/js/<%= pkg.name %>.js'
             }

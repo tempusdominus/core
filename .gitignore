@@ -9,6 +9,5 @@ site
 *.csproj
 *.sln
 *.nupkg
-index.html
-/docs
-/docs
+/index.html
+/test.html

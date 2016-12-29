@@ -348,6 +348,8 @@ const DateTimePicker = ($ => {
         static get ClassName() {
             return ClassName;
         }
+        
+        //private
 
         _int() {
             const targetInput = this._element.data('target-input');
@@ -381,8 +383,6 @@ const DateTimePicker = ($ => {
                 this.show();
             }
         }
-
-        //private
 
         _update() {
             if (!this.widget) {
@@ -1464,7 +1464,3 @@ const DateTimePicker = ($ => {
 })(jQuery);
 
 export default DateTimePicker;
-//# sourceMappingURL=core.js.map
-//# sourceMappingURL=core.js.map
-//# sourceMappingURL=core.js.map
-//# sourceMappingURL=core.js.map
