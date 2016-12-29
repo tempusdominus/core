@@ -12,7 +12,11 @@
   },
   "description": "A date/time picker component designed for Momentjs. For usage, installation and demos see Project Site on GitHub",
   "devDependencies": {
+    "babel-plugin-transform-es2015-modules-strip": "^0.1.0",
+    "babel-preset-es2015": "^6.16.0",
     "grunt": "latest",
+    "grunt-babel": "6.0.0",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.1",
     "grunt-contrib-jasmine": "^1.0.3",
     "grunt-contrib-jshint": "latest",
@@ -20,14 +24,11 @@
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-env": "^0.4.4",
+    "grunt-eslint": "^19.0.0",
     "grunt-jscs": "latest",
     "grunt-nuget": "^0.1.5",
     "grunt-string-replace": "latest",
-    "load-grunt-tasks": "latest",
-    "grunt-babel": "6.0.0",
-    "babel-plugin-transform-es2015-modules-strip": "^0.1.0",
-    "babel-preset-es2015": "^6.16.0",
-    "grunt-contrib-concat": "^1.0.1"
+    "load-grunt-tasks": "latest"
   },
   "homepage": "http://eonasdan.github.io/bootstrap-datetimepicker/",
   "keywords": [

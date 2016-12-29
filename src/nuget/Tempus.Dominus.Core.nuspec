@@ -20,7 +20,7 @@
         </dependencies>
     </metadata>
 	<files>
-        <file src="..\..\src\js\core.js" target="content\Scripts\tempusdominus" />
-        <file src="..\..\build\js\core.min.js" target="content\Scripts\tempusdominus" />
+        <file src="..\..\src\js\tempusdominus-core.js" target="content\Scripts" />
+        <file src="..\..\build\js\tempusdominus-core.min.js" target="content\Scripts" />
     </files>
 </package>
