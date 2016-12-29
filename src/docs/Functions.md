@@ -67,6 +67,8 @@ Enables the input element, the component is attached to, by removing `disabled` 
 
 Clears the date picker by setting the value to `null`
 
+----------------------
+
 ### viewDate
 
 #### viewDate
