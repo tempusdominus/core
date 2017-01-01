@@ -2,7 +2,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-//# sourceMappingURL=tempusdominus-core.js.map
 var DateTimePicker = function ($) {
     var NAME = 'datetimepicker',
         VERSION = '5.0.0-alpha.1',
@@ -87,9 +86,11 @@ var DateTimePicker = function ($) {
         calendarWeeks: false,
         viewMode: 'days',
         toolbarPlacement: 'default',
-        showTodayButton: false,
-        showClear: false,
-        showClose: false,
+        buttons: {
+            showToday: false,
+            showClear: false,
+            showClose: false
+        },
         widgetPositioning: {
             horizontal: 'auto',
             vertical: 'auto'
@@ -338,6 +339,7 @@ var DateTimePicker = function ($) {
                 this.unset = true;
                 if (this.input !== undefined) {
                     this.input.val('');
+                    this.input.trigger('input');
                 }
                 this._element.data('date', '');
                 this._notifyEvent({
@@ -364,6 +366,7 @@ var DateTimePicker = function ($) {
                 this._viewDate = targetMoment.clone();
                 if (this.input !== undefined) {
                     this.input.val(this._date.format(this.actualFormat));
+                    this.input.trigger('input');
                 }
                 this._element.data('date', this._date.format(this.actualFormat));
                 this.unset = false;
@@ -377,6 +380,7 @@ var DateTimePicker = function ($) {
                 if (!this._options.keepInvalid) {
                     if (this.input !== undefined) {
                         this.input.val('' + (this.unset ? '' : this._date.format(this.actualFormat)));
+                        this.input.trigger('input');
                     }
                 } else {
                     this._notifyEvent({
@@ -405,7 +409,7 @@ var DateTimePicker = function ($) {
 
 
         DateTimePicker.prototype._getOptions = function _getOptions(options) {
-            options = $.extend({}, Default, options);
+            options = $.extend(true, {}, Default, options);
             return options;
         };
 
@@ -601,7 +605,6 @@ var DateTimePicker = function ($) {
             }
 
             if (handler) {
-                handler.call(this);
                 e.stopPropagation();
                 e.preventDefault();
             }
@@ -1051,7 +1054,9 @@ var DateTimePicker = function ($) {
             if (!(_icons instanceof Object)) {
                 throw new TypeError('icons() expects parameter to be an Object');
             }
+
             $.extend(this._options.icons, _icons);
+
             if (this.widget) {
                 this.hide();
                 this.show();
@@ -1131,32 +1136,27 @@ var DateTimePicker = function ($) {
             this._update();
         };
 
-        DateTimePicker.prototype.showTodayButton = function showTodayButton(_showTodayButton) {
+        DateTimePicker.prototype.buttons = function buttons(_buttons) {
             if (arguments.length === 0) {
-                return this._options.showTodayButton;
+                return $.extend({}, this._options.buttons);
             }
 
-            if (typeof _showTodayButton !== 'boolean') {
-                throw new TypeError('showTodayButton() expects a boolean parameter');
+            if (!(_buttons instanceof Object)) {
+                throw new TypeError('buttons() expects parameter to be an Object');
             }
 
-            this._options.showTodayButton = _showTodayButton;
-            if (this.widget) {
-                this.hide();
-                this.show();
-            }
-        };
+            $.extend(this._options.buttons, _buttons);
 
-        DateTimePicker.prototype.showClear = function showClear(_showClear) {
-            if (arguments.length === 0) {
-                return this._options.showClear;
+            if (typeof this._options.buttons.showToday !== 'boolean') {
+                throw new TypeError('buttons.showToday expects a boolean parameter');
             }
-
-            if (typeof _showClear !== 'boolean') {
-                throw new TypeError('showClear() expects a boolean parameter');
+            if (typeof this._options.buttons.showClear !== 'boolean') {
+                throw new TypeError('buttons.showClear expects a boolean parameter');
+            }
+            if (typeof this._options.buttons.showClose !== 'boolean') {
+                throw new TypeError('buttons.showClose expects a boolean parameter');
             }
 
-            this._options.showClear = _showClear;
             if (this.widget) {
                 this.hide();
                 this.show();
@@ -1229,18 +1229,6 @@ var DateTimePicker = function ($) {
             }
 
             this._options.allowInputToggle = _allowInputToggle;
-        };
-
-        DateTimePicker.prototype.showClose = function showClose(_showClose) {
-            if (arguments.length === 0) {
-                return this._options.showClose;
-            }
-
-            if (typeof _showClose !== 'boolean') {
-                throw new TypeError('showClose() expects a boolean parameter');
-            }
-
-            this._options.showClose = _showClose;
         };
 
         DateTimePicker.prototype.keepInvalid = function keepInvalid(_keepInvalid) {

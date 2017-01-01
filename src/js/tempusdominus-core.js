@@ -82,9 +82,11 @@ const DateTimePicker = ($ => {
             calendarWeeks: false,
             viewMode: 'days',
             toolbarPlacement: 'default',
-            showTodayButton: false,
-            showClear: false,
-            showClose: false,
+            buttons: {
+                showToday: false,
+                showClear: false,
+                showClose: false
+            },
             widgetPositioning: {
                 horizontal: 'auto',
                 vertical: 'auto'
@@ -255,8 +257,7 @@ const DateTimePicker = ($ => {
         ViewModes = ['days', 'months', 'years', 'decades'];
 
     let MinViewModeNumber = 0,
-        keyState = {},
-        keyPressHandled = {};
+        keyState = {};
 
     class DateTimePicker {
         /** @namespace eData.dateOptions */
@@ -461,7 +462,7 @@ const DateTimePicker = ($ => {
 
         //noinspection JSMethodCanBeStatic
         _getOptions(options) {
-            options = $.extend({}, Default, options);
+            options = $.extend(true, {}, Default, options);
             return options;
         }
 
@@ -657,21 +658,16 @@ const DateTimePicker = ($ => {
             }
 
             if (handler) {
-                if (handler.call(picker, widget)) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }
+                e.stopPropagation();
+                e.preventDefault();
             }
         }
 
         //noinspection JSMethodCanBeStatic,SpellCheckingInspection
         _keyup(e) {
             keyState[e.which] = 'r';
-            if (keyPressHandled[e.which]) {
-                keyPressHandled[e.which] = false;
-                e.stopPropagation();
-                e.preventDefault();
-            }
+            e.stopPropagation();
+            e.preventDefault();
         }
 
         _indexGivenDates(givenDatesArray) {
@@ -1107,7 +1103,9 @@ const DateTimePicker = ($ => {
             if (!(icons instanceof Object)) {
                 throw new TypeError('icons() expects parameter to be an Object');
             }
+
             $.extend(this._options.icons, icons);
+
             if (this.widget) {
                 this.hide();
                 this.show();
@@ -1187,32 +1185,27 @@ const DateTimePicker = ($ => {
             this._update();
         }
 
-        showTodayButton(showTodayButton) {
+        buttons(buttons) {
             if (arguments.length === 0) {
-                return this._options.showTodayButton;
+                return $.extend({}, this._options.buttons);
             }
 
-            if (typeof showTodayButton !== 'boolean') {
-                throw new TypeError('showTodayButton() expects a boolean parameter');
+            if (!(buttons instanceof Object)) {
+                throw new TypeError('buttons() expects parameter to be an Object');
             }
 
-            this._options.showTodayButton = showTodayButton;
-            if (this.widget) {
-                this.hide();
-                this.show();
-            }
-        }
+            $.extend(this._options.buttons, buttons);
 
-        showClear(showClear) {
-            if (arguments.length === 0) {
-                return this._options.showClear;
+            if (typeof this._options.buttons.showToday !== 'boolean') {
+                throw new TypeError('buttons.showToday expects a boolean parameter');
             }
-
-            if (typeof showClear !== 'boolean') {
-                throw new TypeError('showClear() expects a boolean parameter');
+            if (typeof this._options.buttons.showClear !== 'boolean') {
+                throw new TypeError('buttons.showClear expects a boolean parameter');
+            }
+            if (typeof this._options.buttons.showClose !== 'boolean') {
+                throw new TypeError('buttons.showClose expects a boolean parameter');
             }
 
-            this._options.showClear = showClear;
             if (this.widget) {
                 this.hide();
                 this.show();
@@ -1285,18 +1278,6 @@ const DateTimePicker = ($ => {
             }
 
             this._options.allowInputToggle = allowInputToggle;
-        }
-
-        showClose(showClose) {
-            if (arguments.length === 0) {
-                return this._options.showClose;
-            }
-
-            if (typeof showClose !== 'boolean') {
-                throw new TypeError('showClose() expects a boolean parameter');
-            }
-
-            this._options.showClose = showClose;
         }
 
         keepInvalid(keepInvalid) {

@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         babel: {
             dev: {
                 options: {
-                    sourceMap: true,
+                    sourceMap: false,
                     compact: false
                 },
                 files: {
