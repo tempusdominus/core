@@ -255,7 +255,8 @@ const DateTimePicker = ($ => {
         ViewModes = ['days', 'months', 'years', 'decades'];
 
     let MinViewModeNumber = 0,
-        keyState = {};
+        keyState = {},
+        keyPressHandled = {};
 
     class DateTimePicker {
         /** @namespace eData.dateOptions */
@@ -392,6 +393,7 @@ const DateTimePicker = ($ => {
                 this.unset = true;
                 if (this.input !== undefined) {
                     this.input.val('');
+                    this.input.trigger('input');
                 }
                 this._element.data('date', '');
                 this._notifyEvent({
@@ -418,6 +420,7 @@ const DateTimePicker = ($ => {
                 this._viewDate = targetMoment.clone();
                 if (this.input !== undefined) {
                     this.input.val(this._date.format(this.actualFormat));
+                    this.input.trigger('input');
                 }
                 this._element.data('date', this._date.format(this.actualFormat));
                 this.unset = false;
@@ -431,6 +434,7 @@ const DateTimePicker = ($ => {
                 if (!this._options.keepInvalid) {
                     if (this.input !== undefined) {
                         this.input.val(`${this.unset ? '' : this._date.format(this.actualFormat)}`);
+                        this.input.trigger('input');
                     }
                 } else {
                     this._notifyEvent({
@@ -653,17 +657,21 @@ const DateTimePicker = ($ => {
             }
 
             if (handler) {
-                handler.call(this);
-                e.stopPropagation();
-                e.preventDefault();
+                if (handler.call(picker, widget)) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
             }
         }
 
         //noinspection JSMethodCanBeStatic,SpellCheckingInspection
         _keyup(e) {
             keyState[e.which] = 'r';
-            e.stopPropagation();
-            e.preventDefault();
+            if (keyPressHandled[e.which]) {
+                keyPressHandled[e.which] = false;
+                e.stopPropagation();
+                e.preventDefault();
+            }
         }
 
         _indexGivenDates(givenDatesArray) {
