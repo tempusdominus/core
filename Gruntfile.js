@@ -70,7 +70,7 @@ module.exports = function (grunt) {
                     compact: false
                 },
                 files: {
-                    'src/js/<%= pkg.name %>.js': 'src/js/<%= pkg.name %>.js'
+                    'build/js/<%= pkg.name %>.js': 'src/js/<%= pkg.name %>.js'
                 }
             },
             dist: {
@@ -94,20 +94,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        concat: {
-            options: {
-                // Custom function to remove all export and import statements
-                process: function (src) {
-                    return src.replace(/^(export|import).*/gm, '');
-                }
-            },
-            core: {
-                src: [
-                    'src/js/<%= pkg.name %>.js'
-                ],
-                dest: 'build/js/<%= pkg.name %>.js'
-            }
-        },
         watch: {
             src: {
                 files: '<%= concat.core.src %>',
@@ -124,18 +110,16 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-nuget');
 
     require('load-grunt-tasks')(grunt);
-    grunt.registerTask('default', 'build');// ['concat', 'eslint', 'babel:dist']);// 'env:paris', 'connect', 'jasmine']);
+    grunt.registerTask('default', 'build');
     grunt.registerTask('build:travis', [
-        // code style
-        'jshint', 'jscs',
         // build
-        'babel:dist', 'uglify'//,
+        'build'//,
         // tests
         //'env:paris', 'connect', 'jasmine'
     ]);
 
     // Task to be run when building
-    grunt.registerTask('build', ['concat', 'eslint', 'babel', 'uglify']);
+    grunt.registerTask('build', ['babel:dev', 'eslint', 'babel:dist', 'uglify']);
 
     grunt.registerTask('test', ['build', 'env:paris', 'connect', 'jasmine']);
 

@@ -1,258 +1,258 @@
 const DateTimePicker = ($ => {
     const NAME = 'datetimepicker',
-          VERSION = '5.0.0-alpha.1',
-          DATA_KEY = `${ NAME }`,
-          EVENT_KEY = `.${ DATA_KEY }`,
-          EMIT_EVENT_KEY = `${ DATA_KEY }.`,
-          DATA_API_KEY = '.data-api',
-          Selector = {
-        DATA_TOGGLE: `[data-toggle="${ DATA_KEY }"]`
-    },
-          ClassName = {
-        INPUT: `${ NAME }-input`
-    },
-          Event = {
-        CHANGE: `change${ EVENT_KEY }`,
-        BLUR: `blur${ EVENT_KEY }`,
-        KEYUP: `keyup${ EVENT_KEY }`,
-        KEYDOWN: `keydown${ EVENT_KEY }`,
-        FOCUS: `focus${ EVENT_KEY }`,
-        CLICK_DATA_API: `click${ EVENT_KEY }${ DATA_API_KEY }`,
-        //emitted
-        UPDATE: `${ EMIT_EVENT_KEY }update`,
-        ERROR: `${ EMIT_EVENT_KEY }error`,
-        HIDE: `${ EMIT_EVENT_KEY }hide`,
-        SHOW: `${ EMIT_EVENT_KEY }show`
-    },
-          Default = {
-        timeZone: '',
-        format: false,
-        dayViewHeaderFormat: 'MMMM YYYY',
-        extraFormats: false,
-        stepping: 1,
-        minDate: false,
-        maxDate: false,
-        useCurrent: true,
-        collapse: true,
-        locale: moment.locale(),
-        defaultDate: false,
-        disabledDates: false,
-        enabledDates: false,
-        icons: {
-            time: 'glyphicon glyphicon-time',
-            date: 'glyphicon glyphicon-calendar',
-            up: 'glyphicon glyphicon-chevron-up',
-            down: 'glyphicon glyphicon-chevron-down',
-            previous: 'glyphicon glyphicon-chevron-left',
-            next: 'glyphicon glyphicon-chevron-right',
-            today: 'glyphicon glyphicon-screenshot',
-            clear: 'glyphicon glyphicon-trash',
-            close: 'glyphicon glyphicon-remove'
+        VERSION = '5.0.0-alpha.1',
+        DATA_KEY = `${NAME}`,
+        EVENT_KEY = `.${DATA_KEY}`,
+        EMIT_EVENT_KEY = `${DATA_KEY}.`,
+        DATA_API_KEY = '.data-api',
+        Selector = {
+            DATA_TOGGLE: `[data-toggle="${DATA_KEY}"]`
         },
-        tooltips: {
-            today: 'Go to today',
-            clear: 'Clear selection',
-            close: 'Close the picker',
-            selectMonth: 'Select Month',
-            prevMonth: 'Previous Month',
-            nextMonth: 'Next Month',
-            selectYear: 'Select Year',
-            prevYear: 'Previous Year',
-            nextYear: 'Next Year',
-            selectDecade: 'Select Decade',
-            prevDecade: 'Previous Decade',
-            nextDecade: 'Next Decade',
-            prevCentury: 'Previous Century',
-            nextCentury: 'Next Century',
-            pickHour: 'Pick Hour',
-            incrementHour: 'Increment Hour',
-            decrementHour: 'Decrement Hour',
-            pickMinute: 'Pick Minute',
-            incrementMinute: 'Increment Minute',
-            decrementMinute: 'Decrement Minute',
-            pickSecond: 'Pick Second',
-            incrementSecond: 'Increment Second',
-            decrementSecond: 'Decrement Second',
-            togglePeriod: 'Toggle Period',
-            selectTime: 'Select Time'
+        ClassName = {
+            INPUT: `${NAME}-input`
         },
-        useStrict: false,
-        sideBySide: false,
-        daysOfWeekDisabled: false,
-        calendarWeeks: false,
-        viewMode: 'days',
-        toolbarPlacement: 'default',
-        showTodayButton: false,
-        showClear: false,
-        showClose: false,
-        widgetPositioning: {
-            horizontal: 'auto',
-            vertical: 'auto'
+        Event = {
+            CHANGE: `change${EVENT_KEY}`,
+            BLUR: `blur${EVENT_KEY}`,
+            KEYUP: `keyup${EVENT_KEY}`,
+            KEYDOWN: `keydown${EVENT_KEY}`,
+            FOCUS: `focus${EVENT_KEY}`,
+            CLICK_DATA_API: `click${EVENT_KEY}${DATA_API_KEY}`,
+            //emitted
+            UPDATE: `${EMIT_EVENT_KEY}update`,
+            ERROR: `${EMIT_EVENT_KEY}error`,
+            HIDE: `${EMIT_EVENT_KEY}hide`,
+            SHOW: `${EMIT_EVENT_KEY}show`
         },
-        widgetParent: null,
-        ignoreReadonly: false,
-        keepOpen: false,
-        focusOnShow: true,
-        inline: false,
-        keepInvalid: false,
-        keyBinds: {
-            up: function () {
-                if (!this.widget) {
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().subtract(7, 'd'));
-                } else {
-                    this.date(d.clone().add(this.stepping(), 'm'));
+        Default = {
+            timeZone: '',
+            format: false,
+            dayViewHeaderFormat: 'MMMM YYYY',
+            extraFormats: false,
+            stepping: 1,
+            minDate: false,
+            maxDate: false,
+            useCurrent: true,
+            collapse: true,
+            locale: moment.locale(),
+            defaultDate: false,
+            disabledDates: false,
+            enabledDates: false,
+            icons: {
+                time: 'glyphicon glyphicon-time',
+                date: 'glyphicon glyphicon-calendar',
+                up: 'glyphicon glyphicon-chevron-up',
+                down: 'glyphicon glyphicon-chevron-down',
+                previous: 'glyphicon glyphicon-chevron-left',
+                next: 'glyphicon glyphicon-chevron-right',
+                today: 'glyphicon glyphicon-screenshot',
+                clear: 'glyphicon glyphicon-trash',
+                close: 'glyphicon glyphicon-remove'
+            },
+            tooltips: {
+                today: 'Go to today',
+                clear: 'Clear selection',
+                close: 'Close the picker',
+                selectMonth: 'Select Month',
+                prevMonth: 'Previous Month',
+                nextMonth: 'Next Month',
+                selectYear: 'Select Year',
+                prevYear: 'Previous Year',
+                nextYear: 'Next Year',
+                selectDecade: 'Select Decade',
+                prevDecade: 'Previous Decade',
+                nextDecade: 'Next Decade',
+                prevCentury: 'Previous Century',
+                nextCentury: 'Next Century',
+                pickHour: 'Pick Hour',
+                incrementHour: 'Increment Hour',
+                decrementHour: 'Decrement Hour',
+                pickMinute: 'Pick Minute',
+                incrementMinute: 'Increment Minute',
+                decrementMinute: 'Decrement Minute',
+                pickSecond: 'Pick Second',
+                incrementSecond: 'Increment Second',
+                decrementSecond: 'Decrement Second',
+                togglePeriod: 'Toggle Period',
+                selectTime: 'Select Time'
+            },
+            useStrict: false,
+            sideBySide: false,
+            daysOfWeekDisabled: false,
+            calendarWeeks: false,
+            viewMode: 'days',
+            toolbarPlacement: 'default',
+            showTodayButton: false,
+            showClear: false,
+            showClose: false,
+            widgetPositioning: {
+                horizontal: 'auto',
+                vertical: 'auto'
+            },
+            widgetParent: null,
+            ignoreReadonly: false,
+            keepOpen: false,
+            focusOnShow: true,
+            inline: false,
+            keepInvalid: false,
+            keyBinds: {
+                up: function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().subtract(7, 'd'));
+                    } else {
+                        this.date(d.clone().add(this.stepping(), 'm'));
+                    }
+                },
+                down: function () {
+                    if (!this.widget) {
+                        this.show();
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().add(7, 'd'));
+                    } else {
+                        this.date(d.clone().subtract(this.stepping(), 'm'));
+                    }
+                },
+                'control up': function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().subtract(1, 'y'));
+                    } else {
+                        this.date(d.clone().add(1, 'h'));
+                    }
+                },
+                'control down': function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().add(1, 'y'));
+                    } else {
+                        this.date(d.clone().subtract(1, 'h'));
+                    }
+                },
+                left: function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().subtract(1, 'd'));
+                    }
+                },
+                right: function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().add(1, 'd'));
+                    }
+                },
+                pageUp: function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().subtract(1, 'M'));
+                    }
+                },
+                pageDown: function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    const d = this._date || this.getMoment();
+                    if (this.widget.find('.datepicker').is(':visible')) {
+                        this.date(d.clone().add(1, 'M'));
+                    }
+                },
+                enter: function () {
+                    this.hide();
+                },
+                escape: function () {
+                    this.hide();
+                },
+                'control space': function () {
+                    if (!this.widget) {
+                        return;
+                    }
+                    if (this.widget.find('.timepicker').is(':visible')) {
+                        this.widget.find('.btn[data-action="togglePeriod"]').click();
+                    }
+                },
+                t: function () {
+                    this.date(this.getMoment());
+                },
+                'delete': function () {
+                    this.clear();
                 }
             },
-            down: function () {
-                if (!this.widget) {
-                    this.show();
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().add(7, 'd'));
-                } else {
-                    this.date(d.clone().subtract(this.stepping(), 'm'));
-                }
-            },
-            'control up': function () {
-                if (!this.widget) {
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().subtract(1, 'y'));
-                } else {
-                    this.date(d.clone().add(1, 'h'));
-                }
-            },
-            'control down': function () {
-                if (!this.widget) {
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().add(1, 'y'));
-                } else {
-                    this.date(d.clone().subtract(1, 'h'));
-                }
-            },
-            left: function () {
-                if (!this.widget) {
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().subtract(1, 'd'));
-                }
-            },
-            right: function () {
-                if (!this.widget) {
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().add(1, 'd'));
-                }
-            },
-            pageUp: function () {
-                if (!this.widget) {
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().subtract(1, 'M'));
-                }
-            },
-            pageDown: function () {
-                if (!this.widget) {
-                    return;
-                }
-                const d = this._date || this.getMoment();
-                if (this.widget.find('.datepicker').is(':visible')) {
-                    this.date(d.clone().add(1, 'M'));
-                }
-            },
-            enter: function () {
-                this.hide();
-            },
-            escape: function () {
-                this.hide();
-            },
-            'control space': function () {
-                if (!this.widget) {
-                    return;
-                }
-                if (this.widget.find('.timepicker').is(':visible')) {
-                    this.widget.find('.btn[data-action="togglePeriod"]').click();
-                }
-            },
-            t: function () {
-                this.date(this.getMoment());
-            },
-            'delete': function () {
-                this.clear();
-            }
+            debug: false,
+            allowInputToggle: false,
+            disabledTimeIntervals: false,
+            disabledHours: false,
+            enabledHours: false,
+            viewDate: false
         },
-        debug: false,
-        allowInputToggle: false,
-        disabledTimeIntervals: false,
-        disabledHours: false,
-        enabledHours: false,
-        viewDate: false
-    },
-          DatePickerModes = [{
-        CLASS_NAME: 'days',
-        NAV_FUNCTION: 'M',
-        NAV_STEP: 1
-    }, {
-        CLASS_NAME: 'months',
-        NAV_FUNCTION: 'y',
-        NAV_STEP: 1
-    }, {
-        CLASS_NAME: 'years',
-        NAV_FUNCTION: 'y',
-        NAV_STEP: 10
-    }, {
-        CLASS_NAME: 'decades',
-        NAV_FUNCTION: 'y',
-        NAV_STEP: 100
-    }],
-          KeyMap = {
-        'up': 38,
-        38: 'up',
-        'down': 40,
-        40: 'down',
-        'left': 37,
-        37: 'left',
-        'right': 39,
-        39: 'right',
-        'tab': 9,
-        9: 'tab',
-        'escape': 27,
-        27: 'escape',
-        'enter': 13,
-        13: 'enter',
-        'pageUp': 33,
-        33: 'pageUp',
-        'pageDown': 34,
-        34: 'pageDown',
-        'shift': 16,
-        16: 'shift',
-        'control': 17,
-        17: 'control',
-        'space': 32,
-        32: 'space',
-        't': 84,
-        84: 't',
-        'delete': 46,
-        46: 'delete'
-    },
-          ViewModes = ['days', 'months', 'years', 'decades'];
+        DatePickerModes = [{
+            CLASS_NAME: 'days',
+            NAV_FUNCTION: 'M',
+            NAV_STEP: 1
+        }, {
+            CLASS_NAME: 'months',
+            NAV_FUNCTION: 'y',
+            NAV_STEP: 1
+        }, {
+            CLASS_NAME: 'years',
+            NAV_FUNCTION: 'y',
+            NAV_STEP: 10
+        }, {
+            CLASS_NAME: 'decades',
+            NAV_FUNCTION: 'y',
+            NAV_STEP: 100
+        }],
+        KeyMap = {
+            'up': 38,
+            38: 'up',
+            'down': 40,
+            40: 'down',
+            'left': 37,
+            37: 'left',
+            'right': 39,
+            39: 'right',
+            'tab': 9,
+            9: 'tab',
+            'escape': 27,
+            27: 'escape',
+            'enter': 13,
+            13: 'enter',
+            'pageUp': 33,
+            33: 'pageUp',
+            'pageDown': 34,
+            34: 'pageDown',
+            'shift': 16,
+            16: 'shift',
+            'control': 17,
+            17: 'control',
+            'space': 32,
+            32: 'space',
+            't': 84,
+            84: 't',
+            'delete': 46,
+            46: 'delete'
+        },
+        ViewModes = ['days', 'months', 'years', 'decades'];
 
     let MinViewModeNumber = 0,
         keyState = {};
@@ -396,7 +396,7 @@ const DateTimePicker = ($ => {
                 this._element.data('date', '');
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
-                    _date: false,
+                    date: false,
                     oldDate: oldDate
                 });
                 this._update();
@@ -424,24 +424,24 @@ const DateTimePicker = ($ => {
                 this._update();
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
-                    _date: this._date.clone(),
+                    date: this._date.clone(),
                     oldDate: oldDate
                 });
             } else {
                 if (!this._options.keepInvalid) {
                     if (this.input !== undefined) {
-                        this.input.val(`${ this.unset ? '' : this._date.format(this.actualFormat) }`);
+                        this.input.val(`${this.unset ? '' : this._date.format(this.actualFormat)}`);
                     }
                 } else {
                     this._notifyEvent({
                         type: DateTimePicker.Event.CHANGE,
-                        _date: targetMoment,
+                        date: targetMoment,
                         oldDate: oldDate
                     });
                 }
                 this._notifyEvent({
                     type: DateTimePicker.Event.ERROR,
-                    _date: targetMoment,
+                    date: targetMoment,
                     oldDate: oldDate
                 });
             }
@@ -458,7 +458,6 @@ const DateTimePicker = ($ => {
         //noinspection JSMethodCanBeStatic
         _getOptions(options) {
             options = $.extend({}, Default, options);
-            //Util.typeCheckConfig(NAME, config, DefaultType);
             return options;
         }
 
@@ -506,7 +505,7 @@ const DateTimePicker = ($ => {
             }
 
             $.each(this._options, function (key) {
-                let attributeName = `date${ key.charAt(0).toUpperCase() }${ key.slice(1) }`; //todo data api key
+                let attributeName = `date${key.charAt(0).toUpperCase()}${key.slice(1)}`; //todo data api key
                 if (eData[attributeName] !== undefined) {
                     dataOptions[key] = eData[attributeName];
                 } else {
@@ -517,7 +516,7 @@ const DateTimePicker = ($ => {
         }
 
         _notifyEvent(e) {
-            if (e.type === DateTimePicker.Event.CHANGE && (e._date && e._date.isSame(e.oldDate) || !e._date && !e.oldDate)) {
+            if ((e.type === DateTimePicker.Event.CHANGE && e.date && e.date.isSame(e.oldDate)) || !e.date && !e.oldDate) {
                 return;
             }
             this._element.trigger(e);
@@ -541,7 +540,7 @@ const DateTimePicker = ($ => {
             if (dir) {
                 this.currentViewMode = Math.max(MinViewModeNumber, Math.min(3, this.currentViewMode + dir));
             }
-            this.widget.find('.datepicker > div').hide().filter(`.datepicker-${ DatePickerModes[this.currentViewMode].CLASS_NAME }`).show();
+            this.widget.find('.datepicker > div').hide().filter(`.datepicker-${DatePickerModes[this.currentViewMode].CLASS_NAME}`).show();
         }
 
         _isInDisabledDates(testDate) {
@@ -619,9 +618,9 @@ const DateTimePicker = ($ => {
                 keyBindKeys,
                 allModifiersPressed;
             const pressedKeys = [],
-                  pressedModifiers = {},
-                  currentKey = e.which,
-                  pressed = 'p';
+                pressedModifiers = {},
+                currentKey = e.which,
+                pressed = 'p';
 
             keyState[currentKey] = pressed;
 
@@ -671,9 +670,10 @@ const DateTimePicker = ($ => {
             // Store given enabledDates and disabledDates as keys.
             // This way we can check their existence in O(1) time instead of looping through whole array.
             // (for example: options.enabledDates['2014-02-27'] === true)
-            const givenDatesIndexed = {};
+            const givenDatesIndexed = {},
+                self = this;
             $.each(givenDatesArray, function () {
-                const dDate = this._parseInputDate(this);
+                const dDate = self._parseInputDate(this);
                 if (dDate.isValid()) {
                     givenDatesIndexed[dDate.format('YYYY-MM-DD')] = true;
                 }
@@ -800,7 +800,7 @@ const DateTimePicker = ($ => {
             }
 
             if (typeof newFormat !== 'string' && (typeof newFormat !== 'boolean' || newFormat !== false)) {
-                throw new TypeError(`format() expects a string or boolean:false parameter ${ newFormat }`);
+                throw new TypeError(`format() expects a string or boolean:false parameter ${newFormat}`);
             }
 
             this._options.format = newFormat;
@@ -942,10 +942,10 @@ const DateTimePicker = ($ => {
             const parsedDate = this._parseInputDate(maxDate);
 
             if (!parsedDate.isValid()) {
-                throw new TypeError(`maxDate() Could not parse date parameter: ${ maxDate }`);
+                throw new TypeError(`maxDate() Could not parse date parameter: ${maxDate}`);
             }
             if (this._options.minDate && parsedDate.isBefore(this._options.minDate)) {
-                throw new TypeError(`maxDate() date parameter is before this.options.minDate: ${ parsedDate.format(this.actualFormat) }`);
+                throw new TypeError(`maxDate() date parameter is before this.options.minDate: ${parsedDate.format(this.actualFormat)}`);
             }
             this._options.maxDate = parsedDate;
             if (this._options.useCurrent && !this._options.keepInvalid && this._date.isAfter(maxDate)) {
@@ -977,10 +977,10 @@ const DateTimePicker = ($ => {
             const parsedDate = this._parseInputDate(minDate);
 
             if (!parsedDate.isValid()) {
-                throw new TypeError(`minDate() Could not parse date parameter: ${ minDate }`);
+                throw new TypeError(`minDate() Could not parse date parameter: ${minDate}`);
             }
             if (this._options.maxDate && parsedDate.isAfter(this._options.maxDate)) {
-                throw new TypeError(`minDate() date parameter is after this.options.maxDate: ${ parsedDate.format(this.actualFormat) }`);
+                throw new TypeError(`minDate() date parameter is after this.options.maxDate: ${parsedDate.format(this.actualFormat)}`);
             }
             this._options.minDate = parsedDate;
             if (this._options.useCurrent && !this._options.keepInvalid && this._date.isBefore(minDate)) {
@@ -1011,7 +1011,7 @@ const DateTimePicker = ($ => {
 
             const parsedDate = this._parseInputDate(defaultDate);
             if (!parsedDate.isValid()) {
-                throw new TypeError(`defaultDate() Could not parse date parameter: ${ defaultDate }`);
+                throw new TypeError(`defaultDate() Could not parse date parameter: ${defaultDate}`);
             }
             if (!this._isValid(parsedDate)) {
                 throw new TypeError('defaultDate() date passed is invalid according to component setup validations');
@@ -1030,7 +1030,7 @@ const DateTimePicker = ($ => {
             }
 
             if (!moment.localeData(locale)) {
-                throw new TypeError(`locale() locale ${ locale } is not loaded from moment locales!`);
+                throw new TypeError(`locale() locale ${locale} is not loaded from moment locales!`);
             }
 
             this._options.locale = locale;
@@ -1068,7 +1068,7 @@ const DateTimePicker = ($ => {
                 throw new TypeError('useCurrent() expects a boolean or string parameter');
             }
             if (typeof useCurrent === 'string' && useCurrentOptions.indexOf(useCurrent.toLowerCase()) === -1) {
-                throw new TypeError(`useCurrent() expects a string parameter of ${ useCurrentOptions.join(', ') }`);
+                throw new TypeError(`useCurrent() expects a string parameter of ${useCurrentOptions.join(', ')}`);
             }
             this._options.useCurrent = useCurrent;
         }
@@ -1157,7 +1157,7 @@ const DateTimePicker = ($ => {
             }
 
             if (DateTimePicker.ViewModes.indexOf(viewMode) === -1) {
-                throw new TypeError(`viewMode() parameter must be one of (${ DateTimePicker.ViewModes.join(', ') }) value`);
+                throw new TypeError(`viewMode() parameter must be one of (${DateTimePicker.ViewModes.join(', ')}) value`);
             }
 
             this._options.viewMode = viewMode;
@@ -1424,6 +1424,3 @@ const DateTimePicker = ($ => {
 })(jQuery);
 
 export default DateTimePicker;
-//# sourceMappingURL=core.js.map
-//# sourceMappingURL=tempusdominus-core.js.map
-//# sourceMappingURL=tempusdominus-core.js.map

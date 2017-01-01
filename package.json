@@ -1,4 +1,7 @@
 {
+  "license": "MIT",
+  "main": "build/js/tempusdominus-core.js",
+  "name": "tempusdominus-core",
   "author": {
     "name": "Jonathan Peterson"
   },
@@ -25,24 +28,25 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-env": "^0.4.4",
     "grunt-eslint": "^19.0.0",
-    "grunt-jscs": "latest",
     "grunt-nuget": "^0.1.5",
     "grunt-string-replace": "latest",
     "load-grunt-tasks": "latest"
   },
-  "homepage": "http://eonasdan.github.io/bootstrap-datetimepicker/",
+  "homepage": "https://github.com/tempusdominus/core",
   "keywords": [
     "datepicker",
     "datetimepicker",
     "timepicker",
     "moment"
   ],
-  "license": "MIT",
-  "main": "src/js/core.js",
-  "name": "tempusdominus-core",
   "repository": {
     "type": "git",
     "url": "https://github.com/tempusdominus/core.git"
   },
-  "version": "5.0.0-alpha"
+  "version": "5.0.0-alpha",
+  "files": [
+    "build",
+    "src/js/**/*.js",
+    "Gruntfile.js"
+  ]
 }

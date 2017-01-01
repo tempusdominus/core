@@ -2,6 +2,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//# sourceMappingURL=tempusdominus-core.js.map
 var DateTimePicker = function ($) {
     var NAME = 'datetimepicker',
         VERSION = '5.0.0-alpha.1',
@@ -341,7 +342,7 @@ var DateTimePicker = function ($) {
                 this._element.data('date', '');
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
-                    _date: false,
+                    date: false,
                     oldDate: oldDate
                 });
                 this._update();
@@ -369,7 +370,7 @@ var DateTimePicker = function ($) {
                 this._update();
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
-                    _date: this._date.clone(),
+                    date: this._date.clone(),
                     oldDate: oldDate
                 });
             } else {
@@ -380,13 +381,13 @@ var DateTimePicker = function ($) {
                 } else {
                     this._notifyEvent({
                         type: DateTimePicker.Event.CHANGE,
-                        _date: targetMoment,
+                        date: targetMoment,
                         oldDate: oldDate
                     });
                 }
                 this._notifyEvent({
                     type: DateTimePicker.Event.ERROR,
-                    _date: targetMoment,
+                    date: targetMoment,
                     oldDate: oldDate
                 });
             }
@@ -405,7 +406,6 @@ var DateTimePicker = function ($) {
 
         DateTimePicker.prototype._getOptions = function _getOptions(options) {
             options = $.extend({}, Default, options);
-            //Util.typeCheckConfig(NAME, config, DefaultType);
             return options;
         };
 
@@ -464,7 +464,7 @@ var DateTimePicker = function ($) {
         };
 
         DateTimePicker.prototype._notifyEvent = function _notifyEvent(e) {
-            if (e.type === DateTimePicker.Event.CHANGE && (e._date && e._date.isSame(e.oldDate) || !e._date && !e.oldDate)) {
+            if (e.type === DateTimePicker.Event.CHANGE && e.date && e.date.isSame(e.oldDate) || !e.date && !e.oldDate) {
                 return;
             }
             this._element.trigger(e);
@@ -620,9 +620,10 @@ var DateTimePicker = function ($) {
             // Store given enabledDates and disabledDates as keys.
             // This way we can check their existence in O(1) time instead of looping through whole array.
             // (for example: options.enabledDates['2014-02-27'] === true)
-            var givenDatesIndexed = {};
+            var givenDatesIndexed = {},
+                self = this;
             $.each(givenDatesArray, function () {
-                var dDate = this._parseInputDate(this);
+                var dDate = self._parseInputDate(this);
                 if (dDate.isValid()) {
                     givenDatesIndexed[dDate.format('YYYY-MM-DD')] = true;
                 }
@@ -1462,6 +1463,3 @@ var DateTimePicker = function ($) {
 
     return DateTimePicker;
 }(jQuery);
-
-//# sourceMappingURL=core.js.map
-//# sourceMappingURL=tempusdominus-core.js.map
