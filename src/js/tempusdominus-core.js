@@ -100,7 +100,7 @@ const DateTimePicker = ($ => {
             keyBinds: {
                 up: function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
@@ -108,11 +108,12 @@ const DateTimePicker = ($ => {
                     } else {
                         this.date(d.clone().add(this.stepping(), 'm'));
                     }
+                    return true;
                 },
                 down: function () {
                     if (!this.widget) {
                         this.show();
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
@@ -120,10 +121,11 @@ const DateTimePicker = ($ => {
                     } else {
                         this.date(d.clone().subtract(this.stepping(), 'm'));
                     }
+                    return true;
                 },
                 'control up': function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
@@ -131,10 +133,11 @@ const DateTimePicker = ($ => {
                     } else {
                         this.date(d.clone().add(1, 'h'));
                     }
+                    return true;
                 },
                 'control down': function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
@@ -142,62 +145,78 @@ const DateTimePicker = ($ => {
                     } else {
                         this.date(d.clone().subtract(1, 'h'));
                     }
+                    return true;
                 },
                 left: function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().subtract(1, 'd'));
                     }
+                    return true;
                 },
                 right: function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().add(1, 'd'));
                     }
+                    return true;
                 },
                 pageUp: function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().subtract(1, 'M'));
                     }
+                    return true;
                 },
                 pageDown: function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     const d = this._date || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().add(1, 'M'));
                     }
+                    return true;
                 },
                 enter: function () {
                     this.hide();
+                    return true;
                 },
                 escape: function () {
+                    if (!widget) {
+                        return false;
+                    }
                     this.hide();
+                    return true;
                 },
                 'control space': function () {
                     if (!this.widget) {
-                        return;
+                        return false;
                     }
                     if (this.widget.find('.timepicker').is(':visible')) {
                         this.widget.find('.btn[data-action="togglePeriod"]').click();
                     }
+                    return true;
                 },
                 t: function () {
                     this.date(this.getMoment());
+                    return true;
                 },
                 'delete': function () {
+                    if (!this.widget) {
+                        return false;
+                    }
                     this.clear();
+                    return true;
                 }
             },
             debug: false,
@@ -658,16 +677,20 @@ const DateTimePicker = ($ => {
             }
 
             if (handler) {
-                e.stopPropagation();
-                e.preventDefault();
+                if (handler.call(picker, widget)) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
             }
         }
 
         //noinspection JSMethodCanBeStatic,SpellCheckingInspection
         _keyup(e) {
             keyState[e.which] = 'r';
-            e.stopPropagation();
-            e.preventDefault();
+            if (keyPressHandled[e.which]) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
         }
 
         _indexGivenDates(givenDatesArray) {
