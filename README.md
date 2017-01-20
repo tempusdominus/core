@@ -8,6 +8,8 @@ The new picker under the "Tempus Dominus" brand will be completely modular. The 
 
 This new version has been completely rewritten in ES6 and uses Babel to transpile the code down.
 
+The code base here is in need of clean up. I have lots of leftovers from the previous project and I'm playing around with grunt and the build process to find what works best.
+
 # Issues
 The issue tracker is solely for bug reports. Please ask your questions on Stack Overflow.
 

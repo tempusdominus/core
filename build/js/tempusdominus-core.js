@@ -1,30 +1,34 @@
-const DateTimePicker = ($ => {
-    const NAME = 'datetimepicker',
-          VERSION = '5.0.0-alpha.1',
-          DATA_KEY = `${ NAME }`,
-          EVENT_KEY = `.${ DATA_KEY }`,
-          EMIT_EVENT_KEY = `${ DATA_KEY }.`,
-          DATA_API_KEY = '.data-api',
-          Selector = {
-        DATA_TOGGLE: `[data-toggle="${ DATA_KEY }"]`
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DateTimePicker = function ($) {
+    var NAME = 'datetimepicker',
+        VERSION = '5.0.0-alpha.1',
+        DATA_KEY = '' + NAME,
+        EVENT_KEY = '.' + DATA_KEY,
+        EMIT_EVENT_KEY = DATA_KEY + '.',
+        DATA_API_KEY = '.data-api',
+        Selector = {
+        DATA_TOGGLE: '[data-toggle="' + DATA_KEY + '"]'
     },
-          ClassName = {
-        INPUT: `${ NAME }-input`
+        ClassName = {
+        INPUT: NAME + '-input'
     },
-          Event = {
-        CHANGE: `change${ EVENT_KEY }`,
-        BLUR: `blur${ EVENT_KEY }`,
-        KEYUP: `keyup${ EVENT_KEY }`,
-        KEYDOWN: `keydown${ EVENT_KEY }`,
-        FOCUS: `focus${ EVENT_KEY }`,
-        CLICK_DATA_API: `click${ EVENT_KEY }${ DATA_API_KEY }`,
+        Event = {
+        CHANGE: 'change' + EVENT_KEY,
+        BLUR: 'blur' + EVENT_KEY,
+        KEYUP: 'keyup' + EVENT_KEY,
+        KEYDOWN: 'keydown' + EVENT_KEY,
+        FOCUS: 'focus' + EVENT_KEY,
+        CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY,
         //emitted
-        UPDATE: `${ EMIT_EVENT_KEY }update`,
-        ERROR: `${ EMIT_EVENT_KEY }error`,
-        HIDE: `${ EMIT_EVENT_KEY }hide`,
-        SHOW: `${ EMIT_EVENT_KEY }show`
+        UPDATE: EMIT_EVENT_KEY + 'update',
+        ERROR: EMIT_EVENT_KEY + 'error',
+        HIDE: EMIT_EVENT_KEY + 'hide',
+        SHOW: EMIT_EVENT_KEY + 'show'
     },
-          Default = {
+        Default = {
         timeZone: '',
         format: false,
         dayViewHeaderFormat: 'MMMM YYYY',
@@ -74,7 +78,8 @@ const DateTimePicker = ($ => {
             incrementSecond: 'Increment Second',
             decrementSecond: 'Decrement Second',
             togglePeriod: 'Toggle Period',
-            selectTime: 'Select Time'
+            selectTime: 'Select Time',
+            selectDate: 'Select Date'
         },
         useStrict: false,
         sideBySide: false,
@@ -98,11 +103,11 @@ const DateTimePicker = ($ => {
         inline: false,
         keepInvalid: false,
         keyBinds: {
-            up: function () {
+            up: function up() {
                 if (!this.widget) {
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(7, 'd'));
                 } else {
@@ -110,12 +115,12 @@ const DateTimePicker = ($ => {
                 }
                 return true;
             },
-            down: function () {
+            down: function down() {
                 if (!this.widget) {
                     this.show();
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(7, 'd'));
                 } else {
@@ -123,11 +128,11 @@ const DateTimePicker = ($ => {
                 }
                 return true;
             },
-            'control up': function () {
+            'control up': function controlUp() {
                 if (!this.widget) {
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(1, 'y'));
                 } else {
@@ -135,11 +140,11 @@ const DateTimePicker = ($ => {
                 }
                 return true;
             },
-            'control down': function () {
+            'control down': function controlDown() {
                 if (!this.widget) {
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(1, 'y'));
                 } else {
@@ -147,58 +152,58 @@ const DateTimePicker = ($ => {
                 }
                 return true;
             },
-            left: function () {
+            left: function left() {
                 if (!this.widget) {
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(1, 'd'));
                 }
                 return true;
             },
-            right: function () {
+            right: function right() {
                 if (!this.widget) {
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(1, 'd'));
                 }
                 return true;
             },
-            pageUp: function () {
+            pageUp: function pageUp() {
                 if (!this.widget) {
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(1, 'M'));
                 }
                 return true;
             },
-            pageDown: function () {
+            pageDown: function pageDown() {
                 if (!this.widget) {
                     return false;
                 }
-                const d = this._date || this.getMoment();
+                var d = this._date || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(1, 'M'));
                 }
                 return true;
             },
-            enter: function () {
+            enter: function enter() {
                 this.hide();
                 return true;
             },
-            escape: function () {
-                if (!widget) {
+            escape: function escape() {
+                if (!this.widget) {
                     return false;
                 }
                 this.hide();
                 return true;
             },
-            'control space': function () {
+            'control space': function controlSpace() {
                 if (!this.widget) {
                     return false;
                 }
@@ -207,11 +212,11 @@ const DateTimePicker = ($ => {
                 }
                 return true;
             },
-            t: function () {
+            t: function t() {
                 this.date(this.getMoment());
                 return true;
             },
-            'delete': function () {
+            'delete': function _delete() {
                 if (!this.widget) {
                     return false;
                 }
@@ -226,7 +231,7 @@ const DateTimePicker = ($ => {
         enabledHours: false,
         viewDate: false
     },
-          DatePickerModes = [{
+        DatePickerModes = [{
         CLASS_NAME: 'days',
         NAV_FUNCTION: 'M',
         NAV_STEP: 1
@@ -243,7 +248,7 @@ const DateTimePicker = ($ => {
         NAV_FUNCTION: 'y',
         NAV_STEP: 100
     }],
-          KeyMap = {
+        KeyMap = {
         'up': 38,
         38: 'up',
         'down': 40,
@@ -273,16 +278,19 @@ const DateTimePicker = ($ => {
         'delete': 46,
         46: 'delete'
     },
-          ViewModes = ['days', 'months', 'years', 'decades'];
+        ViewModes = ['time', 'days', 'months', 'years', 'decades'];
 
-    let MinViewModeNumber = 0,
-        keyState = {};
+    var MinViewModeNumber = 0,
+        keyState = {},
+        keyPressHandled = {};
 
-    class DateTimePicker {
+    var DateTimePicker = function () {
         /** @namespace eData.dateOptions */
         /** @namespace moment.tz */
 
-        constructor(element, options) {
+        function DateTimePicker(element, options) {
+            _classCallCheck(this, DateTimePicker);
+
             this._options = this._getOptions(options);
             this._element = element;
             this._date = null;
@@ -301,73 +309,12 @@ const DateTimePicker = ($ => {
         /**
          * @return {string}
          */
-        static get NAME() {
-            return NAME;
-        }
 
-        /**
-         * @return {string}
-         */
-        static get VERSION() {
-            return VERSION;
-        }
-
-        /**
-         * @return {string}
-         */
-        static get DATA_KEY() {
-            return DATA_KEY;
-        }
-
-        /**
-         * @return {string}
-         */
-        static get EVENT_KEY() {
-            return EVENT_KEY;
-        }
-
-        /**
-         * @return {string}
-         */
-        static get DATA_API_KEY() {
-            return DATA_API_KEY;
-        }
-
-        static get DatePickerModes() {
-            return DatePickerModes;
-        }
-
-        static get ViewModes() {
-            return ViewModes;
-        }
-
-        /**
-         * @return {number}
-         */
-        static get MinViewModeNumber() {
-            return MinViewModeNumber;
-        }
-
-        static get Event() {
-            return Event;
-        }
-
-        static get Selector() {
-            return Selector;
-        }
-
-        static get Default() {
-            return Default;
-        }
-
-        static get ClassName() {
-            return ClassName;
-        }
 
         //private
 
-        _int() {
-            const targetInput = this._element.data('target-input');
+        DateTimePicker.prototype._int = function _int() {
+            var targetInput = this._element.data('target-input');
             if (this._element.is('input')) {
                 this.input = this._element;
             } else if (targetInput !== undefined) {
@@ -395,18 +342,18 @@ const DateTimePicker = ($ => {
             if (this._options.inline) {
                 this.show();
             }
-        }
+        };
 
-        _update() {
+        DateTimePicker.prototype._update = function _update() {
             if (!this.widget) {
                 return;
             }
             this._fillDate();
             this._fillTime();
-        }
+        };
 
-        _setValue(targetMoment) {
-            const oldDate = this.unset ? null : this._date;
+        DateTimePicker.prototype._setValue = function _setValue(targetMoment) {
+            var oldDate = this.unset ? null : this._date;
 
             // case of calling setValue(null or false)
             if (!targetMoment) {
@@ -453,7 +400,7 @@ const DateTimePicker = ($ => {
             } else {
                 if (!this._options.keepInvalid) {
                     if (this.input !== undefined) {
-                        this.input.val(`${ this.unset ? '' : this._date.format(this.actualFormat) }`);
+                        this.input.val('' + (this.unset ? '' : this._date.format(this.actualFormat)));
                         this.input.trigger('input');
                     }
                 } else {
@@ -469,27 +416,29 @@ const DateTimePicker = ($ => {
                     oldDate: oldDate
                 });
             }
-        }
+        };
 
-        _change(e) {
-            let val = $(e.target).val().trim(),
+        DateTimePicker.prototype._change = function _change(e) {
+            var val = $(e.target).val().trim(),
                 parsedDate = val ? this._parseInputDate(val) : null;
             this._setValue(parsedDate);
             e.stopImmediatePropagation();
             return false;
-        }
+        };
 
         //noinspection JSMethodCanBeStatic
-        _getOptions(options) {
+
+
+        DateTimePicker.prototype._getOptions = function _getOptions(options) {
             options = $.extend(true, {}, Default, options);
             return options;
-        }
+        };
 
-        _hasTimeZone() {
+        DateTimePicker.prototype._hasTimeZone = function _hasTimeZone() {
             return moment.tz !== undefined && this._options.timeZone !== undefined && this._options.timeZone !== null && this._options.timeZone !== '';
-        }
+        };
 
-        _isEnabled(granularity) {
+        DateTimePicker.prototype._isEnabled = function _isEnabled(granularity) {
             if (typeof granularity !== 'string' || granularity.length > 1) {
                 throw new TypeError('isEnabled expects a single character string parameter');
             }
@@ -510,18 +459,18 @@ const DateTimePicker = ($ => {
                 default:
                     return false;
             }
-        }
+        };
 
-        _hasTime() {
+        DateTimePicker.prototype._hasTime = function _hasTime() {
             return this._isEnabled('h') || this._isEnabled('m') || this._isEnabled('s');
-        }
+        };
 
-        _hasDate() {
+        DateTimePicker.prototype._hasDate = function _hasDate() {
             return this._isEnabled('y') || this._isEnabled('M') || this._isEnabled('d');
-        }
+        };
 
-        _dataToOptions() {
-            let eData = this._element.data(),
+        DateTimePicker.prototype._dataToOptions = function _dataToOptions() {
+            var eData = this._element.data(),
                 dataOptions = {};
 
             if (eData.dateOptions && eData.dateOptions instanceof Object) {
@@ -529,7 +478,7 @@ const DateTimePicker = ($ => {
             }
 
             $.each(this._options, function (key) {
-                let attributeName = `date${ key.charAt(0).toUpperCase() }${ key.slice(1) }`; //todo data api key
+                var attributeName = 'date' + key.charAt(0).toUpperCase() + key.slice(1); //todo data api key
                 if (eData[attributeName] !== undefined) {
                     dataOptions[key] = eData[attributeName];
                 } else {
@@ -537,16 +486,16 @@ const DateTimePicker = ($ => {
                 }
             });
             return dataOptions;
-        }
+        };
 
-        _notifyEvent(e) {
+        DateTimePicker.prototype._notifyEvent = function _notifyEvent(e) {
             if (e.type === DateTimePicker.Event.CHANGE && e.date && e.date.isSame(e.oldDate) || !e.date && !e.oldDate) {
                 return;
             }
             this._element.trigger(e);
-        }
+        };
 
-        _viewUpdate(e) {
+        DateTimePicker.prototype._viewUpdate = function _viewUpdate(e) {
             if (e === 'y') {
                 e = 'YYYY';
             }
@@ -555,35 +504,35 @@ const DateTimePicker = ($ => {
                 change: e,
                 viewDate: this._viewDate.clone()
             });
-        }
+        };
 
-        _showMode(dir) {
+        DateTimePicker.prototype._showMode = function _showMode(dir) {
             if (!this.widget) {
                 return;
             }
             if (dir) {
                 this.currentViewMode = Math.max(MinViewModeNumber, Math.min(3, this.currentViewMode + dir));
             }
-            this.widget.find('.datepicker > div').hide().filter(`.datepicker-${ DatePickerModes[this.currentViewMode].CLASS_NAME }`).show();
-        }
+            this.widget.find('.datepicker > div').hide().filter('.datepicker-' + DatePickerModes[this.currentViewMode].CLASS_NAME).show();
+        };
 
-        _isInDisabledDates(testDate) {
+        DateTimePicker.prototype._isInDisabledDates = function _isInDisabledDates(testDate) {
             return this._options.disabledDates[testDate.format('YYYY-MM-DD')] === true;
-        }
+        };
 
-        _isInEnabledDates(testDate) {
+        DateTimePicker.prototype._isInEnabledDates = function _isInEnabledDates(testDate) {
             return this._options.enabledDates[testDate.format('YYYY-MM-DD')] === true;
-        }
+        };
 
-        _isInDisabledHours(testDate) {
+        DateTimePicker.prototype._isInDisabledHours = function _isInDisabledHours(testDate) {
             return this._options.disabledHours[testDate.format('H')] === true;
-        }
+        };
 
-        _isInEnabledHours(testDate) {
+        DateTimePicker.prototype._isInEnabledHours = function _isInEnabledHours(testDate) {
             return this._options.enabledHours[testDate.format('H')] === true;
-        }
+        };
 
-        _isValid(targetMoment, granularity) {
+        DateTimePicker.prototype._isValid = function _isValid(targetMoment, granularity) {
             if (!targetMoment.isValid()) {
                 return false;
             }
@@ -609,7 +558,7 @@ const DateTimePicker = ($ => {
                 return false;
             }
             if (this._options.disabledTimeIntervals && (granularity === 'h' || granularity === 'm' || granularity === 's')) {
-                let found = false;
+                var found = false;
                 $.each(this._options.disabledTimeIntervals, function () {
                     if (targetMoment.isBetween(this[0], this[1])) {
                         found = true;
@@ -621,9 +570,9 @@ const DateTimePicker = ($ => {
                 }
             }
             return true;
-        }
+        };
 
-        _parseInputDate(inputDate) {
+        DateTimePicker.prototype._parseInputDate = function _parseInputDate(inputDate) {
             if (this._options.parseInputDate === undefined) {
                 if (!moment.isMoment(inputDate)) {
                     inputDate = this.getMoment(inputDate);
@@ -633,18 +582,18 @@ const DateTimePicker = ($ => {
             }
             //inputDate.locale(this.options.locale);
             return inputDate;
-        }
+        };
 
-        _keydown(e) {
-            let handler = null,
-                index,
-                index2,
-                keyBindKeys,
-                allModifiersPressed;
-            const pressedKeys = [],
-                  pressedModifiers = {},
-                  currentKey = e.which,
-                  pressed = 'p';
+        DateTimePicker.prototype._keydown = function _keydown(e) {
+            var handler = null,
+                index = void 0,
+                index2 = void 0,
+                keyBindKeys = void 0,
+                allModifiersPressed = void 0;
+            var pressedKeys = [],
+                pressedModifiers = {},
+                currentKey = e.which,
+                pressed = 'p';
 
             keyState[currentKey] = pressed;
 
@@ -677,52 +626,55 @@ const DateTimePicker = ($ => {
             }
 
             if (handler) {
-                if (handler.call(picker, widget)) {
+                if (handler.call(this.widget)) {
                     e.stopPropagation();
                     e.preventDefault();
                 }
             }
-        }
+        };
 
         //noinspection JSMethodCanBeStatic,SpellCheckingInspection
-        _keyup(e) {
+
+
+        DateTimePicker.prototype._keyup = function _keyup(e) {
             keyState[e.which] = 'r';
             if (keyPressHandled[e.which]) {
+                keyPressHandled[e.which] = false;
                 e.stopPropagation();
                 e.preventDefault();
             }
-        }
+        };
 
-        _indexGivenDates(givenDatesArray) {
+        DateTimePicker.prototype._indexGivenDates = function _indexGivenDates(givenDatesArray) {
             // Store given enabledDates and disabledDates as keys.
             // This way we can check their existence in O(1) time instead of looping through whole array.
             // (for example: options.enabledDates['2014-02-27'] === true)
-            const givenDatesIndexed = {},
-                  self = this;
+            var givenDatesIndexed = {},
+                self = this;
             $.each(givenDatesArray, function () {
-                const dDate = self._parseInputDate(this);
+                var dDate = self._parseInputDate(this);
                 if (dDate.isValid()) {
                     givenDatesIndexed[dDate.format('YYYY-MM-DD')] = true;
                 }
             });
             return Object.keys(givenDatesIndexed).length ? givenDatesIndexed : false;
-        }
+        };
 
-        _indexGivenHours(givenHoursArray) {
+        DateTimePicker.prototype._indexGivenHours = function _indexGivenHours(givenHoursArray) {
             // Store given enabledHours and disabledHours as keys.
             // This way we can check their existence in O(1) time instead of looping through whole array.
             // (for example: options.enabledHours['2014-02-27'] === true)
-            const givenHoursIndexed = {};
+            var givenHoursIndexed = {};
             $.each(givenHoursArray, function () {
                 givenHoursIndexed[this] = true;
             });
             return Object.keys(givenHoursIndexed).length ? givenHoursIndexed : false;
-        }
+        };
 
-        _initFormatting() {
-            const format = this._options.format || 'L LT';
+        DateTimePicker.prototype._initFormatting = function _initFormatting() {
+            var format = this._options.format || 'L LT';
 
-            let self = this;
+            var self = this;
             this.actualFormat = format.replace(/(\[[^\[]*])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g, function (formatInput) {
                 return self._date.localeData().longDateFormat(formatInput) || formatInput;
             });
@@ -749,11 +701,13 @@ const DateTimePicker = ($ => {
             if (!this.unset) {
                 this._setValue(this._date);
             }
-        }
+        };
 
         //public
-        getMoment(d) {
-            let returnMoment;
+
+
+        DateTimePicker.prototype.getMoment = function getMoment(d) {
+            var returnMoment = void 0;
 
             if (d === undefined || d === null) {
                 returnMoment = moment(); //TODO should this use format? and locale?
@@ -770,23 +724,23 @@ const DateTimePicker = ($ => {
             }
 
             return returnMoment;
-        }
+        };
 
-        toggle() {
+        DateTimePicker.prototype.toggle = function toggle() {
             return this.widget ? this.hide() : this.show();
-        }
+        };
 
-        ignoreReadonly(ignoreReadonly) {
+        DateTimePicker.prototype.ignoreReadonly = function ignoreReadonly(_ignoreReadonly) {
             if (arguments.length === 0) {
                 return this._options.ignoreReadonly;
             }
-            if (typeof ignoreReadonly !== 'boolean') {
+            if (typeof _ignoreReadonly !== 'boolean') {
                 throw new TypeError('ignoreReadonly () expects a boolean parameter');
             }
-            this._options.ignoreReadonly = ignoreReadonly;
-        }
+            this._options.ignoreReadonly = _ignoreReadonly;
+        };
 
-        options(newOptions) {
+        DateTimePicker.prototype.options = function options(newOptions) {
             if (arguments.length === 0) {
                 return $.extend(true, {}, this._options);
             }
@@ -795,15 +749,15 @@ const DateTimePicker = ($ => {
                 throw new TypeError('options() this.options parameter should be an object');
             }
             $.extend(true, this._options, newOptions);
-            let self = this;
+            var self = this;
             $.each(this._options, function (key, value) {
                 if (self[key] !== undefined) {
                     self[key](value);
                 }
             });
-        }
+        };
 
-        date(newDate) {
+        DateTimePicker.prototype.date = function date(newDate) {
             if (arguments.length === 0) {
                 if (this.unset) {
                     return null;
@@ -816,9 +770,9 @@ const DateTimePicker = ($ => {
             }
 
             this._setValue(newDate === null ? null : this._parseInputDate(newDate));
-        }
+        };
 
-        format(newFormat) {
+        DateTimePicker.prototype.format = function format(newFormat) {
             ///<summary>test su</summary>
             ///<param name="newFormat">info about para</param>
             ///<returns type="string|boolean">returns foo</returns>
@@ -827,16 +781,16 @@ const DateTimePicker = ($ => {
             }
 
             if (typeof newFormat !== 'string' && (typeof newFormat !== 'boolean' || newFormat !== false)) {
-                throw new TypeError(`format() expects a string or boolean:false parameter ${ newFormat }`);
+                throw new TypeError('format() expects a string or boolean:false parameter ' + newFormat);
             }
 
             this._options.format = newFormat;
             if (this.actualFormat) {
                 this._initFormatting(); // reinitialize formatting
             }
-        }
+        };
 
-        timeZone(newZone) {
+        DateTimePicker.prototype.timeZone = function timeZone(newZone) {
             if (arguments.length === 0) {
                 return this._options.timeZone;
             }
@@ -846,9 +800,9 @@ const DateTimePicker = ($ => {
             }
 
             this._options.timeZone = newZone;
-        }
+        };
 
-        dayViewHeaderFormat(newFormat) {
+        DateTimePicker.prototype.dayViewHeaderFormat = function dayViewHeaderFormat(newFormat) {
             if (arguments.length === 0) {
                 return this._options.dayViewHeaderFormat;
             }
@@ -858,9 +812,9 @@ const DateTimePicker = ($ => {
             }
 
             this._options.dayViewHeaderFormat = newFormat;
-        }
+        };
 
-        extraFormats(formats) {
+        DateTimePicker.prototype.extraFormats = function extraFormats(formats) {
             if (arguments.length === 0) {
                 return this._options.extraFormats;
             }
@@ -873,9 +827,9 @@ const DateTimePicker = ($ => {
             if (this.parseFormats) {
                 this._initFormatting(); // reinit formatting
             }
-        }
+        };
 
-        disabledDates(dates) {
+        DateTimePicker.prototype.disabledDates = function disabledDates(dates) {
             if (arguments.length === 0) {
                 return this._options.disabledDates ? $.extend({}, this._options.disabledDates) : this._options.disabledDates;
             }
@@ -891,9 +845,9 @@ const DateTimePicker = ($ => {
             this._options.disabledDates = this._indexGivenDates(dates);
             this._options.enabledDates = false;
             this._update();
-        }
+        };
 
-        enabledDates(dates) {
+        DateTimePicker.prototype.enabledDates = function enabledDates(dates) {
             if (arguments.length === 0) {
                 return this._options.enabledDates ? $.extend({}, this._options.enabledDates) : this._options.enabledDates;
             }
@@ -909,23 +863,23 @@ const DateTimePicker = ($ => {
             this._options.enabledDates = this._indexGivenDates(dates);
             this._options.disabledDates = false;
             this._update();
-        }
+        };
 
-        daysOfWeekDisabled(daysOfWeekDisabled) {
+        DateTimePicker.prototype.daysOfWeekDisabled = function daysOfWeekDisabled(_daysOfWeekDisabled) {
             if (arguments.length === 0) {
                 return this._options.daysOfWeekDisabled.splice(0);
             }
 
-            if (typeof daysOfWeekDisabled === 'boolean' && !daysOfWeekDisabled) {
+            if (typeof _daysOfWeekDisabled === 'boolean' && !_daysOfWeekDisabled) {
                 this._options.daysOfWeekDisabled = false;
                 this._update();
                 return;
             }
 
-            if (!(daysOfWeekDisabled instanceof Array)) {
+            if (!(_daysOfWeekDisabled instanceof Array)) {
                 throw new TypeError('daysOfWeekDisabled() expects an array parameter');
             }
-            this._options.daysOfWeekDisabled = daysOfWeekDisabled.reduce(function (previousValue, currentValue) {
+            this._options.daysOfWeekDisabled = _daysOfWeekDisabled.reduce(function (previousValue, currentValue) {
                 currentValue = parseInt(currentValue, 10);
                 if (currentValue > 6 || currentValue < 0 || isNaN(currentValue)) {
                     return previousValue;
@@ -936,7 +890,7 @@ const DateTimePicker = ($ => {
                 return previousValue;
             }, []).sort();
             if (this._options.useCurrent && !this._options.keepInvalid) {
-                let tries = 0;
+                var tries = 0;
                 while (!this._isValid(this._date, 'd')) {
                     this._date.add(1, 'd');
                     if (tries === 31) {
@@ -947,98 +901,98 @@ const DateTimePicker = ($ => {
                 this._setValue(this._date);
             }
             this._update();
-        }
+        };
 
-        maxDate(maxDate) {
+        DateTimePicker.prototype.maxDate = function maxDate(_maxDate) {
             if (arguments.length === 0) {
                 return this._options.maxDate ? this._options.maxDate.clone() : this._options.maxDate;
             }
 
-            if (typeof maxDate === 'boolean' && maxDate === false) {
+            if (typeof _maxDate === 'boolean' && _maxDate === false) {
                 this._options.maxDate = false;
                 this._update();
                 return;
             }
 
-            if (typeof maxDate === 'string') {
-                if (maxDate === 'now' || maxDate === 'moment') {
-                    maxDate = this.getMoment();
+            if (typeof _maxDate === 'string') {
+                if (_maxDate === 'now' || _maxDate === 'moment') {
+                    _maxDate = this.getMoment();
                 }
             }
 
-            const parsedDate = this._parseInputDate(maxDate);
+            var parsedDate = this._parseInputDate(_maxDate);
 
             if (!parsedDate.isValid()) {
-                throw new TypeError(`maxDate() Could not parse date parameter: ${ maxDate }`);
+                throw new TypeError('maxDate() Could not parse date parameter: ' + _maxDate);
             }
             if (this._options.minDate && parsedDate.isBefore(this._options.minDate)) {
-                throw new TypeError(`maxDate() date parameter is before this.options.minDate: ${ parsedDate.format(this.actualFormat) }`);
+                throw new TypeError('maxDate() date parameter is before this.options.minDate: ' + parsedDate.format(this.actualFormat));
             }
             this._options.maxDate = parsedDate;
-            if (this._options.useCurrent && !this._options.keepInvalid && this._date.isAfter(maxDate)) {
+            if (this._options.useCurrent && !this._options.keepInvalid && this._date.isAfter(_maxDate)) {
                 this._setValue(this._options.maxDate);
             }
             if (this._viewDate.isAfter(parsedDate)) {
                 this._viewDate = parsedDate.clone().subtract(this._options.stepping, 'm');
             }
             this._update();
-        }
+        };
 
-        minDate(minDate) {
+        DateTimePicker.prototype.minDate = function minDate(_minDate) {
             if (arguments.length === 0) {
                 return this._options.minDate ? this._options.minDate.clone() : this._options.minDate;
             }
 
-            if (typeof minDate === 'boolean' && minDate === false) {
+            if (typeof _minDate === 'boolean' && _minDate === false) {
                 this._options.minDate = false;
                 this._update();
                 return;
             }
 
-            if (typeof minDate === 'string') {
-                if (minDate === 'now' || minDate === 'moment') {
-                    minDate = this.getMoment();
+            if (typeof _minDate === 'string') {
+                if (_minDate === 'now' || _minDate === 'moment') {
+                    _minDate = this.getMoment();
                 }
             }
 
-            const parsedDate = this._parseInputDate(minDate);
+            var parsedDate = this._parseInputDate(_minDate);
 
             if (!parsedDate.isValid()) {
-                throw new TypeError(`minDate() Could not parse date parameter: ${ minDate }`);
+                throw new TypeError('minDate() Could not parse date parameter: ' + _minDate);
             }
             if (this._options.maxDate && parsedDate.isAfter(this._options.maxDate)) {
-                throw new TypeError(`minDate() date parameter is after this.options.maxDate: ${ parsedDate.format(this.actualFormat) }`);
+                throw new TypeError('minDate() date parameter is after this.options.maxDate: ' + parsedDate.format(this.actualFormat));
             }
             this._options.minDate = parsedDate;
-            if (this._options.useCurrent && !this._options.keepInvalid && this._date.isBefore(minDate)) {
+            if (this._options.useCurrent && !this._options.keepInvalid && this._date.isBefore(_minDate)) {
                 this._setValue(this._options.minDate);
             }
             if (this._viewDate.isBefore(parsedDate)) {
                 this._viewDate = parsedDate.clone().add(this._options.stepping, 'm');
             }
             this._update();
-        }
+        };
 
-        defaultDate(defaultDate) {
+        DateTimePicker.prototype.defaultDate = function defaultDate(_defaultDate) {
             if (arguments.length === 0) {
                 return this._options.defaultDate ? this._options.defaultDate.clone() : this._options.defaultDate;
             }
-            if (!defaultDate) {
+            if (!_defaultDate) {
                 this._options.defaultDate = false;
                 return;
             }
 
-            if (typeof defaultDate === 'string') {
-                if (defaultDate === 'now' || defaultDate === 'moment') {
-                    defaultDate = this.getMoment();
+            if (typeof _defaultDate === 'string') {
+                if (_defaultDate === 'now' || _defaultDate === 'moment') {
+                    _defaultDate = this.getMoment();
                 } else {
-                    defaultDate = this.getMoment(defaultDate);
+                    _defaultDate = this.getMoment(_defaultDate);
                 }
             }
 
-            const parsedDate = this._parseInputDate(defaultDate);
+            var parsedDate = this._parseInputDate(_defaultDate);
             if (!parsedDate.isValid()) {
-                throw new TypeError(`defaultDate() Could not parse date parameter: ${ defaultDate }`);
+                throw new TypeError('defaultDate() Could not parse date parameter: ' + _defaultDate);
             }
             if (!this._isValid(parsedDate)) {
                 throw new TypeError('defaultDate() date passed is invalid according to component setup validations');
@@ -1049,18 +1003,18 @@ const DateTimePicker = ($ => {
             if (this._options.defaultDate && this._options.inline || this.input !== undefined && this.input.val().trim() === '') {
                 this._setValue(this._options.defaultDate);
             }
-        }
+        };
 
-        locale(locale) {
+        DateTimePicker.prototype.locale = function locale(_locale) {
             if (arguments.length === 0) {
                 return this._options.locale;
             }
 
-            if (!moment.localeData(locale)) {
-                throw new TypeError(`locale() locale ${ locale } is not loaded from moment locales!`);
+            if (!moment.localeData(_locale)) {
+                throw new TypeError('locale() locale ' + _locale + ' is not loaded from moment locales!');
             }
 
-            this._options.locale = locale;
+            this._options.locale = _locale;
             this._date.locale(this._options.locale);
             this._viewDate.locale(this._options.locale);
 
@@ -1071,153 +1025,153 @@ const DateTimePicker = ($ => {
                 this.hide();
                 this.show();
             }
-        }
+        };
 
-        stepping(stepping) {
+        DateTimePicker.prototype.stepping = function stepping(_stepping) {
             if (arguments.length === 0) {
                 return this._options.stepping;
             }
 
-            stepping = parseInt(stepping, 10);
-            if (isNaN(stepping) || stepping < 1) {
-                stepping = 1;
+            _stepping = parseInt(_stepping, 10);
+            if (isNaN(_stepping) || _stepping < 1) {
+                _stepping = 1;
             }
-            this._options.stepping = stepping;
-        }
+            this._options.stepping = _stepping;
+        };
 
-        useCurrent(useCurrent) {
-            const useCurrentOptions = ['year', 'month', 'day', 'hour', 'minute'];
+        DateTimePicker.prototype.useCurrent = function useCurrent(_useCurrent) {
+            var useCurrentOptions = ['year', 'month', 'day', 'hour', 'minute'];
             if (arguments.length === 0) {
                 return this._options.useCurrent;
             }
 
-            if (typeof useCurrent !== 'boolean' && typeof useCurrent !== 'string') {
+            if (typeof _useCurrent !== 'boolean' && typeof _useCurrent !== 'string') {
                 throw new TypeError('useCurrent() expects a boolean or string parameter');
             }
-            if (typeof useCurrent === 'string' && useCurrentOptions.indexOf(useCurrent.toLowerCase()) === -1) {
-                throw new TypeError(`useCurrent() expects a string parameter of ${ useCurrentOptions.join(', ') }`);
+            if (typeof _useCurrent === 'string' && useCurrentOptions.indexOf(_useCurrent.toLowerCase()) === -1) {
+                throw new TypeError('useCurrent() expects a string parameter of ' + useCurrentOptions.join(', '));
             }
-            this._options.useCurrent = useCurrent;
-        }
+            this._options.useCurrent = _useCurrent;
+        };
 
-        collapse(collapse) {
+        DateTimePicker.prototype.collapse = function collapse(_collapse) {
             if (arguments.length === 0) {
                 return this._options.collapse;
             }
 
-            if (typeof collapse !== 'boolean') {
+            if (typeof _collapse !== 'boolean') {
                 throw new TypeError('collapse() expects a boolean parameter');
             }
-            if (this._options.collapse === collapse) {
+            if (this._options.collapse === _collapse) {
                 return;
             }
-            this._options.collapse = collapse;
+            this._options.collapse = _collapse;
             if (this.widget) {
                 this.hide();
                 this.show();
             }
-        }
+        };
 
-        icons(icons) {
+        DateTimePicker.prototype.icons = function icons(_icons) {
             if (arguments.length === 0) {
                 return $.extend({}, this._options.icons);
             }
 
-            if (!(icons instanceof Object)) {
+            if (!(_icons instanceof Object)) {
                 throw new TypeError('icons() expects parameter to be an Object');
             }
 
-            $.extend(this._options.icons, icons);
+            $.extend(this._options.icons, _icons);
 
             if (this.widget) {
                 this.hide();
                 this.show();
             }
-        }
+        };
 
-        tooltips(tooltips) {
+        DateTimePicker.prototype.tooltips = function tooltips(_tooltips) {
             if (arguments.length === 0) {
                 return $.extend({}, this._options.tooltips);
             }
 
-            if (!(tooltips instanceof Object)) {
+            if (!(_tooltips instanceof Object)) {
                 throw new TypeError('tooltips() expects parameter to be an Object');
             }
-            $.extend(this._options.tooltips, tooltips);
+            $.extend(this._options.tooltips, _tooltips);
             if (this.widget) {
                 this.hide();
                 this.show();
             }
-        }
+        };
 
-        useStrict(useStrict) {
+        DateTimePicker.prototype.useStrict = function useStrict(_useStrict) {
             if (arguments.length === 0) {
                 return this._options.useStrict;
             }
 
-            if (typeof useStrict !== 'boolean') {
+            if (typeof _useStrict !== 'boolean') {
                 throw new TypeError('useStrict() expects a boolean parameter');
             }
-            this._options.useStrict = useStrict;
-        }
+            this._options.useStrict = _useStrict;
+        };
 
-        sideBySide(sideBySide) {
+        DateTimePicker.prototype.sideBySide = function sideBySide(_sideBySide) {
             if (arguments.length === 0) {
                 return this._options.sideBySide;
             }
 
-            if (typeof sideBySide !== 'boolean') {
+            if (typeof _sideBySide !== 'boolean') {
                 throw new TypeError('sideBySide() expects a boolean parameter');
             }
-            this._options.sideBySide = sideBySide;
+            this._options.sideBySide = _sideBySide;
             if (this.widget) {
                 this.hide();
                 this.show();
             }
-        }
+        };
 
-        viewMode(viewMode) {
+        DateTimePicker.prototype.viewMode = function viewMode(_viewMode) {
             if (arguments.length === 0) {
                 return this._options.viewMode;
             }
 
-            if (typeof viewMode !== 'string') {
+            if (typeof _viewMode !== 'string') {
                 throw new TypeError('viewMode() expects a string parameter');
             }
 
-            if (DateTimePicker.ViewModes.indexOf(viewMode) === -1) {
-                throw new TypeError(`viewMode() parameter must be one of (${ DateTimePicker.ViewModes.join(', ') }) value`);
+            if (DateTimePicker.ViewModes.indexOf(_viewMode) === -1) {
+                throw new TypeError('viewMode() parameter must be one of (' + DateTimePicker.ViewModes.join(', ') + ') value');
             }
 
-            this._options.viewMode = viewMode;
-            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(viewMode), DateTimePicker.MinViewModeNumber);
+            this._options.viewMode = _viewMode;
+            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(_viewMode) - 1, DateTimePicker.MinViewModeNumber);
 
             this._showMode();
-        }
+        };
 
-        calendarWeeks(calendarWeeks) {
+        DateTimePicker.prototype.calendarWeeks = function calendarWeeks(_calendarWeeks) {
             if (arguments.length === 0) {
                 return this._options.calendarWeeks;
             }
 
-            if (typeof calendarWeeks !== 'boolean') {
+            if (typeof _calendarWeeks !== 'boolean') {
                 throw new TypeError('calendarWeeks() expects parameter to be a boolean value');
             }
 
-            this._options.calendarWeeks = calendarWeeks;
+            this._options.calendarWeeks = _calendarWeeks;
             this._update();
-        }
+        };
 
-        buttons(buttons) {
+        DateTimePicker.prototype.buttons = function buttons(_buttons) {
             if (arguments.length === 0) {
                 return $.extend({}, this._options.buttons);
             }
 
-            if (!(buttons instanceof Object)) {
+            if (!(_buttons instanceof Object)) {
                 throw new TypeError('buttons() expects parameter to be an Object');
             }
 
-            $.extend(this._options.buttons, buttons);
+            $.extend(this._options.buttons, _buttons);
 
             if (typeof this._options.buttons.showToday !== 'boolean') {
                 throw new TypeError('buttons.showToday expects a boolean parameter');
@@ -1233,129 +1187,129 @@ const DateTimePicker = ($ => {
                 this.hide();
                 this.show();
             }
-        }
+        };
 
-        keepOpen(keepOpen) {
+        DateTimePicker.prototype.keepOpen = function keepOpen(_keepOpen) {
             if (arguments.length === 0) {
                 return this._options.keepOpen;
             }
 
-            if (typeof keepOpen !== 'boolean') {
+            if (typeof _keepOpen !== 'boolean') {
                 throw new TypeError('keepOpen() expects a boolean parameter');
             }
 
-            this._options.keepOpen = keepOpen;
-        }
+            this._options.keepOpen = _keepOpen;
+        };
 
-        focusOnShow(focusOnShow) {
+        DateTimePicker.prototype.focusOnShow = function focusOnShow(_focusOnShow) {
             if (arguments.length === 0) {
                 return this._options.focusOnShow;
             }
 
-            if (typeof focusOnShow !== 'boolean') {
+            if (typeof _focusOnShow !== 'boolean') {
                 throw new TypeError('focusOnShow() expects a boolean parameter');
             }
 
-            this._options.focusOnShow = focusOnShow;
-        }
+            this._options.focusOnShow = _focusOnShow;
+        };
 
-        inline(inline) {
+        DateTimePicker.prototype.inline = function inline(_inline) {
             if (arguments.length === 0) {
                 return this._options.inline;
             }
 
-            if (typeof inline !== 'boolean') {
+            if (typeof _inline !== 'boolean') {
                 throw new TypeError('inline() expects a boolean parameter');
             }
 
-            this._options.inline = inline;
-        }
+            this._options.inline = _inline;
+        };
 
-        clear() {
+        DateTimePicker.prototype.clear = function clear() {
             this._setValue(null);
-        }
+        };
 
-        keyBinds(keyBinds) {
+        DateTimePicker.prototype.keyBinds = function keyBinds(_keyBinds) {
             if (arguments.length === 0) {
                 return this._options.keyBinds;
             }
 
-            this._options.keyBinds = keyBinds;
-        }
+            this._options.keyBinds = _keyBinds;
+        };
 
-        debug(debug) {
-            if (typeof debug !== 'boolean') {
+        DateTimePicker.prototype.debug = function debug(_debug) {
+            if (typeof _debug !== 'boolean') {
                 throw new TypeError('debug() expects a boolean parameter');
             }
 
-            this._options.debug = debug;
-        }
+            this._options.debug = _debug;
+        };
 
-        allowInputToggle(allowInputToggle) {
+        DateTimePicker.prototype.allowInputToggle = function allowInputToggle(_allowInputToggle) {
             if (arguments.length === 0) {
                 return this._options.allowInputToggle;
             }
 
-            if (typeof allowInputToggle !== 'boolean') {
+            if (typeof _allowInputToggle !== 'boolean') {
                 throw new TypeError('allowInputToggle() expects a boolean parameter');
             }
 
-            this._options.allowInputToggle = allowInputToggle;
-        }
+            this._options.allowInputToggle = _allowInputToggle;
+        };
 
-        keepInvalid(keepInvalid) {
+        DateTimePicker.prototype.keepInvalid = function keepInvalid(_keepInvalid) {
             if (arguments.length === 0) {
                 return this._options.keepInvalid;
             }
 
-            if (typeof keepInvalid !== 'boolean') {
+            if (typeof _keepInvalid !== 'boolean') {
                 throw new TypeError('keepInvalid() expects a boolean parameter');
             }
-            this._options.keepInvalid = keepInvalid;
-        }
+            this._options.keepInvalid = _keepInvalid;
+        };
 
-        datepickerInput(datepickerInput) {
+        DateTimePicker.prototype.datepickerInput = function datepickerInput(_datepickerInput) {
             if (arguments.length === 0) {
                 return this._options.datepickerInput;
             }
 
-            if (typeof datepickerInput !== 'string') {
+            if (typeof _datepickerInput !== 'string') {
                 throw new TypeError('datepickerInput() expects a string parameter');
             }
 
-            this._options.datepickerInput = datepickerInput;
-        }
+            this._options.datepickerInput = _datepickerInput;
+        };
 
-        parseInputDate(parseInputDate) {
+        DateTimePicker.prototype.parseInputDate = function parseInputDate(_parseInputDate2) {
             if (arguments.length === 0) {
                 return this._options.parseInputDate;
             }
 
-            if (typeof parseInputDate !== 'function') {
+            if (typeof _parseInputDate2 !== 'function') {
                 throw new TypeError('parseInputDate() should be as function');
             }
 
-            this._options.parseInputDate = parseInputDate;
-        }
+            this._options.parseInputDate = _parseInputDate2;
+        };
 
-        disabledTimeIntervals(disabledTimeIntervals) {
+        DateTimePicker.prototype.disabledTimeIntervals = function disabledTimeIntervals(_disabledTimeIntervals) {
             if (arguments.length === 0) {
                 return this._options.disabledTimeIntervals ? $.extend({}, this._options.disabledTimeIntervals) : this._options.disabledTimeIntervals;
             }
 
-            if (!disabledTimeIntervals) {
+            if (!_disabledTimeIntervals) {
                 this._options.disabledTimeIntervals = false;
                 this._update();
                 return;
             }
-            if (!(disabledTimeIntervals instanceof Array)) {
+            if (!(_disabledTimeIntervals instanceof Array)) {
                 throw new TypeError('disabledTimeIntervals() expects an array parameter');
             }
-            this._options.disabledTimeIntervals = disabledTimeIntervals;
+            this._options.disabledTimeIntervals = _disabledTimeIntervals;
             this._update();
-        }
+        };
 
-        disabledHours(hours) {
+        DateTimePicker.prototype.disabledHours = function disabledHours(hours) {
             if (arguments.length === 0) {
                 return this._options.disabledHours ? $.extend({}, this._options.disabledHours) : this._options.disabledHours;
             }
@@ -1371,7 +1325,7 @@ const DateTimePicker = ($ => {
             this._options.disabledHours = this._indexGivenHours(hours);
             this._options.enabledHours = false;
             if (this._options.useCurrent && !this._options.keepInvalid) {
-                let tries = 0;
+                var tries = 0;
                 while (!this._isValid(this._date, 'h')) {
                     this._date.add(1, 'h');
                     if (tries === 24) {
@@ -1382,9 +1336,9 @@ const DateTimePicker = ($ => {
                 this._setValue(this._date);
             }
             this._update();
-        }
+        };
 
-        enabledHours(hours) {
+        DateTimePicker.prototype.enabledHours = function enabledHours(hours) {
             if (arguments.length === 0) {
                 return this._options.enabledHours ? $.extend({}, this._options.enabledHours) : this._options.enabledHours;
             }
@@ -1400,7 +1354,7 @@ const DateTimePicker = ($ => {
             this._options.enabledHours = this._indexGivenHours(hours);
             this._options.disabledHours = false;
             if (this._options.useCurrent && !this._options.keepInvalid) {
-                let tries = 0;
+                var tries = 0;
                 while (!this._isValid(this._date, 'h')) {
                     this._date.add(1, 'h');
                     if (tries === 24) {
@@ -1411,9 +1365,9 @@ const DateTimePicker = ($ => {
                 this._setValue(this._date);
             }
             this._update();
-        }
+        };
 
-        viewDate(newDate) {
+        DateTimePicker.prototype.viewDate = function viewDate(newDate) {
             if (arguments.length === 0) {
                 return this._viewDate.clone();
             }
@@ -1429,10 +1383,97 @@ const DateTimePicker = ($ => {
 
             this._viewDate = this._parseInputDate(newDate);
             this._viewUpdate();
-        }
-    }
+        };
+
+        _createClass(DateTimePicker, null, [{
+            key: 'NAME',
+            get: function get() {
+                return NAME;
+            }
+
+            /**
+             * @return {string}
+             */
+
+        }, {
+            key: 'VERSION',
+            get: function get() {
+                return VERSION;
+            }
+
+            /**
+             * @return {string}
+             */
+
+        }, {
+            key: 'DATA_KEY',
+            get: function get() {
+                return DATA_KEY;
+            }
+
+            /**
+             * @return {string}
+             */
+
+        }, {
+            key: 'EVENT_KEY',
+            get: function get() {
+                return EVENT_KEY;
+            }
+
+            /**
+             * @return {string}
+             */
+
+        }, {
+            key: 'DATA_API_KEY',
+            get: function get() {
+                return DATA_API_KEY;
+            }
+        }, {
+            key: 'DatePickerModes',
+            get: function get() {
+                return DatePickerModes;
+            }
+        }, {
+            key: 'ViewModes',
+            get: function get() {
+                return ViewModes;
+            }
+
+            /**
+             * @return {number}
+             */
+
+        }, {
+            key: 'MinViewModeNumber',
+            get: function get() {
+                return MinViewModeNumber;
+            }
+        }, {
+            key: 'Event',
+            get: function get() {
+                return Event;
+            }
+        }, {
+            key: 'Selector',
+            get: function get() {
+                return Selector;
+            }
+        }, {
+            key: 'Default',
+            get: function get() {
+                return Default;
+            }
+        }, {
+            key: 'ClassName',
+            get: function get() {
+                return ClassName;
+            }
+        }]);
+
+        return DateTimePicker;
+    }();
 
     return DateTimePicker;
-})(jQuery);
-
-export default DateTimePicker;
+}(jQuery);

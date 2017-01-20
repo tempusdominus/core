@@ -74,7 +74,8 @@ const DateTimePicker = ($ => {
                 incrementSecond: 'Increment Second',
                 decrementSecond: 'Decrement Second',
                 togglePeriod: 'Toggle Period',
-                selectTime: 'Select Time'
+                selectTime: 'Select Time',
+                selectDate: 'Select Date'
             },
             useStrict: false,
             sideBySide: false,
@@ -192,7 +193,7 @@ const DateTimePicker = ($ => {
                     return true;
                 },
                 escape: function () {
-                    if (!widget) {
+                    if (!this.widget) {
                         return false;
                     }
                     this.hide();
@@ -273,10 +274,11 @@ const DateTimePicker = ($ => {
             'delete': 46,
             46: 'delete'
         },
-        ViewModes = ['days', 'months', 'years', 'decades'];
+        ViewModes = ['time', 'days', 'months', 'years', 'decades'];
 
     let MinViewModeNumber = 0,
-        keyState = {};
+        keyState = {},
+        keyPressHandled = {};
 
     class DateTimePicker {
         /** @namespace eData.dateOptions */
@@ -677,7 +679,7 @@ const DateTimePicker = ($ => {
             }
 
             if (handler) {
-                if (handler.call(picker, widget)) {
+                if (handler.call(this.widget)) {
                     e.stopPropagation();
                     e.preventDefault();
                 }
@@ -688,6 +690,7 @@ const DateTimePicker = ($ => {
         _keyup(e) {
             keyState[e.which] = 'r';
             if (keyPressHandled[e.which]) {
+                keyPressHandled[e.which] = false;
                 e.stopPropagation();
                 e.preventDefault();
             }
@@ -1190,7 +1193,7 @@ const DateTimePicker = ($ => {
             }
 
             this._options.viewMode = viewMode;
-            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(viewMode), DateTimePicker.MinViewModeNumber);
+            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(viewMode) - 1, DateTimePicker.MinViewModeNumber);
 
             this._showMode();
         }

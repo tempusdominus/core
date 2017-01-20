@@ -102,7 +102,7 @@ module.exports = function (grunt) {
         }
     });
 
-    //grunt.loadTasks('tasks');
+    grunt.loadTasks('tasks');
 
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-contrib-connect');
@@ -138,8 +138,8 @@ module.exports = function (grunt) {
         grunt.task.run([
             'bump_version:' + version,
             'build:travis',
-            'docs',
-            'nugetpack'
+            'docs'//,
+            //'nugetpack'
         ]);
     });
 };
