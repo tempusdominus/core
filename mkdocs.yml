@@ -6,11 +6,8 @@ site_dir: docs
 theme_dir: src/docs/theme
 pages:
 - Home: 'index.md'
-- Installing: 'Installing.md'
 - Functions: 'Functions.md'
 - Options: 'Options.md'
 - Events: 'Events.md'
 - Change Log: 'Changelog.md'
-- Dev Guide: 'ContributorsGuide.md'
-- Extras: 'Extras.md'
 - FAQs: 'FAQ.md'

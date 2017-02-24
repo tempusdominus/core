@@ -1,5 +1,16 @@
 # Version 5
 
+## 5.0.0-alpha3
+* Updated docs to include a guide on creating modules.
+
+## 5.0.0-alpha2
+
+* Add viewmode time
+
+### From old repo
+* #1915
+* #1913
+
 ## 5.0.0-alpha
 
 ### New Features
