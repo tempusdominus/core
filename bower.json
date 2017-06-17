@@ -1,6 +1,6 @@
 {
   "name": "eonasdan-bootstrap-datetimepicker",
-  "version": "5.0.0-alpha3",
+  "version": "5.0.0-alpha4",
   "main": [
     "build/js/core.js"
   ],

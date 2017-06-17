@@ -52,11 +52,24 @@ module.exports = function (grunt) {
             }
         });
 
+        grunt.config('string-replace.js', {
+            files: { 'src/js/tempusdominus-core.js': 'src/js/empusdominus-core.js' },
+            options: {
+                replacements: [
+                    {
+                        pattern: /VERSION = .*/,
+                        replacement: 'VERSION = \'' + version + '\','
+                    }
+                ]
+            }
+        });
+
         grunt.task.run([
             'string-replace:package-json',
             'string-replace:bower-json',
             'string-replace:component-json',
-            'string-replace:composer-json'
+            'string-replace:composer-json',
+            'string-replace:js'
         ]);
     });
 };
