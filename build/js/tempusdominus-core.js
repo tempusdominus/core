@@ -4,7 +4,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var DateTimePicker = function ($) {
     var NAME = 'datetimepicker',
-        VERSION = '5.0.0-alpha.1',
+        VERSION = '5.0.0-alpha.4',
         DATA_KEY = '' + NAME,
         EVENT_KEY = '.' + DATA_KEY,
         EMIT_EVENT_KEY = DATA_KEY + '.',
@@ -38,20 +38,20 @@ var DateTimePicker = function ($) {
         maxDate: false,
         useCurrent: true,
         collapse: true,
-        locale: moment.locale(),
+        locale: window.moment.locale(),
         defaultDate: false,
         disabledDates: false,
         enabledDates: false,
         icons: {
-            time: 'glyphicon glyphicon-time',
-            date: 'glyphicon glyphicon-calendar',
-            up: 'glyphicon glyphicon-chevron-up',
-            down: 'glyphicon glyphicon-chevron-down',
-            previous: 'glyphicon glyphicon-chevron-left',
-            next: 'glyphicon glyphicon-chevron-right',
-            today: 'glyphicon glyphicon-screenshot',
-            clear: 'glyphicon glyphicon-trash',
-            close: 'glyphicon glyphicon-remove'
+            time: 'fa fa-clock-o',
+            date: 'fa fa-calendar',
+            up: 'fa fa-arrow-up',
+            down: 'fa fa-arrow-down',
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-calendar-check-o',
+            clear: 'fa fa-delete',
+            close: 'fa fa-times'
         },
         tooltips: {
             today: 'Go to today',
@@ -278,7 +278,7 @@ var DateTimePicker = function ($) {
         'delete': 46,
         46: 'delete'
     },
-        ViewModes = ['time', 'days', 'months', 'years', 'decades'];
+        ViewModes = ['times', 'days', 'months', 'years', 'decades'];
 
     var MinViewModeNumber = 0,
         keyState = {},
@@ -435,7 +435,7 @@ var DateTimePicker = function ($) {
         };
 
         DateTimePicker.prototype._hasTimeZone = function _hasTimeZone() {
-            return moment.tz !== undefined && this._options.timeZone !== undefined && this._options.timeZone !== null && this._options.timeZone !== '';
+            return window.moment.tz !== undefined && this._options.timeZone !== undefined && this._options.timeZone !== null && this._options.timeZone !== '';
         };
 
         DateTimePicker.prototype._isEnabled = function _isEnabled(granularity) {
@@ -574,7 +574,7 @@ var DateTimePicker = function ($) {
 
         DateTimePicker.prototype._parseInputDate = function _parseInputDate(inputDate) {
             if (this._options.parseInputDate === undefined) {
-                if (!moment.isMoment(inputDate)) {
+                if (!window.moment.isMoment(inputDate)) {
                     inputDate = this.getMoment(inputDate);
                 }
             } else {
@@ -710,13 +710,13 @@ var DateTimePicker = function ($) {
             var returnMoment = void 0;
 
             if (d === undefined || d === null) {
-                returnMoment = moment(); //TODO should this use format? and locale?
+                returnMoment = window.moment(); //TODO should this use format? and locale?
             } else if (this._hasTimeZone()) {
                 // There is a string to parse and a default time zone
                 // parse with the tz function which takes a default time zone if it is not in the format string
-                returnMoment = moment.tz(d, this.parseFormats, this._options.useStrict, this._options.timeZone);
+                returnMoment = window.moment.tz(d, this.parseFormats, this._options.useStrict, this._options.timeZone);
             } else {
-                returnMoment = moment(d, this.parseFormats, this._options.useStrict);
+                returnMoment = window.moment(d, this.parseFormats, this._options.useStrict);
             }
 
             if (this._hasTimeZone()) {
@@ -765,7 +765,7 @@ var DateTimePicker = function ($) {
                 return this._date.clone();
             }
 
-            if (newDate !== null && typeof newDate !== 'string' && !moment.isMoment(newDate) && !(newDate instanceof Date)) {
+            if (newDate !== null && typeof newDate !== 'string' && !window.moment.isMoment(newDate) && !(newDate instanceof Date)) {
                 throw new TypeError('date() parameter must be one of [null, string, moment or Date]');
             }
 
@@ -1010,7 +1010,7 @@ var DateTimePicker = function ($) {
                 return this._options.locale;
             }
 
-            if (!moment.localeData(_locale)) {
+            if (!window.moment.localeData(_locale)) {
                 throw new TypeError('locale() locale ' + _locale + ' is not loaded from moment locales!');
             }
 
@@ -1377,7 +1377,7 @@ var DateTimePicker = function ($) {
                 return;
             }
 
-            if (typeof newDate !== 'string' && !moment.isMoment(newDate) && !(newDate instanceof Date)) {
+            if (typeof newDate !== 'string' && !window.moment.isMoment(newDate) && !(newDate instanceof Date)) {
                 throw new TypeError('viewDate() parameter must be one of [string, moment or Date]');
             }
 
