@@ -2,9 +2,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// ReSharper disable once InconsistentNaming
 var DateTimePicker = function ($) {
+    // ReSharper disable InconsistentNaming
     var NAME = 'datetimepicker',
-        VERSION = '5.0.0-alpha.4',
+        VERSION = '5.0.0-alpha7',
         DATA_KEY = '' + NAME,
         EVENT_KEY = '.' + DATA_KEY,
         EMIT_EVENT_KEY = DATA_KEY + '.',
@@ -229,7 +231,9 @@ var DateTimePicker = function ($) {
         disabledTimeIntervals: false,
         disabledHours: false,
         enabledHours: false,
-        viewDate: false
+        viewDate: false,
+        allowMultidate: false,
+        multidateSeparator: ','
     },
         DatePickerModes = [{
         CLASS_NAME: 'days',
@@ -278,11 +282,15 @@ var DateTimePicker = function ($) {
         'delete': 46,
         46: 'delete'
     },
-        ViewModes = ['times', 'days', 'months', 'years', 'decades'];
-
-    var MinViewModeNumber = 0,
+        ViewModes = ['times', 'days', 'months', 'years', 'decades'],
         keyState = {},
         keyPressHandled = {};
+
+    var MinViewModeNumber = 0;
+    // ReSharper restore InconsistentNaming
+
+    // ReSharper disable once DeclarationHides
+    // ReSharper disable once InconsistentNaming
 
     var DateTimePicker = function () {
         /** @namespace eData.dateOptions */
@@ -293,7 +301,8 @@ var DateTimePicker = function ($) {
 
             this._options = this._getOptions(options);
             this._element = element;
-            this._date = null;
+            this._dates = [];
+            this._datesFormatted = [];
             this._viewDate = null;
             this.unset = true;
             this.component = false;
@@ -325,8 +334,9 @@ var DateTimePicker = function ($) {
                 }
             }
 
-            this._date = this.getMoment();
-            this._viewDate = this._date.clone();
+            this._dates = [];
+            this._dates[0] = this.getMoment();
+            this._viewDate = this.getMoment().clone();
 
             $.extend(true, this._options, this._dataToOptions());
 
@@ -352,17 +362,24 @@ var DateTimePicker = function ($) {
             this._fillTime();
         };
 
-        DateTimePicker.prototype._setValue = function _setValue(targetMoment) {
-            var oldDate = this.unset ? null : this._date;
-
+        DateTimePicker.prototype._setValue = function _setValue(targetMoment, index) {
+            var oldDate = this.unset ? null : this._dates[index];
+            var outpValue = '';
             // case of calling setValue(null or false)
             if (!targetMoment) {
-                this.unset = true;
+                if (!this._options.allowMultidate || this._dates.length === 1) {
+                    this.unset = true;
+                } else {
+                    outpValue = this._element.data('date') + ',';
+                    outpValue = outpValue.replace(oldDate.format(this.actualFormat) + ',', '').replace(',,', '').replace(/,\s*$/, '');
+                    this._dates.splice(index, 1);
+                    this._datesFormatted.splice(index, 1);
+                }
                 if (this.input !== undefined) {
-                    this.input.val('');
+                    this.input.val(outpValue);
                     this.input.trigger('input');
                 }
-                this._element.data('date', '');
+                this._element.data('date', outpValue);
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
                     date: false,
@@ -383,24 +400,34 @@ var DateTimePicker = function ($) {
             }
 
             if (this._isValid(targetMoment)) {
-                this._date = targetMoment;
+                this._dates[index] = targetMoment;
+                this._datesFormatted[index] = targetMoment.format('YYYY-MM-DD');
                 this._viewDate = targetMoment.clone();
+                if (this._options.allowMultidate && this._dates.length > 1) {
+                    for (var i = 0; i < this._dates.length; i++) {
+                        outpValue += '' + this._dates[i].format(this.actualFormat) + this._options.multidateSeparator;
+                    }
+                    outpValue = outpValue.replace(/,\s*$/, '');
+                } else {
+                    outpValue = this._dates[index].format(this.actualFormat);
+                }
                 if (this.input !== undefined) {
-                    this.input.val(this._date.format(this.actualFormat));
+                    this.input.val(outpValue);
                     this.input.trigger('input');
                 }
-                this._element.data('date', this._date.format(this.actualFormat));
+                this._element.data('date', outpValue);
+
                 this.unset = false;
                 this._update();
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
-                    date: this._date.clone(),
+                    date: this._dates[index].clone(),
                     oldDate: oldDate
                 });
             } else {
                 if (!this._options.keepInvalid) {
                     if (this.input !== undefined) {
-                        this.input.val('' + (this.unset ? '' : this._date.format(this.actualFormat)));
+                        this.input.val('' + (this.unset ? '' : this._dates[index].format(this.actualFormat)));
                         this.input.trigger('input');
                     }
                 } else {
@@ -470,8 +497,8 @@ var DateTimePicker = function ($) {
         };
 
         DateTimePicker.prototype._dataToOptions = function _dataToOptions() {
-            var eData = this._element.data(),
-                dataOptions = {};
+            var eData = this._element.data();
+            var dataOptions = {};
 
             if (eData.dateOptions && eData.dateOptions instanceof Object) {
                 dataOptions = $.extend(true, dataOptions, eData.dateOptions);
@@ -672,11 +699,11 @@ var DateTimePicker = function ($) {
         };
 
         DateTimePicker.prototype._initFormatting = function _initFormatting() {
-            var format = this._options.format || 'L LT';
+            var format = this._options.format || 'L LT',
+                self = this;
 
-            var self = this;
             this.actualFormat = format.replace(/(\[[^\[]*])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g, function (formatInput) {
-                return self._date.localeData().longDateFormat(formatInput) || formatInput;
+                return self._dates[0].localeData().longDateFormat(formatInput) || formatInput; //todo taking the first date should be ok
             });
 
             this.parseFormats = this._options.extraFormats ? this._options.extraFormats.slice() : [];
@@ -701,6 +728,14 @@ var DateTimePicker = function ($) {
             if (!this.unset) {
                 this._setValue(this._date);
             }
+        };
+
+        DateTimePicker.prototype._getLastPickedDate = function _getLastPickedDate() {
+            return this._dates[this._getLastPickedDateIndex()];
+        };
+
+        DateTimePicker.prototype._getLastPickedDateIndex = function _getLastPickedDateIndex() {
+            return this._dates.length - 1;
         };
 
         //public
@@ -757,19 +792,24 @@ var DateTimePicker = function ($) {
             });
         };
 
-        DateTimePicker.prototype.date = function date(newDate) {
+        DateTimePicker.prototype.date = function date(newDate, index) {
+            index = index || 0;
             if (arguments.length === 0) {
                 if (this.unset) {
                     return null;
                 }
-                return this._date.clone();
+                if (this._options.allowMultidate) {
+                    return this._dates.join(this._options.multidateSeparator);
+                } else {
+                    return this._dates[index].clone();
+                }
             }
 
             if (newDate !== null && typeof newDate !== 'string' && !window.moment.isMoment(newDate) && !(newDate instanceof Date)) {
                 throw new TypeError('date() parameter must be one of [null, string, moment or Date]');
             }
 
-            this._setValue(newDate === null ? null : this._parseInputDate(newDate));
+            this._setValue(newDate === null ? null : this._parseInputDate(newDate), index);
         };
 
         DateTimePicker.prototype.format = function format(newFormat) {
@@ -837,7 +877,7 @@ var DateTimePicker = function ($) {
             if (!dates) {
                 this._options.disabledDates = false;
                 this._update();
-                return;
+                return true;
             }
             if (!(dates instanceof Array)) {
                 throw new TypeError('disabledDates() expects an array parameter');
@@ -855,7 +895,7 @@ var DateTimePicker = function ($) {
             if (!dates) {
                 this._options.enabledDates = false;
                 this._update();
-                return;
+                return true;
             }
             if (!(dates instanceof Array)) {
                 throw new TypeError('enabledDates() expects an array parameter');
@@ -873,7 +913,7 @@ var DateTimePicker = function ($) {
             if (typeof _daysOfWeekDisabled === 'boolean' && !_daysOfWeekDisabled) {
                 this._options.daysOfWeekDisabled = false;
                 this._update();
-                return;
+                return true;
             }
 
             if (!(_daysOfWeekDisabled instanceof Array)) {
@@ -890,15 +930,17 @@ var DateTimePicker = function ($) {
                 return previousValue;
             }, []).sort();
             if (this._options.useCurrent && !this._options.keepInvalid) {
-                var tries = 0;
-                while (!this._isValid(this._date, 'd')) {
-                    this._date.add(1, 'd');
-                    if (tries === 31) {
-                        throw 'Tried 31 times to find a valid date';
+                for (var i = 0; i < this._dates.length; i++) {
+                    var tries = 0;
+                    while (!this._isValid(this._dates[i], 'd')) {
+                        this._dates[i].add(1, 'd');
+                        if (tries === 31) {
+                            throw 'Tried 31 times to find a valid date';
+                        }
+                        tries++;
                     }
-                    tries++;
+                    this._setValue(this._dates[i], i);
                 }
-                this._setValue(this._date);
             }
             this._update();
         };
@@ -911,7 +953,7 @@ var DateTimePicker = function ($) {
             if (typeof _maxDate === 'boolean' && _maxDate === false) {
                 this._options.maxDate = false;
                 this._update();
-                return;
+                return true;
             }
 
             if (typeof _maxDate === 'string') {
@@ -929,8 +971,10 @@ var DateTimePicker = function ($) {
                 throw new TypeError('maxDate() date parameter is before this.options.minDate: ' + parsedDate.format(this.actualFormat));
             }
             this._options.maxDate = parsedDate;
-            if (this._options.useCurrent && !this._options.keepInvalid && this._date.isAfter(_maxDate)) {
-                this._setValue(this._options.maxDate);
+            for (var i = 0; i < this._dates.length; i++) {
+                if (this._options.useCurrent && !this._options.keepInvalid && this._dates[i].isAfter(_maxDate)) {
+                    this._setValue(this._options.maxDate, i);
+                }
             }
             if (this._viewDate.isAfter(parsedDate)) {
                 this._viewDate = parsedDate.clone().subtract(this._options.stepping, 'm');
@@ -946,7 +990,7 @@ var DateTimePicker = function ($) {
             if (typeof _minDate === 'boolean' && _minDate === false) {
                 this._options.minDate = false;
                 this._update();
-                return;
+                return true;
             }
 
             if (typeof _minDate === 'string') {
@@ -964,8 +1008,10 @@ var DateTimePicker = function ($) {
                 throw new TypeError('minDate() date parameter is after this.options.maxDate: ' + parsedDate.format(this.actualFormat));
             }
             this._options.minDate = parsedDate;
-            if (this._options.useCurrent && !this._options.keepInvalid && this._date.isBefore(_minDate)) {
-                this._setValue(this._options.minDate);
+            for (var i = 0; i < this._dates.length; i++) {
+                if (this._options.useCurrent && !this._options.keepInvalid && this._date[i].isBefore(_minDate)) {
+                    this._setValue(this._options.minDate, i);
+                }
             }
             if (this._viewDate.isBefore(parsedDate)) {
                 this._viewDate = parsedDate.clone().add(this._options.stepping, 'm');
@@ -979,7 +1025,7 @@ var DateTimePicker = function ($) {
             }
             if (!_defaultDate) {
                 this._options.defaultDate = false;
-                return;
+                return true;
             }
 
             if (typeof _defaultDate === 'string') {
@@ -1001,7 +1047,7 @@ var DateTimePicker = function ($) {
             this._options.defaultDate = parsedDate;
 
             if (this._options.defaultDate && this._options.inline || this.input !== undefined && this.input.val().trim() === '') {
-                this._setValue(this._options.defaultDate);
+                this._setValue(this._options.defaultDate, 0);
             }
         };
 
@@ -1014,8 +1060,9 @@ var DateTimePicker = function ($) {
                 throw new TypeError('locale() locale ' + _locale + ' is not loaded from moment locales!');
             }
 
-            this._options.locale = _locale;
-            this._date.locale(this._options.locale);
+            for (var i = 0; i < this._dates.length; i++) {
+                this._dates[i].locale(this._options.locale);
+            }
             this._viewDate.locale(this._options.locale);
 
             if (this.actualFormat) {
@@ -1063,7 +1110,7 @@ var DateTimePicker = function ($) {
                 throw new TypeError('collapse() expects a boolean parameter');
             }
             if (this._options.collapse === _collapse) {
-                return;
+                return true;
             }
             this._options.collapse = _collapse;
             if (this.widget) {
@@ -1226,7 +1273,7 @@ var DateTimePicker = function ($) {
         };
 
         DateTimePicker.prototype.clear = function clear() {
-            this._setValue(null);
+            this._setValue(null); //todo
         };
 
         DateTimePicker.prototype.keyBinds = function keyBinds(_keyBinds) {
@@ -1300,7 +1347,7 @@ var DateTimePicker = function ($) {
             if (!_disabledTimeIntervals) {
                 this._options.disabledTimeIntervals = false;
                 this._update();
-                return;
+                return true;
             }
             if (!(_disabledTimeIntervals instanceof Array)) {
                 throw new TypeError('disabledTimeIntervals() expects an array parameter');
@@ -1317,7 +1364,7 @@ var DateTimePicker = function ($) {
             if (!hours) {
                 this._options.disabledHours = false;
                 this._update();
-                return;
+                return true;
             }
             if (!(hours instanceof Array)) {
                 throw new TypeError('disabledHours() expects an array parameter');
@@ -1325,15 +1372,17 @@ var DateTimePicker = function ($) {
             this._options.disabledHours = this._indexGivenHours(hours);
             this._options.enabledHours = false;
             if (this._options.useCurrent && !this._options.keepInvalid) {
-                var tries = 0;
-                while (!this._isValid(this._date, 'h')) {
-                    this._date.add(1, 'h');
-                    if (tries === 24) {
-                        throw 'Tried 24 times to find a valid date';
+                for (var i = 0; i < this._dates.length; i++) {
+                    var tries = 0;
+                    while (!this._isValid(this._dates[i], 'h')) {
+                        this._dates[i].add(1, 'h');
+                        if (tries === 24) {
+                            throw 'Tried 24 times to find a valid date';
+                        }
+                        tries++;
                     }
-                    tries++;
+                    this._setValue(this._dates[i], i);
                 }
-                this._setValue(this._date);
             }
             this._update();
         };
@@ -1346,7 +1395,7 @@ var DateTimePicker = function ($) {
             if (!hours) {
                 this._options.enabledHours = false;
                 this._update();
-                return;
+                return true;
             }
             if (!(hours instanceof Array)) {
                 throw new TypeError('enabledHours() expects an array parameter');
@@ -1354,15 +1403,17 @@ var DateTimePicker = function ($) {
             this._options.enabledHours = this._indexGivenHours(hours);
             this._options.disabledHours = false;
             if (this._options.useCurrent && !this._options.keepInvalid) {
-                var tries = 0;
-                while (!this._isValid(this._date, 'h')) {
-                    this._date.add(1, 'h');
-                    if (tries === 24) {
-                        throw 'Tried 24 times to find a valid date';
+                for (var i = 0; i < this._dates.length; i++) {
+                    var tries = 0;
+                    while (!this._isValid(this._date[i], 'h')) {
+                        this._date[i].add(1, 'h');
+                        if (tries === 24) {
+                            throw 'Tried 24 times to find a valid date';
+                        }
+                        tries++;
                     }
-                    tries++;
+                    this._setValue(this._dates[i], i);
                 }
-                this._setValue(this._date);
             }
             this._update();
         };
@@ -1373,8 +1424,8 @@ var DateTimePicker = function ($) {
             }
 
             if (!newDate) {
-                this._viewDate = this._date.clone();
-                return;
+                this._viewDate = (this._dates[0] || this.getMoment()).clone();
+                return true;
             }
 
             if (typeof newDate !== 'string' && !window.moment.isMoment(newDate) && !(newDate instanceof Date)) {
@@ -1383,6 +1434,26 @@ var DateTimePicker = function ($) {
 
             this._viewDate = this._parseInputDate(newDate);
             this._viewUpdate();
+        };
+
+        DateTimePicker.prototype.allowMultidate = function allowMultidate(_allowMultidate) {
+            if (typeof _allowMultidate !== 'boolean') {
+                throw new TypeError('allowMultidate() expects a boolean parameter');
+            }
+
+            this._options.allowMultidate = _allowMultidate;
+        };
+
+        DateTimePicker.prototype.multidateSeparator = function multidateSeparator(_multidateSeparator) {
+            if (arguments.length === 0) {
+                return this._options.multidateSeparator;
+            }
+
+            if (typeof _multidateSeparator !== 'string' || _multidateSeparator.length > 1) {
+                throw new TypeError('multidateSeparator expects a single character string parameter');
+            }
+
+            this._options.multidateSeparator = _multidateSeparator;
         };
 
         _createClass(DateTimePicker, null, [{

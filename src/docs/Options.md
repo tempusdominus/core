@@ -855,3 +855,23 @@ Takes an `string` of a valid timezone.
 ##### Throws
 
 * `TypeError` - if `tooltips` parameter is not an `string`
+
+----------------------
+
+### multidateSeparator
+    multidateSeparator: ','
+
+Used with `allowMultidate`. E.g. `1/1/2017,1/2/2017`
+
+#### multidateSeparator
+
+Returns an `string` of `options.multidateSeparator` 
+
+#### multidateSeparator, [multidateSeparator]
+
+Takes an `string` of a valid timezone.
+
+##### Throws
+
+* `TypeError` - if `multidateSeparator` parameter is not an `string`
+* `TypeError` - if `multidateSeparator` parameter is longer then 1 character
