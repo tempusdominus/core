@@ -840,7 +840,7 @@ const DateTimePicker = ($ => {
         }
 
         date(newDate, index) {
-            index = index || 0
+            index = index || 0;
             if (arguments.length === 0) {
                 if (this.unset) {
                     return null;
