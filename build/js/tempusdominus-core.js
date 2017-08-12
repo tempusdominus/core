@@ -728,7 +728,7 @@ var DateTimePicker = function ($) {
             this.currentViewMode = Math.max(MinViewModeNumber, this.currentViewMode);
 
             if (!this.unset) {
-                this._setValue(this._date);
+                this._setValue(this._dates[0], 0);
             }
         };
 
