@@ -105,7 +105,7 @@ const DateTimePicker = ($ => {
                     if (!this.widget) {
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().subtract(7, 'd'));
                     } else {
@@ -118,7 +118,7 @@ const DateTimePicker = ($ => {
                         this.show();
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().add(7, 'd'));
                     } else {
@@ -130,7 +130,7 @@ const DateTimePicker = ($ => {
                     if (!this.widget) {
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().subtract(1, 'y'));
                     } else {
@@ -142,7 +142,7 @@ const DateTimePicker = ($ => {
                     if (!this.widget) {
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().add(1, 'y'));
                     } else {
@@ -154,7 +154,7 @@ const DateTimePicker = ($ => {
                     if (!this.widget) {
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().subtract(1, 'd'));
                     }
@@ -164,7 +164,7 @@ const DateTimePicker = ($ => {
                     if (!this.widget) {
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().add(1, 'd'));
                     }
@@ -174,7 +174,7 @@ const DateTimePicker = ($ => {
                     if (!this.widget) {
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().subtract(1, 'M'));
                     }
@@ -184,7 +184,7 @@ const DateTimePicker = ($ => {
                     if (!this.widget) {
                         return false;
                     }
-                    const d = this._date || this.getMoment();
+                    const d = this._dates[0] || this.getMoment();
                     if (this.widget.find('.datepicker').is(':visible')) {
                         this.date(d.clone().add(1, 'M'));
                     }
@@ -1059,7 +1059,7 @@ const DateTimePicker = ($ => {
             }
             this._options.minDate = parsedDate;
             for (let i = 0; i < this._dates.length; i++) {
-                if (this._options.useCurrent && !this._options.keepInvalid && this._date[i].isBefore(minDate)) {
+                if (this._options.useCurrent && !this._options.keepInvalid && this._dates[i].isBefore(minDate)) {
                     this._setValue(this._options.minDate, i);
                 }
             }
@@ -1455,8 +1455,8 @@ const DateTimePicker = ($ => {
             if (this._options.useCurrent && !this._options.keepInvalid) {
                 for (let i = 0; i < this._dates.length; i++) {
                     let tries = 0;
-                    while (!this._isValid(this._date[i], 'h')) {
-                        this._date[i].add(1, 'h');
+                    while (!this._isValid(this._dates[i], 'h')) {
+                        this._dates[i].add(1, 'h');
                         if (tries === 24) {
                             throw 'Tried 24 times to find a valid date';
                         }

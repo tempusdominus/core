@@ -109,7 +109,7 @@ var DateTimePicker = function ($) {
                 if (!this.widget) {
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(7, 'd'));
                 } else {
@@ -122,7 +122,7 @@ var DateTimePicker = function ($) {
                     this.show();
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(7, 'd'));
                 } else {
@@ -134,7 +134,7 @@ var DateTimePicker = function ($) {
                 if (!this.widget) {
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(1, 'y'));
                 } else {
@@ -146,7 +146,7 @@ var DateTimePicker = function ($) {
                 if (!this.widget) {
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(1, 'y'));
                 } else {
@@ -158,7 +158,7 @@ var DateTimePicker = function ($) {
                 if (!this.widget) {
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(1, 'd'));
                 }
@@ -168,7 +168,7 @@ var DateTimePicker = function ($) {
                 if (!this.widget) {
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(1, 'd'));
                 }
@@ -178,7 +178,7 @@ var DateTimePicker = function ($) {
                 if (!this.widget) {
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(1, 'M'));
                 }
@@ -188,7 +188,7 @@ var DateTimePicker = function ($) {
                 if (!this.widget) {
                     return false;
                 }
-                var d = this._date || this.getMoment();
+                var d = this._dates[0] || this.getMoment();
                 if (this.widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(1, 'M'));
                 }
@@ -1011,7 +1011,7 @@ var DateTimePicker = function ($) {
             }
             this._options.minDate = parsedDate;
             for (var i = 0; i < this._dates.length; i++) {
-                if (this._options.useCurrent && !this._options.keepInvalid && this._date[i].isBefore(_minDate)) {
+                if (this._options.useCurrent && !this._options.keepInvalid && this._dates[i].isBefore(_minDate)) {
                     this._setValue(this._options.minDate, i);
                 }
             }
@@ -1407,8 +1407,8 @@ var DateTimePicker = function ($) {
             if (this._options.useCurrent && !this._options.keepInvalid) {
                 for (var i = 0; i < this._dates.length; i++) {
                     var tries = 0;
-                    while (!this._isValid(this._date[i], 'h')) {
-                        this._date[i].add(1, 'h');
+                    while (!this._isValid(this._dates[i], 'h')) {
+                        this._dates[i].add(1, 'h');
                         if (tries === 24) {
                             throw 'Tried 24 times to find a valid date';
                         }

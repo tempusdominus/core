@@ -1,8 +1,8 @@
 {
   "name": "tempusdominus/core",
   "type": "component",
-  "version": "5.0.0-alpha8",
-  "description": "Date/time picker widget core",
+  "version": "5.0.0-alpha9",
+  "description": "Tempus Dominus core",
   "keywords": [
     "bootstrap",
     "datetimepicker"
@@ -17,11 +17,10 @@
   "extra": {
     "component": {
       "scripts": [
-        "src/js/core.js"
+        "src/js/tempusdominus-core.js"
       ],
       "files": [
-        "build/js/bootstrap-datetimepicker.min.js",
-        "build/css/bootstrap-datetimepicker.min.css"
+        "build/js/tempusdominus-core.js"
       ]
     }
   }

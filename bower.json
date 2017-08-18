@@ -1,6 +1,6 @@
 {
   "name": "eonasdan-bootstrap-datetimepicker",
-  "version": "5.0.0-alpha8",
+  "version": "5.0.0-alpha9",
   "main": [
     "build/js/core.js"
   ],
@@ -12,7 +12,7 @@
   "authors": [
     "Eonasdan"
   ],
-  "description": "A date/time picker component designed for Momentjs. For usage, installation and demos see Project Site on GitHubr",
+  "description": "A date/time picker component designed for Momentjs. For usage, installation and demos see Project Site on GitHub",
   "keywords": [
     "datepicker",
     "datetimepicker",
