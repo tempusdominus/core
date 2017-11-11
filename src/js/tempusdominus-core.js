@@ -1,5 +1,5 @@
 // ReSharper disable once InconsistentNaming
-const DateTimePicker = ($ => {
+const DateTimePicker = (($, moment) => {
     // ReSharper disable InconsistentNaming
     const NAME = 'datetimepicker',
         VERSION = '5.0.0-alpha7',
@@ -36,7 +36,7 @@ const DateTimePicker = ($ => {
             maxDate: false,
             useCurrent: true,
             collapse: true,
-            locale: window.moment.locale(),
+            locale: moment.locale(),
             defaultDate: false,
             disabledDates: false,
             enabledDates: false,
@@ -516,7 +516,7 @@ const DateTimePicker = ($ => {
         }
 
         _hasTimeZone() {
-            return window.moment.tz !== undefined && this._options.timeZone !== undefined && this._options.timeZone !== null && this._options.timeZone !== '';
+            return moment.tz !== undefined && this._options.timeZone !== undefined && this._options.timeZone !== null && this._options.timeZone !== '';
         }
 
         _isEnabled(granularity) {
@@ -655,7 +655,7 @@ const DateTimePicker = ($ => {
 
         _parseInputDate(inputDate) {
             if (this._options.parseInputDate === undefined) {
-                if (!window.moment.isMoment(inputDate)) {
+                if (!moment.isMoment(inputDate)) {
                     inputDate = this.getMoment(inputDate);
                 }
             } else {
@@ -794,13 +794,13 @@ const DateTimePicker = ($ => {
             let returnMoment;
 
             if (d === undefined || d === null) {
-                returnMoment = window.moment(); //TODO should this use format? and locale?
+                returnMoment = moment(); //TODO should this use format? and locale?
             } else if (this._hasTimeZone()) {
                 // There is a string to parse and a default time zone
                 // parse with the tz function which takes a default time zone if it is not in the format string
-                returnMoment = window.moment.tz(d, this.parseFormats, this._options.useStrict, this._options.timeZone);
+                returnMoment = moment.tz(d, this.parseFormats, this._options.useStrict, this._options.timeZone);
             } else {
-                returnMoment = window.moment(d, this.parseFormats, this._options.useStrict);
+                returnMoment = moment(d, this.parseFormats, this._options.useStrict);
             }
 
             if (this._hasTimeZone()) {
@@ -855,7 +855,7 @@ const DateTimePicker = ($ => {
                 }
             }
 
-            if (newDate !== null && typeof newDate !== 'string' && !window.moment.isMoment(newDate) && !(newDate instanceof Date)) {
+            if (newDate !== null && typeof newDate !== 'string' && !moment.isMoment(newDate) && !(newDate instanceof Date)) {
                 throw new TypeError('date() parameter must be one of [null, string, moment or Date]');
             }
 
@@ -1106,7 +1106,7 @@ const DateTimePicker = ($ => {
                 return this._options.locale;
             }
 
-            if (!window.moment.localeData(locale)) {
+            if (!moment.localeData(locale)) {
                 throw new TypeError(`locale() locale ${locale} is not loaded from moment locales!`);
             }
 
@@ -1478,7 +1478,7 @@ const DateTimePicker = ($ => {
                 return true;
             }
 
-            if (typeof newDate !== 'string' && !window.moment.isMoment(newDate) && !(newDate instanceof Date)) {
+            if (typeof newDate !== 'string' && !moment.isMoment(newDate) && !(newDate instanceof Date)) {
                 throw new TypeError('viewDate() parameter must be one of [string, moment or Date]');
             }
 
@@ -1508,6 +1508,6 @@ const DateTimePicker = ($ => {
     }
 
     return DateTimePicker;
-})(jQuery);
+})(jQuery, moment);
 
 export default DateTimePicker;
