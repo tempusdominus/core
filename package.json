@@ -1,6 +1,7 @@
 {
   "license": "MIT",
   "main": "build/js/tempusdominus-core.js",
+  "module": "src/js/tempusdominus-core.js",
   "name": "tempusdominus-core",
   "author": {
     "name": "Jonathan Peterson"

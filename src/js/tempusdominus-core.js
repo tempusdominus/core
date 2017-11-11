@@ -1,3 +1,6 @@
+import jQuery from 'jquery';
+import moment from 'moment';
+
 // ReSharper disable once InconsistentNaming
 const DateTimePicker = (($, moment) => {
     // ReSharper disable InconsistentNaming
