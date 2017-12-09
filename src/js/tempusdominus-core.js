@@ -399,9 +399,9 @@ const DateTimePicker = ($ => {
             this._initFormatting();
 
             if (this.input !== undefined && this.input.is('input') && this.input.val().trim().length !== 0) {
-                this._setValue(this._parseInputDate(this.input.val().trim()));
+                this._setValue(this._parseInputDate(this.input.val().trim()), 0);
             } else if (this._options.defaultDate && this.input !== undefined && this.input.attr('placeholder') === undefined) {
-                this._setValue(this._options.defaultDate);
+                this._setValue(this._options.defaultDate, 0);
             }
             if (this._options.inline) {
                 this.show();
