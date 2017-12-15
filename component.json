@@ -1,6 +1,6 @@
 {
   "name": "tempusdominus-core",
-  "version": "5.0.0-alpha9",
+  "version": "5.0.0-alpha10",
   "main": "build/js/tempusdominus-core.min.js",
   "dependencies": {
     "jquery": ">=1.8.3",
