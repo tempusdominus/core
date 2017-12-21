@@ -5,7 +5,7 @@ import moment from 'moment';
 const DateTimePicker = (($, moment) => {
     // ReSharper disable InconsistentNaming
     const NAME = 'datetimepicker',
-        VERSION = '5.0.0-alpha7',
+        VERSION = '5.0.0-alpha12',
         DATA_KEY = `${NAME}`,
         EVENT_KEY = `.${DATA_KEY}`,
         EMIT_EVENT_KEY = `${DATA_KEY}.`,
@@ -29,6 +29,58 @@ const DateTimePicker = (($, moment) => {
             HIDE: `${EMIT_EVENT_KEY}hide`,
             SHOW: `${EMIT_EVENT_KEY}show`
         },
+        DatePickerModes = [{
+            CLASS_NAME: 'days',
+            NAV_FUNCTION: 'M',
+            NAV_STEP: 1
+        }, {
+            CLASS_NAME: 'months',
+            NAV_FUNCTION: 'y',
+            NAV_STEP: 1
+        }, {
+            CLASS_NAME: 'years',
+            NAV_FUNCTION: 'y',
+            NAV_STEP: 10
+        }, {
+            CLASS_NAME: 'decades',
+            NAV_FUNCTION: 'y',
+            NAV_STEP: 100
+        }],
+        KeyMap = {
+            'up': 38,
+            38: 'up',
+            'down': 40,
+            40: 'down',
+            'left': 37,
+            37: 'left',
+            'right': 39,
+            39: 'right',
+            'tab': 9,
+            9: 'tab',
+            'escape': 27,
+            27: 'escape',
+            'enter': 13,
+            13: 'enter',
+            'pageUp': 33,
+            33: 'pageUp',
+            'pageDown': 34,
+            34: 'pageDown',
+            'shift': 16,
+            16: 'shift',
+            'control': 17,
+            17: 'control',
+            'space': 32,
+            32: 'space',
+            't': 84,
+            84: 't',
+            'delete': 46,
+            46: 'delete'
+        },
+        ViewModes = ['times', 'days', 'months', 'years', 'decades'],
+        keyState = {},
+        keyPressHandled = {};
+
+    let MinViewModeNumber = 0,
         Default = {
             timeZone: '',
             format: false,
@@ -233,59 +285,8 @@ const DateTimePicker = (($, moment) => {
             viewDate: false,
             allowMultidate: false,
             multidateSeparator: ','
-        },
-        DatePickerModes = [{
-            CLASS_NAME: 'days',
-            NAV_FUNCTION: 'M',
-            NAV_STEP: 1
-        }, {
-            CLASS_NAME: 'months',
-            NAV_FUNCTION: 'y',
-            NAV_STEP: 1
-        }, {
-            CLASS_NAME: 'years',
-            NAV_FUNCTION: 'y',
-            NAV_STEP: 10
-        }, {
-            CLASS_NAME: 'decades',
-            NAV_FUNCTION: 'y',
-            NAV_STEP: 100
-        }],
-        KeyMap = {
-            'up': 38,
-            38: 'up',
-            'down': 40,
-            40: 'down',
-            'left': 37,
-            37: 'left',
-            'right': 39,
-            39: 'right',
-            'tab': 9,
-            9: 'tab',
-            'escape': 27,
-            27: 'escape',
-            'enter': 13,
-            13: 'enter',
-            'pageUp': 33,
-            33: 'pageUp',
-            'pageDown': 34,
-            34: 'pageDown',
-            'shift': 16,
-            16: 'shift',
-            'control': 17,
-            17: 'control',
-            'space': 32,
-            32: 'space',
-            't': 84,
-            84: 't',
-            'delete': 46,
-            46: 'delete'
-        },
-        ViewModes = ['times', 'days', 'months', 'years', 'decades'],
-        keyState = {},
-        keyPressHandled = {};
+        };
 
-    let MinViewModeNumber = 0;
     // ReSharper restore InconsistentNaming
 
     // ReSharper disable once DeclarationHides
@@ -371,6 +372,10 @@ const DateTimePicker = (($, moment) => {
 
         static get Default() {
             return Default;
+        }
+
+        static set Default(value) {
+            Default = value;
         }
 
         static get ClassName() {
@@ -866,9 +871,6 @@ const DateTimePicker = (($, moment) => {
         }
 
         format(newFormat) {
-            ///<summary>test su</summary>
-            ///<param name="newFormat">info about para</param>
-            ///<returns type="string|boolean">returns foo</returns>
             if (arguments.length === 0) {
                 return this._options.format;
             }

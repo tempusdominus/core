@@ -15,19 +15,7 @@ module.exports = function (grunt) {
                 ]
             }
         });
-
-        grunt.config('string-replace.bower-json', {
-            files: {'bower.json': 'bower.json'},
-            options: {
-                replacements: [
-                    {
-                        pattern:     /"version": .*/,
-                        replacement: '"version": "' + version + '",'
-                    }
-                ]
-            }
-        });
-
+        
         grunt.config('string-replace.component-json', {
             files: {'component.json': 'component.json'},
             options: {
@@ -66,7 +54,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'string-replace:package-json',
-            'string-replace:bower-json',
             'string-replace:component-json',
             'string-replace:composer-json',
             'string-replace:js'
