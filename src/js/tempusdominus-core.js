@@ -545,6 +545,9 @@ const DateTimePicker = (($, moment) => {
                     return this.actualFormat.indexOf('m') !== -1;
                 case 's':
                     return this.actualFormat.indexOf('s') !== -1;
+                case 'a':
+                case 'A':
+                    return this.actualFormat.toLowerCase().indexOf('a') !== -1;
                 default:
                     return false;
             }
