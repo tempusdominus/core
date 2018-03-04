@@ -16,18 +16,6 @@ module.exports = function (grunt) {
             }
         });
         
-        grunt.config('string-replace.component-json', {
-            files: {'component.json': 'component.json'},
-            options: {
-                replacements: [
-                    {
-                        pattern:     /"version": .*/,
-                        replacement: '"version": "' + version + '",'
-                    }
-                ]
-            }
-        });
-
         grunt.config('string-replace.composer-json', {
             files: {'composer.json': 'composer.json'},
             options: {
@@ -54,7 +42,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'string-replace:package-json',
-            'string-replace:component-json',
             'string-replace:composer-json',
             'string-replace:js'
         ]);

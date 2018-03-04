@@ -1,9 +1,0 @@
-{
-  "name": "tempusdominus-core",
-  "version": "5.0.0-alpha12",
-  "main": "build/js/tempusdominus-core.min.js",
-  "dependencies": {
-    "jquery": ">=1.8.3",
-    "moment": ">=2.10.5"
-  }
-}
