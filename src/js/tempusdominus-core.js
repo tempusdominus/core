@@ -5,10 +5,9 @@ import moment from 'moment';
 const DateTimePicker = (($, moment) => {
     // ReSharper disable InconsistentNaming
     const NAME = 'datetimepicker',
-        VERSION = '5.0.0-alpha12',
+        VERSION = '5.0.0-alpha15',
         DATA_KEY = `${NAME}`,
         EVENT_KEY = `.${DATA_KEY}`,
-        EMIT_EVENT_KEY = `${DATA_KEY}.`,
         DATA_API_KEY = '.data-api',
         Selector = {
             DATA_TOGGLE: `[data-toggle="${DATA_KEY}"]`
@@ -24,10 +23,10 @@ const DateTimePicker = (($, moment) => {
             FOCUS: `focus${EVENT_KEY}`,
             CLICK_DATA_API: `click${EVENT_KEY}${DATA_API_KEY}`,
             //emitted
-            UPDATE: `${EMIT_EVENT_KEY}update`,
-            ERROR: `${EMIT_EVENT_KEY}error`,
-            HIDE: `${EMIT_EVENT_KEY}hide`,
-            SHOW: `${EMIT_EVENT_KEY}show`
+            UPDATE: `update${EVENT_KEY}`,
+            ERROR: `error${EVENT_KEY}`,
+            HIDE: `hide${EVENT_KEY}`,
+            SHOW: `show${EVENT_KEY}`
         },
         DatePickerModes = [{
             CLASS_NAME: 'days',

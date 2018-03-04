@@ -1,7 +1,7 @@
 {
   "name": "tempusdominus/core",
   "type": "component",
-  "version": "5.0.0-alpha14",
+  "version": "5.0.0-alpha15",
   "description": "Tempus Dominus core",
   "keywords": [
     "bootstrap",

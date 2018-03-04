@@ -138,8 +138,8 @@ module.exports = function (grunt) {
         grunt.task.run([
             'bump_version:' + version,
             'build:travis',
-            'docs',
-            'nugetpack'
+            'docs'//,
+            //'nugetpack'
         ]);
     });
 };
