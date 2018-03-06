@@ -808,9 +808,9 @@ const DateTimePicker = (($, moment) => {
             } else if (this._hasTimeZone()) {
                 // There is a string to parse and a default time zone
                 // parse with the tz function which takes a default time zone if it is not in the format string
-                returnMoment = moment.tz(d, this.parseFormats, this._options.useStrict, this._options.timeZone);
+                returnMoment = moment.tz(d, this.parseFormats, this._options.locale, this._options.useStrict, this._options.timeZone);
             } else {
-                returnMoment = moment(d, this.parseFormats, this._options.useStrict);
+                returnMoment = moment(d, this.parseFormats, this._options.locale, this._options.useStrict);
             }
 
             if (this._hasTimeZone()) {
