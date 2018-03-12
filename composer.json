@@ -1,7 +1,7 @@
 {
   "name": "tempusdominus/core",
   "type": "component",
-  "version": "5.0.0-alpha15",
+  "version": "5.0.0-alpha16",
   "description": "Tempus Dominus core",
   "keywords": [
     "bootstrap",
@@ -11,7 +11,7 @@
   "license": "MIT",
   "require": {
     "robloach/component-installer": "*",
-    "components/jquery": ">=1.9.1",
+    "components/jquery": ">=3.0.0",
     "moment": ">=2.10.5"
   },
   "extra": {

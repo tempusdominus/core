@@ -5,7 +5,6 @@ import moment from 'moment';
 const DateTimePicker = (($, moment) => {
     // ReSharper disable InconsistentNaming
     const NAME = 'datetimepicker',
-        VERSION = '5.0.0-alpha15',
         DATA_KEY = `${NAME}`,
         EVENT_KEY = `.${DATA_KEY}`,
         DATA_API_KEY = '.data-api',
@@ -316,13 +315,6 @@ const DateTimePicker = (($, moment) => {
          */
         static get NAME() {
             return NAME;
-        }
-
-        /**
-         * @return {string}
-         */
-        static get VERSION() {
-            return VERSION;
         }
 
         /**

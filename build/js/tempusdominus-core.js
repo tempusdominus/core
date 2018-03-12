@@ -6,7 +6,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var DateTimePicker = function ($, moment) {
     // ReSharper disable InconsistentNaming
     var NAME = 'datetimepicker',
-        VERSION = '5.0.0-alpha15',
         DATA_KEY = '' + NAME,
         EVENT_KEY = '.' + DATA_KEY,
         DATA_API_KEY = '.data-api',
@@ -1062,6 +1061,8 @@ var DateTimePicker = function ($, moment) {
                 throw new TypeError('locale() locale ' + _locale + ' is not loaded from moment locales!');
             }
 
+            this._options.locale = _locale;
+
             for (var i = 0; i < this._dates.length; i++) {
                 this._dates[i].locale(this._options.locale);
             }
@@ -1462,16 +1463,6 @@ var DateTimePicker = function ($, moment) {
             key: 'NAME',
             get: function get() {
                 return NAME;
-            }
-
-            /**
-             * @return {string}
-             */
-
-        }, {
-            key: 'VERSION',
-            get: function get() {
-                return VERSION;
             }
 
             /**
