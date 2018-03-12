@@ -1117,6 +1117,8 @@ const DateTimePicker = (($, moment) => {
                 throw new TypeError(`locale() locale ${locale} is not loaded from moment locales!`);
             }
 
+            this._options.locale = locale;
+
             for (let i = 0; i < this._dates.length; i++) {
                 this._dates[i].locale(this._options.locale);
             }
