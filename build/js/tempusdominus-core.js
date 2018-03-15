@@ -245,6 +245,9 @@ var DateTimePicker = function ($, moment) {
                 return true;
             },
             enter: function enter() {
+                if (!this.widget) {
+                    return false;
+                }
                 this.hide();
                 return true;
             },
@@ -265,6 +268,9 @@ var DateTimePicker = function ($, moment) {
                 return true;
             },
             t: function t() {
+                if (!this.widget) {
+                    return false;
+                }
                 this.date(this.getMoment());
                 return true;
             },
@@ -657,7 +663,7 @@ var DateTimePicker = function ($, moment) {
             }
 
             if (handler) {
-                if (handler.call(this.widget)) {
+                if (handler.call(this)) {
                     e.stopPropagation();
                     e.preventDefault();
                 }

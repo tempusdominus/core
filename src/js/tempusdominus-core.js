@@ -244,6 +244,9 @@ const DateTimePicker = (($, moment) => {
                     return true;
                 },
                 enter: function () {
+                    if (!this.widget) {
+                        return false;
+                    }
                     this.hide();
                     return true;
                 },
@@ -264,6 +267,9 @@ const DateTimePicker = (($, moment) => {
                     return true;
                 },
                 t: function () {
+                    if (!this.widget) {
+                        return false;
+                    }
                     this.date(this.getMoment());
                     return true;
                 },
@@ -709,7 +715,7 @@ const DateTimePicker = (($, moment) => {
             }
 
             if (handler) {
-                if (handler.call(this.widget)) {
+                if (handler.call(this)) {
                     e.stopPropagation();
                     e.preventDefault();
                 }
