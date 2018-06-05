@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "jquery": "^3.0",
-    "moment": "^2.10",
+    "moment": "^2.22.2",
     "moment-timezone": "^0.4.0"
   },
   "peerDependenciesd": {
@@ -23,18 +23,18 @@
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-strip": "^0.1.0",
     "babel-preset-es2015": "^6.16.0",
-    "grunt": "latest",
+    "grunt": "^1.0.3",
     "grunt-babel": "6.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.1",
-    "grunt-contrib-jasmine": "^1.0.3",
+    "grunt-contrib-jasmine": "^2.0.1",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-less": "latest",
     "grunt-contrib-uglify": "latest",
-    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-env": "^0.4.4",
     "grunt-eslint": "^19.0.0",
-    "grunt-nuget": "^0.1.5",
+    "grunt-nuget": "^0.3.0",
     "grunt-string-replace": "latest",
     "load-grunt-tasks": "latest"
   },
@@ -49,7 +49,7 @@
     "type": "git",
     "url": "https://github.com/tempusdominus/core.git"
   },
-  "version": "5.0.0-alpha17",
+  "version": "5.0.0",
   "files": [
     "build",
     "src/js/**/*.js",
