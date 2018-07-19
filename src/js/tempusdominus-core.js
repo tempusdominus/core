@@ -78,8 +78,7 @@ const DateTimePicker = (($, moment) => {
         keyState = {},
         keyPressHandled = {};
 
-    let MinViewModeNumber = 0,
-        Default = {
+    let Default = {
             timeZone: '',
             format: false,
             dayViewHeaderFormat: 'MMMM YYYY',
@@ -312,6 +311,7 @@ const DateTimePicker = (($, moment) => {
             this.actualFormat = null;
             this.parseFormats = null;
             this.currentViewMode = null;
+            this.MinViewModeNumber = 0;
 
             this._int();
         }
@@ -350,13 +350,6 @@ const DateTimePicker = (($, moment) => {
 
         static get ViewModes() {
             return ViewModes;
-        }
-
-        /**
-         * @return {number}
-         */
-        static get MinViewModeNumber() {
-            return MinViewModeNumber;
         }
 
         static get Event() {
@@ -600,7 +593,7 @@ const DateTimePicker = (($, moment) => {
                 return;
             }
             if (dir) {
-                this.currentViewMode = Math.max(MinViewModeNumber, Math.min(3, this.currentViewMode + dir));
+                this.currentViewMode = Math.max(this.MinViewModeNumber, Math.min(3, this.currentViewMode + dir));
             }
             this.widget.find('.datepicker > div').hide().filter(`.datepicker-${DatePickerModes[this.currentViewMode].CLASS_NAME}`).show();
         }
@@ -773,16 +766,16 @@ const DateTimePicker = (($, moment) => {
             this.use24Hours = this.actualFormat.toLowerCase().indexOf('a') < 1 && this.actualFormat.replace(/\[.*?]/g, '').indexOf('h') < 1;
 
             if (this._isEnabled('y')) {
-                MinViewModeNumber = 2;
+                this.MinViewModeNumber = 2;
             }
             if (this._isEnabled('M')) {
-                MinViewModeNumber = 1;
+                this.MinViewModeNumber = 1;
             }
             if (this._isEnabled('d')) {
-                MinViewModeNumber = 0;
+                this.MinViewModeNumber = 0;
             }
 
-            this.currentViewMode = Math.max(MinViewModeNumber, this.currentViewMode);
+            this.currentViewMode = Math.max(this.MinViewModeNumber, this.currentViewMode);
 
             if (!this.unset) {
                 this._setValue(this._dates[0], 0);
@@ -1248,7 +1241,7 @@ const DateTimePicker = (($, moment) => {
             }
 
             this._options.viewMode = viewMode;
-            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(viewMode) - 1, DateTimePicker.MinViewModeNumber);
+            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(viewMode) - 1, this.MinViewModeNumber);
 
             this._showMode();
         }
