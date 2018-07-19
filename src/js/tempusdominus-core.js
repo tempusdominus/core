@@ -312,6 +312,7 @@ const DateTimePicker = (($, moment) => {
             this.actualFormat = null;
             this.parseFormats = null;
             this.currentViewMode = null;
+            this.MinViewModeNumber = 0;
 
             this._int();
         }
@@ -350,13 +351,6 @@ const DateTimePicker = (($, moment) => {
 
         static get ViewModes() {
             return ViewModes;
-        }
-
-        /**
-         * @return {number}
-         */
-        static get MinViewModeNumber() {
-            return MinViewModeNumber;
         }
 
         static get Event() {
@@ -1248,7 +1242,7 @@ const DateTimePicker = (($, moment) => {
             }
 
             this._options.viewMode = viewMode;
-            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(viewMode) - 1, DateTimePicker.MinViewModeNumber);
+            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(viewMode) - 1, this.MinViewModeNumber);
 
             this._showMode();
         }
