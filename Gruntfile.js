@@ -54,15 +54,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        nugetpack: {
-            core: {
-                src: 'src/nuget/Tempus.Dominus.Core.nuspec',
-                dest: 'build/nuget',
-                options: {
-                    version: '<%= pkg.version %>'
-                }
-            }
-        },
         babel: {
             dev: {
                 options: {
@@ -119,7 +110,7 @@ module.exports = function (grunt) {
     ]);
 
     // Task to be run when building
-    grunt.registerTask('build', ['babel:dev', 'eslint', 'babel:dist', 'uglify']);
+    grunt.registerTask('build', ['babel:dev', 'eslint', 'babel:dist']);
 
     grunt.registerTask('test', ['build', 'env:paris', 'connect', 'jasmine']);
 
@@ -138,8 +129,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'bump_version:' + version,
             'build:travis',
-            'docs'//,
-            //'nugetpack'
+            'docs'
         ]);
     });
 };
