@@ -79,8 +79,7 @@ var DateTimePicker = function ($, moment) {
         keyState = {},
         keyPressHandled = {};
 
-    var MinViewModeNumber = 0,
-        Default = {
+    var Default = {
         timeZone: '',
         format: false,
         dayViewHeaderFormat: 'MMMM YYYY',
@@ -316,6 +315,7 @@ var DateTimePicker = function ($, moment) {
             this.actualFormat = null;
             this.parseFormats = null;
             this.currentViewMode = null;
+            this.MinViewModeNumber = 0;
 
             this._int();
         }
@@ -548,7 +548,7 @@ var DateTimePicker = function ($, moment) {
                 return;
             }
             if (dir) {
-                this.currentViewMode = Math.max(MinViewModeNumber, Math.min(3, this.currentViewMode + dir));
+                this.currentViewMode = Math.max(this.MinViewModeNumber, Math.min(3, this.currentViewMode + dir));
             }
             this.widget.find('.datepicker > div').hide().filter('.datepicker-' + DatePickerModes[this.currentViewMode].CLASS_NAME).show();
         };
@@ -724,16 +724,16 @@ var DateTimePicker = function ($, moment) {
             this.use24Hours = this.actualFormat.toLowerCase().indexOf('a') < 1 && this.actualFormat.replace(/\[.*?]/g, '').indexOf('h') < 1;
 
             if (this._isEnabled('y')) {
-                MinViewModeNumber = 2;
+                this.MinViewModeNumber = 2;
             }
             if (this._isEnabled('M')) {
-                MinViewModeNumber = 1;
+                this.MinViewModeNumber = 1;
             }
             if (this._isEnabled('d')) {
-                MinViewModeNumber = 0;
+                this.MinViewModeNumber = 0;
             }
 
-            this.currentViewMode = Math.max(MinViewModeNumber, this.currentViewMode);
+            this.currentViewMode = Math.max(this.MinViewModeNumber, this.currentViewMode);
 
             if (!this.unset) {
                 this._setValue(this._dates[0], 0);
@@ -1200,7 +1200,7 @@ var DateTimePicker = function ($, moment) {
             }
 
             this._options.viewMode = _viewMode;
-            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(_viewMode) - 1, DateTimePicker.MinViewModeNumber);
+            this.currentViewMode = Math.max(DateTimePicker.ViewModes.indexOf(_viewMode) - 1, this.MinViewModeNumber);
 
             this._showMode();
         };
@@ -1509,16 +1509,6 @@ var DateTimePicker = function ($, moment) {
             key: 'ViewModes',
             get: function get() {
                 return ViewModes;
-            }
-
-            /**
-             * @return {number}
-             */
-
-        }, {
-            key: 'MinViewModeNumber',
-            get: function get() {
-                return MinViewModeNumber;
             }
         }, {
             key: 'Event',

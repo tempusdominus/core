@@ -27,7 +27,7 @@
     "grunt-babel": "6.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.1",
-    "grunt-contrib-jasmine": "^2.0.1",
+    "grunt-contrib-jasmine": "^2.0.2",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-less": "latest",
     "grunt-contrib-uglify": "latest",
@@ -49,7 +49,7 @@
     "type": "git",
     "url": "https://github.com/tempusdominus/core.git"
   },
-  "version": "5.0.0",
+  "version": "5.0.2",
   "files": [
     "build",
     "src/js/**/*.js",
