@@ -82,6 +82,8 @@ const DateTimePicker = (($, moment) => {
         timeZone: '',
         format: false,
         dayViewHeaderFormat: 'MMMM YYYY',
+        dateViewBreakPoint: 'col',
+        timeViewBreakPoint: 'col',
         extraFormats: false,
         stepping: 1,
         minDate: false,
@@ -900,6 +902,30 @@ const DateTimePicker = (($, moment) => {
             }
 
             this._options.dayViewHeaderFormat = newFormat;
+        }
+
+        dateViewBreakPoint(newBreakPoint) {
+            if (arguments.length === 0) {
+                return this._options.dateViewBreakPoint;
+            }
+
+            if (typeof newBreakPoint !== 'string') {
+                throw new TypeError('dateViewBreakPoint() expects a string parameter');
+            }
+
+            this._options.dateViewBreakPoint = newBreakPoint;
+        }
+
+        timeViewBreakPoint(newBreakPoint) {
+            if (arguments.length === 0) {
+                return this._options.timeViewBreakPoint;
+            }
+
+            if (typeof newBreakPoint !== 'string') {
+                throw new TypeError('timeViewBreakPoint() expects a string parameter');
+            }
+
+            this._options.timeViewBreakPoint = newBreakPoint;
         }
 
         extraFormats(formats) {
