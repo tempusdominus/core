@@ -422,6 +422,8 @@ const DateTimePicker = (($, moment) => {
                 if (!this._options.allowMultidate || this._dates.length === 1) {
                     this.unset = true;
                     this._dates = [];
+                    this._dates[0] = this.getMoment();
+                    this._viewDate = this.getMoment().clone();
                     this._datesFormatted = [];
                 } else {
                     outpValue = `${this._element.data('date')},`;
@@ -502,7 +504,7 @@ const DateTimePicker = (($, moment) => {
         _change(e) {
             const val = $(e.target).val().trim(),
                 parsedDate = val ? this._parseInputDate(val) : null;
-            this._setValue(parsedDate);
+            this._setValue(parsedDate, 0);
             e.stopImmediatePropagation();
             return false;
         }
