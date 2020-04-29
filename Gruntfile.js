@@ -110,7 +110,7 @@ module.exports = function (grunt) {
     ]);
 
     // Task to be run when building
-    grunt.registerTask('build', ['babel:dev', 'eslint', 'babel:dist']);
+    grunt.registerTask('build', ['babel:dev', 'eslint', 'babel:dist', 'uglify']);
 
     grunt.registerTask('test', ['build', 'env:paris', 'connect', 'jasmine']);
 
