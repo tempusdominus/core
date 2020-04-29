@@ -615,7 +615,7 @@ const DateTimePicker = (($, moment) => {
         }
 
         _isValid(targetMoment, granularity) {
-            if (!targetMoment.isValid()) {
+            if (!targetMoment || !targetMoment.isValid()) {
                 return false;
             }
             if (this._options.disabledDates && granularity === 'd' && this._isInDisabledDates(targetMoment)) {
