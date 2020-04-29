@@ -6,6 +6,9 @@
   "author": {
     "name": "Jonathan Peterson"
   },
+  "contributors": [
+    "Anton Bagdatyev (Tonix)"
+  ],
   "bugs": {
     "url": "https://github.com/tempusdominus/core/issues"
   },
