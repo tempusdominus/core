@@ -12,6 +12,12 @@
   "bugs": {
     "url": "https://github.com/tempusdominus/core/issues"
   },
+  "scripts": {
+    "build": "grunt build",
+    "publish-patch": "npm version patch && npm run build && git add . && git commit -am \"Next patch version\" && npm publish && git push && git push --tags",
+    "publish-minor": "npm version minor && npm run build && git add . && git commit -am \"Next minor version\" && npm publish && git push && git push --tags",
+    "publish-major": "npm version major && npm run build && git add . && git commit -am \"Next major version\" && npm publish && git push && git push --tags"
+  },
   "dependencies": {
     "jquery": "^3.5.0",
     "moment": "^2.24.0",
