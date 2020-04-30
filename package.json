@@ -21,12 +21,12 @@
   "dependencies": {
     "jquery": "^3.5.0",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.4.0"
+    "moment-timezone": "^0.5.28"
   },
   "peerDependencies": {
     "jquery": "^3.0",
     "moment": "^2.10",
-    "moment-timezone": "^0.4.0"
+    "moment-timezone": "^0.5.0"
   },
   "description": "A date/time picker component designed for Momentjs. For usage, installation and demos see Project Site on GitHub",
   "devDependencies": {
