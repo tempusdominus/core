@@ -15,9 +15,9 @@
   "scripts": {
     "build": "grunt build",
     "git-add-cm": "git add . && git commit -am",
-    "publish-patch": "npm version patch && npm run build && ((npm run git-add-cm -- \"Next patch version\") || echo) && npm publish && git push && git push --tags",
-    "publish-minor": "npm version minor && npm run build && ((npm run git-add-cm -- \"Next minor version\") || echo) && npm publish && git push && git push --tags",
-    "publish-major": "npm version major && npm run build && ((npm run git-add-cm -- \"Next major version\") || echo) && npm publish && git push && git push --tags"
+    "publish-patch": "npm version patch && npm run build && ((npm run git-add-cm -- \"Next patch version\" 2>/dev/null) || echo) && npm publish && git push && git push --tags",
+    "publish-minor": "npm version minor && npm run build && ((npm run git-add-cm -- \"Next minor version\" 2>/dev/null) || echo) && npm publish && git push && git push --tags",
+    "publish-major": "npm version major && npm run build && ((npm run git-add-cm -- \"Next major version\" 2>/dev/null) || echo) && npm publish && git push && git push --tags"
   },
   "dependencies": {
     "jquery": "^3.5.0",

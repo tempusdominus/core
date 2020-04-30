@@ -1,6 +1,10 @@
 import jQuery from 'jquery';
 import moment from 'moment';
 
+/**
+ * tempusdominus - Fork of tempusdominus-core.
+ */
+
 // ReSharper disable once InconsistentNaming
 const DateTimePicker = (($, moment) => {
     // ReSharper disable InconsistentNaming
