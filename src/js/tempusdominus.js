@@ -4,7 +4,8 @@ import moment from 'moment';
 // ReSharper disable once InconsistentNaming
 const DateTimePicker = (($, moment) => {
     // ReSharper disable InconsistentNaming
-    const NAME = 'datetimepicker',
+    const trim = str => str.replace(/(^\s+)|(\s+$)/g, ''),
+        NAME = 'datetimepicker',
         DATA_KEY = `${NAME}`,
         EVENT_KEY = `.${DATA_KEY}`,
         DATA_API_KEY = '.data-api',
@@ -287,7 +288,7 @@ const DateTimePicker = (($, moment) => {
         enabledHours: false,
         viewDate: false,
         allowMultidate: false,
-        multidateSeparator: ','
+        multidateSeparator: ', '
     };
 
     // ReSharper restore InconsistentNaming
@@ -465,6 +466,7 @@ const DateTimePicker = (($, moment) => {
                 } else {
                     outpValue = this._dates[index].format(this.actualFormat);
                 }
+                outpValue = trim(outpValue)
                 if (this.input !== undefined) {
                     this.input.val(outpValue);
                     this.input.trigger('input');
@@ -1499,8 +1501,8 @@ const DateTimePicker = (($, moment) => {
                 return this._options.multidateSeparator;
             }
 
-            if (typeof multidateSeparator !== 'string' || multidateSeparator.length > 1) {
-                throw new TypeError('multidateSeparator expects a single character string parameter');
+            if (typeof multidateSeparator !== 'string') {
+                throw new TypeError('multidateSeparator expects a string parameter');
             }
 
             this._options.multidateSeparator = multidateSeparator;
