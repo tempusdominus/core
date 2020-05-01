@@ -9,6 +9,9 @@
   "bugs": {
     "url": "https://github.com/tempusdominus/core/issues"
   },
+  "scripts": {
+    "build": "grunt"
+  },
   "dependencies": {
     "jquery": "^3.0",
     "moment": "^2.22.2",

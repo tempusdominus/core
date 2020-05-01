@@ -5,7 +5,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // ReSharper disable once InconsistentNaming
 var DateTimePicker = function ($, moment) {
     // ReSharper disable InconsistentNaming
-    var NAME = 'datetimepicker',
+    var trim = function trim(str) {
+        return str.replace(/(^\s+)|(\s+$)/g, '');
+    },
+        NAME = 'datetimepicker',
         DATA_KEY = '' + NAME,
         EVENT_KEY = '.' + DATA_KEY,
         DATA_API_KEY = '.data-api',
@@ -288,7 +291,7 @@ var DateTimePicker = function ($, moment) {
         enabledHours: false,
         viewDate: false,
         allowMultidate: false,
-        multidateSeparator: ','
+        multidateSeparator: ', '
     };
 
     // ReSharper restore InconsistentNaming
@@ -418,6 +421,7 @@ var DateTimePicker = function ($, moment) {
                 } else {
                     outpValue = this._dates[index].format(this.actualFormat);
                 }
+                outpValue = trim(outpValue);
                 if (this.input !== undefined) {
                     this.input.val(outpValue);
                     this.input.trigger('input');
@@ -526,7 +530,7 @@ var DateTimePicker = function ($, moment) {
         };
 
         DateTimePicker.prototype._notifyEvent = function _notifyEvent(e) {
-            if (e.type === DateTimePicker.Event.CHANGE && (e.date && e.date.isSame(e.oldDate)) || !e.date && !e.oldDate) {
+            if (e.type === DateTimePicker.Event.CHANGE && e.date && e.date.isSame(e.oldDate) || !e.date && !e.oldDate) {
                 return;
             }
             this._element.trigger(e);
@@ -570,7 +574,7 @@ var DateTimePicker = function ($, moment) {
         };
 
         DateTimePicker.prototype._isValid = function _isValid(targetMoment, granularity) {
-            if (!targetMoment.isValid()) {
+            if (!targetMoment || !targetMoment.isValid()) {
                 return false;
             }
             if (this._options.disabledDates && granularity === 'd' && this._isInDisabledDates(targetMoment)) {
@@ -1458,8 +1462,8 @@ var DateTimePicker = function ($, moment) {
                 return this._options.multidateSeparator;
             }
 
-            if (typeof _multidateSeparator !== 'string' || _multidateSeparator.length > 1) {
-                throw new TypeError('multidateSeparator expects a single character string parameter');
+            if (typeof _multidateSeparator !== 'string') {
+                throw new TypeError('multidateSeparator expects a string parameter');
             }
 
             this._options.multidateSeparator = _multidateSeparator;
