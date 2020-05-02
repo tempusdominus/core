@@ -11,3 +11,4 @@ site
 *.nupkg
 /index.html
 /test.html
+private_local_dir/**
