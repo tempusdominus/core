@@ -3,6 +3,10 @@ import moment from 'moment';
 
 // ReSharper disable once InconsistentNaming
 const DateTimePicker = (($, moment) => {
+    function escapeRegExp(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    }
+
     // ReSharper disable InconsistentNaming
     const trim = str => str.replace(/(^\s+)|(\s+$)/g, ''),
         NAME = 'datetimepicker',
@@ -425,11 +429,16 @@ const DateTimePicker = (($, moment) => {
                     this._dates = [];
                     this._datesFormatted = [];
                 } else {
-                    outpValue = `${this._element.data('date')},`;
-                    outpValue = outpValue.replace(`${oldDate.format(this.actualFormat)},`, '').replace(',,', '').replace(/,\s*$/, '');
+                    outpValue = `${this._element.data('date')}${this._options.multidateSeparator}`;
+                    outpValue = outpValue.replace(
+                        `${oldDate.format(this.actualFormat)}${this._options.multidateSeparator}`, ''
+                    )
+                    .replace(`${this._options.multidateSeparator}${this._options.multidateSeparator}`, '')
+                    .replace(new RegExp(`${escapeRegExp(this._options.multidateSeparator)}\\s*$`), '');
                     this._dates.splice(index, 1);
                     this._datesFormatted.splice(index, 1);
                 }
+                outpValue = trim(outpValue);
                 if (this.input !== undefined) {
                     this.input.val(outpValue);
                     this.input.trigger('input');
@@ -462,7 +471,7 @@ const DateTimePicker = (($, moment) => {
                     for (let i = 0; i < this._dates.length; i++) {
                         outpValue += `${this._dates[i].format(this.actualFormat)}${this._options.multidateSeparator}`;
                     }
-                    outpValue = outpValue.replace(/,\s*$/, '');
+                    outpValue = outpValue.replace(new RegExp(`${this._options.multidateSeparator}\\s*$`), '');
                 } else {
                     outpValue = this._dates[index].format(this.actualFormat);
                 }
