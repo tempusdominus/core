@@ -13,6 +13,7 @@
     "url": "https://github.com/tempusdominus/core/issues"
   },
   "scripts": {
+    "watch": "./node_modules/.bin/onchange './src/js/**' -- npm run build",
     "build": "grunt build",
     "git-add-cm": "git add . && git commit -am",
     "publish-patch": "npm version patch && npm run build && ((npm run git-add-cm -- \"Next patch version\" 2>/dev/null) || echo) && npm publish && git push && git push --tags",
@@ -21,7 +22,7 @@
   },
   "dependencies": {
     "jquery": "^3.5.0",
-    "moment": "^2.24.0",
+    "moment": "~2.24.0",
     "moment-timezone": "^0.5.28"
   },
   "peerDependencies": {
@@ -46,7 +47,8 @@
     "grunt-eslint": "^19.0.0",
     "grunt-nuget": "^0.3.1",
     "grunt-string-replace": "latest",
-    "load-grunt-tasks": "latest"
+    "load-grunt-tasks": "latest",
+    "onchange": "^7.0.2"
   },
   "homepage": "https://github.com/tempusdominus/core",
   "keywords": [
