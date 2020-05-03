@@ -570,8 +570,24 @@ const DateTimePicker = (($, moment) => {
             return dataOptions;
         }
 
+        _format() {
+            return this._options.format || 'YYYY-MM-DD HH:mm';
+        }
+
+        _areSameDates(a, b) {
+            const format = this._format();
+            return a && b && (a.isSame(b) || (moment(a.format(format)).isSame(b.format(format))));
+        }
+
         _notifyEvent(e) {
-            if ((e.type === DateTimePicker.Event.CHANGE && (e.date && e.date.isSame(e.oldDate)) || !e.date && !e.oldDate)) {
+            if (
+                e.type === DateTimePicker.Event.CHANGE &&
+                (
+                    (e.date && this._areSameDates(e.date, e.oldDate))
+                    ||
+                    (!e.date && !e.oldDate)
+                )
+            ) {
                 return;
             }
             this._element.trigger(e);
