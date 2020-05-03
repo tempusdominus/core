@@ -810,7 +810,11 @@ const DateTimePicker = (($, moment) => {
         }
 
         _getLastPickedDate() {
-            return this._dates[this._getLastPickedDateIndex()];
+            let lastPickedDate = this._dates[this._getLastPickedDateIndex()];
+            if (!lastPickedDate && this._options.allowMultidate) {
+                lastPickedDate = moment(new Date());
+            }
+            return lastPickedDate;
         }
 
         _getLastPickedDateIndex() {
