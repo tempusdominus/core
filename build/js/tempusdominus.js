@@ -540,7 +540,7 @@ var DateTimePicker = function ($, moment) {
 
         DateTimePicker.prototype._areSameDates = function _areSameDates(a, b) {
             var format = this._format();
-            return a && b && (a.isSame(b) || moment(a.format(format)).isSame(b.format(format)));
+            return a && b && (a.isSame(b) || moment(a.format(format), format).isSame(moment(b.format(format), format)));
         };
 
         DateTimePicker.prototype._notifyEvent = function _notifyEvent(e) {
