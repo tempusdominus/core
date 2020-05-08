@@ -587,7 +587,7 @@ const DateTimePicker = (($, moment) => {
 
         _areSameDates(a, b) {
             const format = this._format();
-            return a && b && (a.isSame(b) || (moment(a.format(format)).isSame(b.format(format))));
+            return a && b && (a.isSame(b) || moment(a.format(format), format).isSame(moment(b.format(format), format)));
         }
 
         _notifyEvent(e) {
