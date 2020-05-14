@@ -105,7 +105,7 @@ const DateTimePicker = (($, moment) => {
             previous: 'fa fa-chevron-left',
             next: 'fa fa-chevron-right',
             today: 'fa fa-calendar-check-o',
-            clear: 'fa fa-delete',
+            clear: 'fa fa-trash',
             close: 'fa fa-times'
         },
         tooltips: {
@@ -420,21 +420,21 @@ const DateTimePicker = (($, moment) => {
         }
 
         _setValue(targetMoment, index) {
-            const oldDate = this.unset ? null : this._dates[index];
+            const oldDate = this.unset ? null : this._dates[index], isClear = !targetMoment && (typeof index === 'undefined');
             let outpValue = '';
             // case of calling setValue(null or false)
             if (!targetMoment) {
-                if (!this._options.allowMultidate || this._dates.length === 1) {
+                if (!this._options.allowMultidate || this._dates.length === 1 || isClear) {
                     this.unset = true;
                     this._dates = [];
                     this._datesFormatted = [];
                 } else {
                     outpValue = `${this._element.data('date')}${this._options.multidateSeparator}`;
-                    outpValue = outpValue.replace(
+                    outpValue = (oldDate && outpValue.replace(
                         `${oldDate.format(this.actualFormat)}${this._options.multidateSeparator}`, ''
                     )
                     .replace(`${this._options.multidateSeparator}${this._options.multidateSeparator}`, '')
-                    .replace(new RegExp(`${escapeRegExp(this._options.multidateSeparator)}\\s*$`), '');
+                    .replace(new RegExp(`${escapeRegExp(this._options.multidateSeparator)}\\s*$`), '')) || '';
                     this._dates.splice(index, 1);
                     this._datesFormatted.splice(index, 1);
                 }
