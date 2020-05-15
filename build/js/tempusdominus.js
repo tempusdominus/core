@@ -399,7 +399,8 @@ var DateTimePicker = function ($, moment) {
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
                     date: false,
-                    oldDate: oldDate
+                    oldDate: oldDate,
+                    isClear: isClear
                 });
                 this._update();
                 return;
@@ -439,7 +440,8 @@ var DateTimePicker = function ($, moment) {
                 this._notifyEvent({
                     type: DateTimePicker.Event.CHANGE,
                     date: this._dates[index].clone(),
-                    oldDate: oldDate
+                    oldDate: oldDate,
+                    isClear: isClear
                 });
             } else {
                 if (!this._options.keepInvalid) {
@@ -451,7 +453,8 @@ var DateTimePicker = function ($, moment) {
                     this._notifyEvent({
                         type: DateTimePicker.Event.CHANGE,
                         date: targetMoment,
-                        oldDate: oldDate
+                        oldDate: oldDate,
+                        isClear: isClear
                     });
                 }
                 this._notifyEvent({
@@ -545,7 +548,7 @@ var DateTimePicker = function ($, moment) {
         };
 
         DateTimePicker.prototype._notifyEvent = function _notifyEvent(e) {
-            if (e.type === DateTimePicker.Event.CHANGE && (e.date && this._areSameDates(e.date, e.oldDate) || !e.date && !e.oldDate)) {
+            if (e.type === DateTimePicker.Event.CHANGE && (e.date && this._areSameDates(e.date, e.oldDate) || !e.isClear && !e.date && !e.oldDate)) {
                 return;
             }
             this._element.trigger(e);
