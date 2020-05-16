@@ -326,6 +326,8 @@ const DateTimePicker = (($, moment) => {
             this.parseFormats = null;
             this.currentViewMode = null;
             this.MinViewModeNumber = 0;
+            this.isInitFormatting = false;
+            this.isInit = false;
             this.isDateUpdateThroughDateOptionFromClientCode = false;
 
             this._int();
@@ -390,6 +392,7 @@ const DateTimePicker = (($, moment) => {
         //private
 
         _int() {
+            this.isInit = true;
             const targetInput = this._element.data('target-input');
             if (this._element.is('input')) {
                 this.input = this._element;
@@ -421,6 +424,7 @@ const DateTimePicker = (($, moment) => {
             if (this._options.inline) {
                 this.show();
             }
+            this.isInit = false;
         }
 
         _update() {
@@ -433,12 +437,13 @@ const DateTimePicker = (($, moment) => {
 
         _setValue(targetMoment, index) {
             const oldDate = this.unset ? null : this._dates[index], isClear = !targetMoment && (typeof index === 'undefined'),
-                isDateUpdateThroughDateOptionFromClientCode = this.isDateUpdateThroughDateOptionFromClientCode;
+                isDateUpdateThroughDateOptionFromClientCode = this.isDateUpdateThroughDateOptionFromClientCode,
+                isNotAllowedProgrammaticUpdate = !this.isInit && this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode;
             let outpValue = '', isInvalid = false;
 
             // case of calling setValue(null or false)
             if (!targetMoment) {
-                if (this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode) {
+                if (isNotAllowedProgrammaticUpdate) {
                     this._notifyEvent({
                         type: DateTimePicker.Event.CHANGE,
                         date: targetMoment,
@@ -492,7 +497,7 @@ const DateTimePicker = (($, moment) => {
             }
 
             if (this._isValid(targetMoment)) {
-                if (this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode) {
+                if (isNotAllowedProgrammaticUpdate) {
                     this._notifyEvent({
                         type: DateTimePicker.Event.CHANGE,
                         date: targetMoment.clone(),
