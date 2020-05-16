@@ -450,7 +450,8 @@ const DateTimePicker = (($, moment) => {
                         oldDate: oldDate,
                         isClear,
                         isInvalid,
-                        isDateUpdateThroughDateOptionFromClientCode
+                        isDateUpdateThroughDateOptionFromClientCode,
+                        isInit: this.isInit
                     });
                     return;
                 }
@@ -480,7 +481,8 @@ const DateTimePicker = (($, moment) => {
                     oldDate: oldDate,
                     isClear,
                     isInvalid,
-                    isDateUpdateThroughDateOptionFromClientCode
+                    isDateUpdateThroughDateOptionFromClientCode,
+                    isInit: this.isInit
                 });
                 this._update();
                 return;
@@ -504,7 +506,8 @@ const DateTimePicker = (($, moment) => {
                         oldDate: oldDate,
                         isClear,
                         isInvalid,
-                        isDateUpdateThroughDateOptionFromClientCode
+                        isDateUpdateThroughDateOptionFromClientCode,
+                        isInit: this.isInit
                     });
                     return;
                 }
@@ -534,7 +537,8 @@ const DateTimePicker = (($, moment) => {
                     oldDate: oldDate,
                     isClear,
                     isInvalid,
-                    isDateUpdateThroughDateOptionFromClientCode
+                    isDateUpdateThroughDateOptionFromClientCode,
+                    isInit: this.isInit
                 });
             } else {
                 isInvalid = true;
@@ -550,7 +554,8 @@ const DateTimePicker = (($, moment) => {
                         oldDate: oldDate,
                         isClear,
                         isInvalid,
-                        isDateUpdateThroughDateOptionFromClientCode
+                        isDateUpdateThroughDateOptionFromClientCode,
+                        isInit: this.isInit
                     });
                 }
                 this._notifyEvent({
