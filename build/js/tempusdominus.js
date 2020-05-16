@@ -407,7 +407,8 @@ var DateTimePicker = function ($, moment) {
                         oldDate: oldDate,
                         isClear: isClear,
                         isInvalid: isInvalid,
-                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
+                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode,
+                        isInit: this.isInit
                     });
                     return;
                 }
@@ -433,7 +434,8 @@ var DateTimePicker = function ($, moment) {
                     oldDate: oldDate,
                     isClear: isClear,
                     isInvalid: isInvalid,
-                    isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
+                    isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode,
+                    isInit: this.isInit
                 });
                 this._update();
                 return;
@@ -457,7 +459,8 @@ var DateTimePicker = function ($, moment) {
                         oldDate: oldDate,
                         isClear: isClear,
                         isInvalid: isInvalid,
-                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
+                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode,
+                        isInit: this.isInit
                     });
                     return;
                 }
@@ -487,7 +490,8 @@ var DateTimePicker = function ($, moment) {
                     oldDate: oldDate,
                     isClear: isClear,
                     isInvalid: isInvalid,
-                    isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
+                    isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode,
+                    isInit: this.isInit
                 });
             } else {
                 isInvalid = true;
@@ -503,7 +507,8 @@ var DateTimePicker = function ($, moment) {
                         oldDate: oldDate,
                         isClear: isClear,
                         isInvalid: isInvalid,
-                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
+                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode,
+                        isInit: this.isInit
                     });
                 }
                 this._notifyEvent({
