@@ -303,7 +303,8 @@ var DateTimePicker = function ($, moment) {
         enabledHours: false,
         viewDate: false,
         allowMultidate: false,
-        multidateSeparator: ', '
+        multidateSeparator: ', ',
+        updateOnlyThroughDateOption: false
     };
 
     // ReSharper restore InconsistentNaming
@@ -331,6 +332,7 @@ var DateTimePicker = function ($, moment) {
             this.parseFormats = null;
             this.currentViewMode = null;
             this.MinViewModeNumber = 0;
+            this.isDateUpdateThroughDateOptionFromClientCode = false;
 
             this._int();
         }
@@ -386,10 +388,24 @@ var DateTimePicker = function ($, moment) {
 
         DateTimePicker.prototype._setValue = function _setValue(targetMoment, index) {
             var oldDate = this.unset ? null : this._dates[index],
-                isClear = !targetMoment && typeof index === 'undefined';
-            var outpValue = '';
+                isClear = !targetMoment && typeof index === 'undefined',
+                isDateUpdateThroughDateOptionFromClientCode = this.isDateUpdateThroughDateOptionFromClientCode;
+            var outpValue = '',
+                isInvalid = false;
+
             // case of calling setValue(null or false)
             if (!targetMoment) {
+                if (this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode) {
+                    this._notifyEvent({
+                        type: DateTimePicker.Event.CHANGE,
+                        date: targetMoment,
+                        oldDate: oldDate,
+                        isClear: isClear,
+                        isInvalid: isInvalid,
+                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
+                    });
+                    return;
+                }
                 if (!this._options.allowMultidate || this._dates.length === 1 || isClear) {
                     this.unset = true;
                     this._dates = [];
@@ -410,7 +426,9 @@ var DateTimePicker = function ($, moment) {
                     type: DateTimePicker.Event.CHANGE,
                     date: false,
                     oldDate: oldDate,
-                    isClear: isClear
+                    isClear: isClear,
+                    isInvalid: isInvalid,
+                    isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
                 });
                 this._update();
                 return;
@@ -427,6 +445,17 @@ var DateTimePicker = function ($, moment) {
             }
 
             if (this._isValid(targetMoment)) {
+                if (this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode) {
+                    this._notifyEvent({
+                        type: DateTimePicker.Event.CHANGE,
+                        date: targetMoment.clone(),
+                        oldDate: oldDate,
+                        isClear: isClear,
+                        isInvalid: isInvalid,
+                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
+                    });
+                    return;
+                }
                 this._dates[index] = targetMoment;
                 this._datesFormatted[index] = targetMoment.format('YYYY-MM-DD');
                 this._viewDate = targetMoment.clone();
@@ -451,9 +480,12 @@ var DateTimePicker = function ($, moment) {
                     type: DateTimePicker.Event.CHANGE,
                     date: this._dates[index].clone(),
                     oldDate: oldDate,
-                    isClear: isClear
+                    isClear: isClear,
+                    isInvalid: isInvalid,
+                    isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
                 });
             } else {
+                isInvalid = true;
                 if (!this._options.keepInvalid) {
                     if (this.input !== undefined) {
                         this.input.val('' + (this.unset ? '' : this._dates[index].format(this.actualFormat)));
@@ -464,7 +496,9 @@ var DateTimePicker = function ($, moment) {
                         type: DateTimePicker.Event.CHANGE,
                         date: targetMoment,
                         oldDate: oldDate,
-                        isClear: isClear
+                        isClear: isClear,
+                        isInvalid: isInvalid,
+                        isDateUpdateThroughDateOptionFromClientCode: isDateUpdateThroughDateOptionFromClientCode
                     });
                 }
                 this._notifyEvent({
@@ -860,6 +894,14 @@ var DateTimePicker = function ($, moment) {
             }
 
             this._setValue(newDate === null ? null : this._parseInputDate(newDate), index);
+        };
+
+        DateTimePicker.prototype.updateOnlyThroughDateOption = function updateOnlyThroughDateOption(_updateOnlyThroughDateOption) {
+            if (typeof _updateOnlyThroughDateOption !== 'boolean') {
+                throw new TypeError('updateOnlyThroughDateOption() expects a boolean parameter');
+            }
+
+            this._options.updateOnlyThroughDateOption = _updateOnlyThroughDateOption;
         };
 
         DateTimePicker.prototype.format = function format(newFormat) {

@@ -300,7 +300,8 @@ const DateTimePicker = (($, moment) => {
         enabledHours: false,
         viewDate: false,
         allowMultidate: false,
-        multidateSeparator: ', '
+        multidateSeparator: ', ',
+        updateOnlyThroughDateOption: false
     };
 
     // ReSharper restore InconsistentNaming
@@ -325,6 +326,7 @@ const DateTimePicker = (($, moment) => {
             this.parseFormats = null;
             this.currentViewMode = null;
             this.MinViewModeNumber = 0;
+            this.isDateUpdateThroughDateOptionFromClientCode = false;
 
             this._int();
         }
@@ -430,10 +432,23 @@ const DateTimePicker = (($, moment) => {
         }
 
         _setValue(targetMoment, index) {
-            const oldDate = this.unset ? null : this._dates[index], isClear = !targetMoment && (typeof index === 'undefined');
-            let outpValue = '';
+            const oldDate = this.unset ? null : this._dates[index], isClear = !targetMoment && (typeof index === 'undefined'),
+                isDateUpdateThroughDateOptionFromClientCode = this.isDateUpdateThroughDateOptionFromClientCode;
+            let outpValue = '', isInvalid = false;
+
             // case of calling setValue(null or false)
             if (!targetMoment) {
+                if (this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode) {
+                    this._notifyEvent({
+                        type: DateTimePicker.Event.CHANGE,
+                        date: targetMoment,
+                        oldDate: oldDate,
+                        isClear,
+                        isInvalid,
+                        isDateUpdateThroughDateOptionFromClientCode
+                    });
+                    return;
+                }
                 if (!this._options.allowMultidate || this._dates.length === 1 || isClear) {
                     this.unset = true;
                     this._dates = [];
@@ -458,7 +473,9 @@ const DateTimePicker = (($, moment) => {
                     type: DateTimePicker.Event.CHANGE,
                     date: false,
                     oldDate: oldDate,
-                    isClear
+                    isClear,
+                    isInvalid,
+                    isDateUpdateThroughDateOptionFromClientCode
                 });
                 this._update();
                 return;
@@ -475,6 +492,17 @@ const DateTimePicker = (($, moment) => {
             }
 
             if (this._isValid(targetMoment)) {
+                if (this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode) {
+                    this._notifyEvent({
+                        type: DateTimePicker.Event.CHANGE,
+                        date: targetMoment.clone(),
+                        oldDate: oldDate,
+                        isClear,
+                        isInvalid,
+                        isDateUpdateThroughDateOptionFromClientCode
+                    });
+                    return;
+                }
                 this._dates[index] = targetMoment;
                 this._datesFormatted[index] = targetMoment.format('YYYY-MM-DD');
                 this._viewDate = targetMoment.clone();
@@ -499,9 +527,12 @@ const DateTimePicker = (($, moment) => {
                     type: DateTimePicker.Event.CHANGE,
                     date: this._dates[index].clone(),
                     oldDate: oldDate,
-                    isClear
+                    isClear,
+                    isInvalid,
+                    isDateUpdateThroughDateOptionFromClientCode
                 });
             } else {
+                isInvalid = true;
                 if (!this._options.keepInvalid) {
                     if (this.input !== undefined) {
                         this.input.val(`${this.unset ? '' : this._dates[index].format(this.actualFormat)}`);
@@ -512,7 +543,9 @@ const DateTimePicker = (($, moment) => {
                         type: DateTimePicker.Event.CHANGE,
                         date: targetMoment,
                         oldDate: oldDate,
-                        isClear
+                        isClear,
+                        isInvalid,
+                        isDateUpdateThroughDateOptionFromClientCode
                     });
                 }
                 this._notifyEvent({
@@ -909,6 +942,14 @@ const DateTimePicker = (($, moment) => {
             }
 
             this._setValue(newDate === null ? null : this._parseInputDate(newDate), index);
+        }
+
+        updateOnlyThroughDateOption(updateOnlyThroughDateOption) {
+            if (typeof updateOnlyThroughDateOption !== 'boolean') {
+                throw new TypeError('updateOnlyThroughDateOption() expects a boolean parameter');
+            }
+
+            this._options.updateOnlyThroughDateOption = updateOnlyThroughDateOption;
         }
 
         format(newFormat) {
