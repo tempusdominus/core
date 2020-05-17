@@ -924,12 +924,29 @@ var DateTimePicker = function ($, moment) {
             return this.widget ? this.hide() : this.show();
         };
 
+        DateTimePicker.prototype.readonly = function readonly(_readonly) {
+            if (arguments.length === 0) {
+                return this._options.readonly;
+            }
+            if (typeof _readonly !== 'boolean') {
+                throw new TypeError('readonly() expects a boolean parameter');
+            }
+            this._options.readonly = _readonly;
+            if (this.input !== undefined) {
+                this.input.prop('readonly', this._options.readonly);
+            }
+            if (this.widget) {
+                this.hide();
+                this.show();
+            }
+        };
+
         DateTimePicker.prototype.ignoreReadonly = function ignoreReadonly(_ignoreReadonly) {
             if (arguments.length === 0) {
                 return this._options.ignoreReadonly;
             }
             if (typeof _ignoreReadonly !== 'boolean') {
-                throw new TypeError('ignoreReadonly () expects a boolean parameter');
+                throw new TypeError('ignoreReadonly() expects a boolean parameter');
             }
             this._options.ignoreReadonly = _ignoreReadonly;
         };
