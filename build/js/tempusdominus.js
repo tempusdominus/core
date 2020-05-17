@@ -223,6 +223,7 @@ var DateTimePicker = function ($, moment) {
             vertical: 'auto'
         },
         widgetParent: null,
+        readonly: false,
         ignoreReadonly: false,
         keepOpen: false,
         focusOnShow: true,
