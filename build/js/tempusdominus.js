@@ -398,6 +398,7 @@ var DateTimePicker = function ($, moment) {
             this.isDateUpdateThroughDateOptionFromClientCode = false;
             this.hasInitDate = false;
             this.initDate = void 0;
+            this._notifyChangeEventContext = void 0;
 
             this._int();
         }
@@ -671,10 +672,15 @@ var DateTimePicker = function ($, moment) {
         };
 
         DateTimePicker.prototype._notifyEvent = function _notifyEvent(e) {
-            if (e.type === DateTimePicker.Event.CHANGE && (e.date && this._areSameDates(e.date, e.oldDate) || !e.isClear && !e.date && !e.oldDate)) {
-                return;
+            if (e.type === DateTimePicker.Event.CHANGE) {
+                this._notifyChangeEventContext = this._notifyChangeEventContext || 0;
+                this._notifyChangeEventContext++;
+                if (e.date && this._areSameDates(e.date, e.oldDate) || !e.isClear && !e.date && !e.oldDate || this._notifyChangeEventContext > 1) {
+                    return;
+                }
             }
             this._element.trigger(e);
+            this._notifyChangeEventContext = void 0;
         };
 
         DateTimePicker.prototype._viewUpdate = function _viewUpdate(e) {
