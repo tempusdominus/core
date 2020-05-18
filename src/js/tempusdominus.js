@@ -396,6 +396,7 @@ const DateTimePicker = (($, moment) => {
             this.isDateUpdateThroughDateOptionFromClientCode = false;
             this.hasInitDate = false;
             this.initDate = void 0;
+            this._notifyChangeEventContext = void 0;
 
             this._int();
         }
@@ -720,17 +721,21 @@ const DateTimePicker = (($, moment) => {
         }
 
         _notifyEvent(e) {
-            if (
-                e.type === DateTimePicker.Event.CHANGE &&
-                (
+            if (e.type === DateTimePicker.Event.CHANGE) {
+                this._notifyChangeEventContext = this._notifyChangeEventContext || 0;
+                this._notifyChangeEventContext++;
+                if (
                     (e.date && this._areSameDates(e.date, e.oldDate))
                     ||
                     (!e.isClear && !e.date && !e.oldDate)
-                )
-            ) {
-                return;
+                    ||
+                    (this._notifyChangeEventContext > 1)
+                ) {
+                    return;
+                }
             }
             this._element.trigger(e);
+            this._notifyChangeEventContext = void 0;
         }
 
         _viewUpdate(e) {
