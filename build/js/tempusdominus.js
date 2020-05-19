@@ -1637,8 +1637,11 @@ var DateTimePicker = function ($, moment) {
             }
 
             this._viewDate = this._parseInputDate(newDate);
-            this._viewUpdate();
+            this._update();
+            this._viewUpdate(DatePickerModes[this.currentViewMode] && DatePickerModes[this.currentViewMode].NAV_FUNCTION);
         };
+
+        DateTimePicker.prototype._fillDate = function _fillDate() {};
 
         DateTimePicker.prototype.allowMultidate = function allowMultidate(_allowMultidate) {
             if (typeof _allowMultidate !== 'boolean') {

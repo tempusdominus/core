@@ -1689,8 +1689,11 @@ const DateTimePicker = (($, moment) => {
             }
 
             this._viewDate = this._parseInputDate(newDate);
-            this._viewUpdate();
+            this._update();
+            this._viewUpdate(DatePickerModes[this.currentViewMode] && DatePickerModes[this.currentViewMode].NAV_FUNCTION);
         }
+
+        _fillDate() {}
 
         allowMultidate(allowMultidate) {
             if (typeof allowMultidate !== 'boolean') {
