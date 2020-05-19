@@ -486,15 +486,15 @@ const DateTimePicker = (($, moment) => {
             this._initFormatting();
             this.isInitFormatting = false;
 
-            if (this.hasInitDate) {
-                this.date(this.initDate);
-            }
-
             if (this.input !== undefined && this.input.is('input') && this.input.val().trim().length !== 0) {
                 this._setValue(this._parseInputDate(this.input.val().trim()), 0);
             } else if (this._options.defaultDate && this.input !== undefined && this.input.attr('placeholder') === undefined) {
                 this._setValue(this._options.defaultDate, 0);
             }
+            if (this.hasInitDate) {
+                this.date(this.initDate);
+            }
+
             if (this._options.inline) {
                 this.show();
             }
@@ -819,8 +819,8 @@ const DateTimePicker = (($, moment) => {
             return true;
         }
 
-        _parseInputDate(inputDate) {
-            if (this._options.parseInputDate === undefined) {
+        _parseInputDate(inputDate, { isPickerShow = false } = {}) {
+            if (this._options.parseInputDate === undefined || isPickerShow) {
                 if (!moment.isMoment(inputDate)) {
                     inputDate = this.getMoment(inputDate);
                 }
