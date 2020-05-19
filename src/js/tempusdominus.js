@@ -510,10 +510,14 @@ const DateTimePicker = (($, moment) => {
         }
 
         _setValue(targetMoment, index) {
-            const oldDate = this.unset ? null : this._dates[index], isClear = !targetMoment && (typeof index === 'undefined'),
+            const noIndex = (typeof index === 'undefined'),
+                isClear = !targetMoment && noIndex,
                 isDateUpdateThroughDateOptionFromClientCode = this.isDateUpdateThroughDateOptionFromClientCode,
                 isNotAllowedProgrammaticUpdate = !this.isInit && this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode;
-            let outpValue = '', isInvalid = false;
+            let outpValue = '', isInvalid = false, oldDate = this.unset ? null : this._dates[index];
+            if (!oldDate && !this.unset && noIndex && isClear) {
+                oldDate = this._dates[this._dates.length - 1];
+            }
 
             // case of calling setValue(null or false)
             if (!targetMoment) {

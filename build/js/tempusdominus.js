@@ -461,12 +461,16 @@ var DateTimePicker = function ($, moment) {
         };
 
         DateTimePicker.prototype._setValue = function _setValue(targetMoment, index) {
-            var oldDate = this.unset ? null : this._dates[index],
-                isClear = !targetMoment && typeof index === 'undefined',
+            var noIndex = typeof index === 'undefined',
+                isClear = !targetMoment && noIndex,
                 isDateUpdateThroughDateOptionFromClientCode = this.isDateUpdateThroughDateOptionFromClientCode,
                 isNotAllowedProgrammaticUpdate = !this.isInit && this._options.updateOnlyThroughDateOption && !isDateUpdateThroughDateOptionFromClientCode;
             var outpValue = '',
-                isInvalid = false;
+                isInvalid = false,
+                oldDate = this.unset ? null : this._dates[index];
+            if (!oldDate && !this.unset && noIndex && isClear) {
+                oldDate = this._dates[this._dates.length - 1];
+            }
 
             // case of calling setValue(null or false)
             if (!targetMoment) {
