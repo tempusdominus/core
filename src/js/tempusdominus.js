@@ -131,6 +131,17 @@ const DateTimePicker = (($, moment) => {
             multidateSeparator: -2,
             updateOnlyThroughDateOption: -1,
             date: 1
+        },
+        defaultFeatherIcons = {
+            time: 'clock',
+            date: 'calendar',
+            up: 'arrow-up',
+            down: 'arrow-down',
+            previous: 'arrow-left',
+            next: 'arrow-right',
+            today: 'arrow-down-circle',
+            clear: 'trash-2',
+            close: 'x'
         };
 
     function optionsSortFn(optionKeyA, optionKeyB) {
@@ -170,6 +181,7 @@ const DateTimePicker = (($, moment) => {
         disabledDates: false,
         enabledDates: false,
         icons: {
+            type: 'class',
             time: 'fa fa-clock-o',
             date: 'fa fa-calendar',
             up: 'fa fa-arrow-up',
@@ -654,7 +666,14 @@ const DateTimePicker = (($, moment) => {
 
         //noinspection JSMethodCanBeStatic
         _getOptions(options) {
-            options = $.extend(true, {}, Default, options);
+            options = $.extend(true, {}, Default, (
+                options.icons && options.icons.type === 'feather' ?
+                {
+                    icons: defaultFeatherIcons
+                }
+                :
+                {}
+            ), options);
             return options;
         }
 
@@ -1695,6 +1714,10 @@ const DateTimePicker = (($, moment) => {
         }
 
         _fillDate() {}
+
+        _useFeatherIcons() {
+            return this._options.icons.type === 'feather';
+        }
 
         allowMultidate(allowMultidate) {
             if (typeof allowMultidate !== 'boolean') {
