@@ -754,6 +754,7 @@ const DateTimePicker = (($, moment) => {
                     ||
                     (this._notifyChangeEventContext > 1)
                 ) {
+                    this._notifyChangeEventContext = void 0;
                     return;
                 }
             }
