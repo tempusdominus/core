@@ -694,6 +694,7 @@ var DateTimePicker = function ($, moment) {
                 this._notifyChangeEventContext = this._notifyChangeEventContext || 0;
                 this._notifyChangeEventContext++;
                 if (e.date && this._areSameDates(e.date, e.oldDate) || !e.isClear && !e.date && !e.oldDate || this._notifyChangeEventContext > 1) {
+                    this._notifyChangeEventContext = void 0;
                     return;
                 }
             }
