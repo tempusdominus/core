@@ -378,7 +378,9 @@ const DateTimePicker = (($, moment) => {
         viewDate: false,
         allowMultidate: false,
         multidateSeparator: ', ',
-        updateOnlyThroughDateOption: false
+        updateOnlyThroughDateOption: false,
+        promptTimeOnDateChange: false,
+        promptTimeOnDateChangeTransitionDelay: 200
     };
 
     // ReSharper restore InconsistentNaming
@@ -409,6 +411,7 @@ const DateTimePicker = (($, moment) => {
             this.hasInitDate = false;
             this.initDate = void 0;
             this._notifyChangeEventContext = void 0;
+            this._currentPromptTimeTimeout = null;
 
             this._int();
         }
@@ -757,9 +760,44 @@ const DateTimePicker = (($, moment) => {
                     this._notifyChangeEventContext = void 0;
                     return;
                 }
+                this._handlePromptTimeIfNeeded(e);
             }
             this._element.trigger(e);
             this._notifyChangeEventContext = void 0;
+        }
+
+        _handlePromptTimeIfNeeded(e) {
+            if (this._options.promptTimeOnDateChange) {
+                if (!e.oldDate && this._options.useCurrent) {
+                    // First time ever. If useCurrent option is set to true (default), do nothing
+                    // because the first date is selected automatically.
+                    return;
+                }
+                else if (
+                    e.oldDate &&
+                    e.date &&
+                    (
+                        (e.oldDate.format('YYYY-MM-DD') === e.date.format('YYYY-MM-DD'))
+                        ||
+                        (
+                            e.oldDate.format('YYYY-MM-DD') !== e.date.format('YYYY-MM-DD')
+                            &&
+                            e.oldDate.format('HH:mm:ss') !== e.date.format('HH:mm:ss')
+                        )
+                    )
+                ) {
+                    // Date didn't change (time did) or date changed because time did.
+                    return;
+                }
+
+                const that = this;
+                clearTimeout(this._currentPromptTimeTimeout);
+                this._currentPromptTimeTimeout = setTimeout(function() {
+                    if (that.widget) {
+                        that.widget.find('[data-action="togglePicker"]').click();
+                    }
+                }, this._options.promptTimeOnDateChangeTransitionDelay);
+            }
         }
 
         _viewUpdate(e) {
