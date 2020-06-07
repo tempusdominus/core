@@ -62,7 +62,7 @@
     "type": "git",
     "url": "https://github.com/tempusdominus/core.git"
   },
-  "version": "5.11.1",
+  "version": "5.12.0",
   "files": [
     "build",
     "src/js/**/*.js",
