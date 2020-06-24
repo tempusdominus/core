@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         });
 
         grunt.config('string-replace.js', {
-            files: { 'src/js/tempusdominus-core.js': 'src/js/empusdominus-core.js' },
+            files: { 'src/js/tempusdominus.js': 'src/js/empusdominus-core.js' },
             options: {
                 replacements: [
                     {

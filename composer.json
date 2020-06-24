@@ -17,10 +17,10 @@
   "extra": {
     "component": {
       "scripts": [
-        "src/js/tempusdominus-core.js"
+        "src/js/tempusdominus.js"
       ],
       "files": [
-        "build/js/tempusdominus-core.js"
+        "build/js/tempusdominus.js"
       ]
     }
   }
