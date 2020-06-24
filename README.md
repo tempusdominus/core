@@ -2,7 +2,7 @@
 
 This package is a fork of the original [tempusdominus/core](https://github.com/tempusdominus/core) repo.
 
-This fork includes bugfixes and comes with updated NPM packages.
+This fork includes bugfixes, new features, and comes with updated NPM packages.
 
 The original README.md follows below this paragraph.
 
