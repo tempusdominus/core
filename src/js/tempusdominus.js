@@ -670,7 +670,7 @@ const DateTimePicker = (($, moment) => {
         //noinspection JSMethodCanBeStatic
         _getOptions(options) {
             options = $.extend(true, {}, Default, (
-                options.icons && options.icons.type === 'feather' ?
+                options && options.icons && options.icons.type === 'feather' ?
                 {
                     icons: defaultFeatherIcons
                 }
