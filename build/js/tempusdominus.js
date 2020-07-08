@@ -620,7 +620,7 @@ var DateTimePicker = function ($, moment) {
 
 
         DateTimePicker.prototype._getOptions = function _getOptions(options) {
-            options = $.extend(true, {}, Default, options.icons && options.icons.type === 'feather' ? {
+            options = $.extend(true, {}, Default, options && options.icons && options.icons.type === 'feather' ? {
                 icons: defaultFeatherIcons
             } : {}, options);
             return options;
