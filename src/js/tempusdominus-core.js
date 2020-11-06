@@ -415,6 +415,7 @@ const DateTimePicker = (($, moment) => {
         }
 
         _setValue(targetMoment, index) {
+            index = index || 0;
             const oldDate = this.unset ? null : this._dates[index];
             let outpValue = '';
             // case of calling setValue(null or false)
