@@ -3,11 +3,13 @@ repo_url: https://github.com/tempusdominus/core
 edit_uri: edit/master/src/docs/
 docs_dir: src/docs
 site_dir: docs
-theme_dir: src/docs/theme
+theme:
+  name: null
+  custom_dir: src/docs/theme
 pages:
 - Home: 'index.md'
 - Functions: 'Functions.md'
 - Options: 'Options.md'
 - Events: 'Events.md'
-- Change Log: 'Changelog.md'
+- Change Log: 'ChangeLog.md'
 - FAQs: 'FAQ.md'

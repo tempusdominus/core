@@ -1,11 +1,3 @@
-# tempusdominus
-
-This package is a fork of the original [tempusdominus/core](https://github.com/tempusdominus/core) repo.
-
-This fork includes bugfixes, new features, and comes with updated NPM packages.
-
-The original README.md follows below this paragraph.
-
 # Tempus Dominus Core
 ![GitHub version](https://badge.fury.io/gh/tempusdominus%2Fcore.png)
 

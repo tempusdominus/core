@@ -19,7 +19,7 @@ You can use [nvm](https://github.com/nvm-sh/nvm) or [nenv](https://github.com/ry
 Then, run the following commands:
 
 ```bash
-git clone https://github.com/tonix-tuft/tempusdominus.git
+git clone https://github.com/tempusdominus/core.git
 cd tempusdominus
 npm install -g grunt-cli
 npm install

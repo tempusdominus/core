@@ -1,5 +1,5 @@
 {
-  "name": "tonix-tuft/tempusdominus",
+  "name": "tempusdominus/core",
   "type": "component",
   "description": "A date/time picker component designed for Momentjs.",
   "keywords": [
@@ -8,7 +8,7 @@
     "timepicker",
     "moment"
   ],
-  "homepage": "https://github.com/tonix-tuft/tempusdominus",
+  "homepage": "https://github.com/tempusdominus/core",
   "license": "MIT",
   "require": {
     "robloach/component-installer": "*",

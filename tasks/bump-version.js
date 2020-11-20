@@ -3,7 +3,7 @@ module.exports = function (grunt) {
         if (!version || version.split('.').length !== 3) {
             grunt.fail.fatal('malformed version. Use\n\n    grunt bump_version:1.2.3');
         }
-        
+
         grunt.config('string-replace.package-json', {
             files: {'package.json': 'package.json'},
             options: {
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         });
 
         grunt.config('string-replace.js', {
-            files: { 'src/js/tempusdominus.js': 'src/js/empusdominus-core.js' },
+            files: { 'src/js/tempusdominus-core.js': 'src/js/empusdominus-core.js' },
             options: {
                 replacements: [
                     {
