@@ -3,7 +3,7 @@ module.exports = function (grunt) {
         if (!version || version.split('.').length !== 3) {
             grunt.fail.fatal('malformed version. Use\n\n    grunt bump_version:1.2.3');
         }
-        
+
         grunt.config('string-replace.package-json', {
             files: {'package.json': 'package.json'},
             options: {
