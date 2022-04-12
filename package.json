@@ -28,7 +28,7 @@
   },
   "peerDependencies": {
     "jquery": "^3.0",
-    "moment": "^2.10",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.0"
   },
   "description": "A date/time picker component designed for Momentjs.",
@@ -61,7 +61,7 @@
     "type": "git",
     "url": "https://github.com/tempusdominus/core.git"
   },
-  "version": "5.19.2",
+  "version": "5.19.3",
   "files": [
     "build",
     "src/js/**/*.js",
