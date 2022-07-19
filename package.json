@@ -10,7 +10,7 @@
     "Anton Bagdatyev (Tonix)"
   ],
   "bugs": {
-    "url": "https://github.com/tonix-tuft/tempusdominus/pulls"
+    "url": "https://github.com/tempusdominus/core.git"
   },
   "scripts": {
     "watch": "./node_modules/.bin/onchange './src/js/**' -- npm run build",
