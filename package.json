@@ -39,7 +39,7 @@
     "grunt-babel": "6.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-jasmine": "^2.2.0",
+    "grunt-contrib-jasmine": "^4.0.0",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-less": "latest",
     "grunt-contrib-uglify": "latest",
